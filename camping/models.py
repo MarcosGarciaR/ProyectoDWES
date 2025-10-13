@@ -16,10 +16,20 @@ class Persona(models.Model):
 
 # PERFIL DE USUARIO
 class PerfilUsuario(models.Model):
+    OPCIONES_ROL = [
+        ('recepcionista', 'Recepcionista'),
+        ('cuidador', 'Cuidador'),
+        ('cliente','Cliente')
+    ]
+    
     datos_usuario = models.OneToOneField(Persona, on_delete=models.CASCADE, default="")
     username = models.CharField(max_length=50, unique=True, default="")
     password = models.CharField(max_length=128)
-    es_staff = models.BooleanField(default=False)
+    rol = models.CharField(max_length=20, choices=OPCIONES_ROL, default='cliente')
+    if(rol != 'cliente'):
+        es_staff = True
+    else:
+        es_staff = False
     fecha_registro = models.DateTimeField(default=timezone.now)
 
 # RECEPCIONISTA
