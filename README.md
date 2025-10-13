@@ -139,5 +139,19 @@ Atributos:
 - `emitida_en` (DateTimeField, default=timezone.now): Fecha y hora de emisión.
 - `pagado` (BooleanField, default=False): Estado del pago.
 
+
+## Parámetros Utilizados
+- `max_length`: Limita la longitud del texto.
+- `unique`: Asegura que el valor sea único y no se repita.
+- `default`: Establece un valor por defecto.
+- `max_digits`: Indica un numero máximo de digitos en un campo.
+- `decimal_places`: Ajusta los decimales de un número.
+- `choices`: Selector entre valores establecidos .
+- `validators`: Permite definir reglas personalizadas en los valores de un campo.
+- `blank`: Define si el campo puede estar vacío.
+- `null`: Indica si el campo puede ser nulo.
+- `timezone.now`: Devuelve la fecha/hora actual.
+
+
 ## DIAGRAMA DE CLASES
 ![Diagrama del modelo Entidad-Relacion](diagrama/ModeloE_R_Camping.png)
