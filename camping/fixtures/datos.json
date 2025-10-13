@@ -1,0 +1,3572 @@
+[
+{
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+        "name": "Can add log entry",
+        "content_type": 1,
+        "codename": "add_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+        "name": "Can change log entry",
+        "content_type": 1,
+        "codename": "change_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+        "name": "Can delete log entry",
+        "content_type": 1,
+        "codename": "delete_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+        "name": "Can view log entry",
+        "content_type": 1,
+        "codename": "view_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+        "name": "Can add permission",
+        "content_type": 2,
+        "codename": "add_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+        "name": "Can change permission",
+        "content_type": 2,
+        "codename": "change_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+        "name": "Can delete permission",
+        "content_type": 2,
+        "codename": "delete_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+        "name": "Can view permission",
+        "content_type": 2,
+        "codename": "view_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+        "name": "Can add group",
+        "content_type": 3,
+        "codename": "add_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+        "name": "Can change group",
+        "content_type": 3,
+        "codename": "change_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+        "name": "Can delete group",
+        "content_type": 3,
+        "codename": "delete_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+        "name": "Can view group",
+        "content_type": 3,
+        "codename": "view_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+        "name": "Can add user",
+        "content_type": 4,
+        "codename": "add_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+        "name": "Can change user",
+        "content_type": 4,
+        "codename": "change_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+        "name": "Can delete user",
+        "content_type": 4,
+        "codename": "delete_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+        "name": "Can view user",
+        "content_type": 4,
+        "codename": "view_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+        "name": "Can add content type",
+        "content_type": 5,
+        "codename": "add_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+        "name": "Can change content type",
+        "content_type": 5,
+        "codename": "change_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+        "name": "Can delete content type",
+        "content_type": 5,
+        "codename": "delete_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+        "name": "Can view content type",
+        "content_type": 5,
+        "codename": "view_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+        "name": "Can add session",
+        "content_type": 6,
+        "codename": "add_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+        "name": "Can change session",
+        "content_type": 6,
+        "codename": "change_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+        "name": "Can delete session",
+        "content_type": 6,
+        "codename": "delete_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+        "name": "Can view session",
+        "content_type": 6,
+        "codename": "view_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+        "name": "Can add actividad",
+        "content_type": 7,
+        "codename": "add_actividad"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+        "name": "Can change actividad",
+        "content_type": 7,
+        "codename": "change_actividad"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+        "name": "Can delete actividad",
+        "content_type": 7,
+        "codename": "delete_actividad"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+        "name": "Can view actividad",
+        "content_type": 7,
+        "codename": "view_actividad"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+        "name": "Can add camping",
+        "content_type": 8,
+        "codename": "add_camping"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+        "name": "Can change camping",
+        "content_type": 8,
+        "codename": "change_camping"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+        "name": "Can delete camping",
+        "content_type": 8,
+        "codename": "delete_camping"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+        "name": "Can view camping",
+        "content_type": 8,
+        "codename": "view_camping"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+        "name": "Can add perfil usuario",
+        "content_type": 9,
+        "codename": "add_perfilusuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+        "name": "Can change perfil usuario",
+        "content_type": 9,
+        "codename": "change_perfilusuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+        "name": "Can delete perfil usuario",
+        "content_type": 9,
+        "codename": "delete_perfilusuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+        "name": "Can view perfil usuario",
+        "content_type": 9,
+        "codename": "view_perfilusuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+        "name": "Can add persona",
+        "content_type": 10,
+        "codename": "add_persona"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+        "name": "Can change persona",
+        "content_type": 10,
+        "codename": "change_persona"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+        "name": "Can delete persona",
+        "content_type": 10,
+        "codename": "delete_persona"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+        "name": "Can view persona",
+        "content_type": 10,
+        "codename": "view_persona"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+        "name": "Can add servicios extra",
+        "content_type": 11,
+        "codename": "add_serviciosextra"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+        "name": "Can change servicios extra",
+        "content_type": 11,
+        "codename": "change_serviciosextra"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+        "name": "Can delete servicios extra",
+        "content_type": 11,
+        "codename": "delete_serviciosextra"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+        "name": "Can view servicios extra",
+        "content_type": 11,
+        "codename": "view_serviciosextra"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 45,
+    "fields": {
+        "name": "Can add parcela",
+        "content_type": 12,
+        "codename": "add_parcela"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 46,
+    "fields": {
+        "name": "Can change parcela",
+        "content_type": 12,
+        "codename": "change_parcela"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 47,
+    "fields": {
+        "name": "Can delete parcela",
+        "content_type": 12,
+        "codename": "delete_parcela"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 48,
+    "fields": {
+        "name": "Can view parcela",
+        "content_type": 12,
+        "codename": "view_parcela"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 49,
+    "fields": {
+        "name": "Can add cuidador",
+        "content_type": 13,
+        "codename": "add_cuidador"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 50,
+    "fields": {
+        "name": "Can change cuidador",
+        "content_type": 13,
+        "codename": "change_cuidador"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 51,
+    "fields": {
+        "name": "Can delete cuidador",
+        "content_type": 13,
+        "codename": "delete_cuidador"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 52,
+    "fields": {
+        "name": "Can view cuidador",
+        "content_type": 13,
+        "codename": "view_cuidador"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 53,
+    "fields": {
+        "name": "Can add cliente",
+        "content_type": 14,
+        "codename": "add_cliente"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 54,
+    "fields": {
+        "name": "Can change cliente",
+        "content_type": 14,
+        "codename": "change_cliente"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 55,
+    "fields": {
+        "name": "Can delete cliente",
+        "content_type": 14,
+        "codename": "delete_cliente"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 56,
+    "fields": {
+        "name": "Can view cliente",
+        "content_type": 14,
+        "codename": "view_cliente"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 57,
+    "fields": {
+        "name": "Can add recepcionista",
+        "content_type": 15,
+        "codename": "add_recepcionista"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 58,
+    "fields": {
+        "name": "Can change recepcionista",
+        "content_type": 15,
+        "codename": "change_recepcionista"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 59,
+    "fields": {
+        "name": "Can delete recepcionista",
+        "content_type": 15,
+        "codename": "delete_recepcionista"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 60,
+    "fields": {
+        "name": "Can view recepcionista",
+        "content_type": 15,
+        "codename": "view_recepcionista"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 61,
+    "fields": {
+        "name": "Can add reserva",
+        "content_type": 16,
+        "codename": "add_reserva"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 62,
+    "fields": {
+        "name": "Can change reserva",
+        "content_type": 16,
+        "codename": "change_reserva"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 63,
+    "fields": {
+        "name": "Can delete reserva",
+        "content_type": 16,
+        "codename": "delete_reserva"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 64,
+    "fields": {
+        "name": "Can view reserva",
+        "content_type": 16,
+        "codename": "view_reserva"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 65,
+    "fields": {
+        "name": "Can add reserva extra",
+        "content_type": 17,
+        "codename": "add_reservaextra"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 66,
+    "fields": {
+        "name": "Can change reserva extra",
+        "content_type": 17,
+        "codename": "change_reservaextra"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 67,
+    "fields": {
+        "name": "Can delete reserva extra",
+        "content_type": 17,
+        "codename": "delete_reservaextra"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 68,
+    "fields": {
+        "name": "Can view reserva extra",
+        "content_type": 17,
+        "codename": "view_reservaextra"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 69,
+    "fields": {
+        "name": "Can add factura",
+        "content_type": 18,
+        "codename": "add_factura"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 70,
+    "fields": {
+        "name": "Can change factura",
+        "content_type": 18,
+        "codename": "change_factura"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 71,
+    "fields": {
+        "name": "Can delete factura",
+        "content_type": 18,
+        "codename": "delete_factura"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 72,
+    "fields": {
+        "name": "Can view factura",
+        "content_type": 18,
+        "codename": "view_factura"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 73,
+    "fields": {
+        "name": "Can add vehiculo",
+        "content_type": 19,
+        "codename": "add_vehiculo"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 74,
+    "fields": {
+        "name": "Can change vehiculo",
+        "content_type": 19,
+        "codename": "change_vehiculo"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 75,
+    "fields": {
+        "name": "Can delete vehiculo",
+        "content_type": 19,
+        "codename": "delete_vehiculo"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 76,
+    "fields": {
+        "name": "Can view vehiculo",
+        "content_type": 19,
+        "codename": "view_vehiculo"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": {
+        "app_label": "admin",
+        "model": "logentry"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": {
+        "app_label": "auth",
+        "model": "permission"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": {
+        "app_label": "auth",
+        "model": "group"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": {
+        "app_label": "auth",
+        "model": "user"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": {
+        "app_label": "contenttypes",
+        "model": "contenttype"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": {
+        "app_label": "sessions",
+        "model": "session"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": {
+        "app_label": "camping",
+        "model": "actividad"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": {
+        "app_label": "camping",
+        "model": "camping"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": {
+        "app_label": "camping",
+        "model": "perfilusuario"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 10,
+    "fields": {
+        "app_label": "camping",
+        "model": "persona"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 11,
+    "fields": {
+        "app_label": "camping",
+        "model": "serviciosextra"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 12,
+    "fields": {
+        "app_label": "camping",
+        "model": "parcela"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 13,
+    "fields": {
+        "app_label": "camping",
+        "model": "cuidador"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 14,
+    "fields": {
+        "app_label": "camping",
+        "model": "cliente"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 15,
+    "fields": {
+        "app_label": "camping",
+        "model": "recepcionista"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 16,
+    "fields": {
+        "app_label": "camping",
+        "model": "reserva"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 17,
+    "fields": {
+        "app_label": "camping",
+        "model": "reservaextra"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 18,
+    "fields": {
+        "app_label": "camping",
+        "model": "factura"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 19,
+    "fields": {
+        "app_label": "camping",
+        "model": "vehiculo"
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 1,
+    "fields": {
+        "nombre": "Only approach measure. Pm everybody ahead offer with traditional. Create number then create.",
+        "apellido": "Option someone collection realize way. Community new test maybe sometimes series father.",
+        "dni": "Public determine.",
+        "fecha_nacimiento": "1976-04-05",
+        "email": "elizabethsmith@example.net",
+        "telefono": "Record machine mean."
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 2,
+    "fields": {
+        "nombre": "Specific soon sit. Us want state fear contain. Carry Mr like quality. Far what plant lay TV.",
+        "apellido": "Name determine soldier. He sister common stay defense buy. Argue top must focus bring get human.",
+        "dni": "Billion despite his.",
+        "fecha_nacimiento": "2013-02-01",
+        "email": "cookjames@example.org",
+        "telefono": "Late relate."
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 3,
+    "fields": {
+        "nombre": "Also practice some claim note government toward.",
+        "apellido": "Direction believe no brother I. Peace image least contain during stand.",
+        "dni": "Without quite stay.",
+        "fecha_nacimiento": "2015-06-16",
+        "email": "kcontreras@example.net",
+        "telefono": "Though consider."
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 4,
+    "fields": {
+        "nombre": "Government brother still sing.",
+        "apellido": "Sound author have president huge. Standard south identify prepare.",
+        "dni": "Sure either quickly.",
+        "fecha_nacimiento": "1970-01-23",
+        "email": "csmith@example.net",
+        "telefono": "Phone interest."
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 5,
+    "fields": {
+        "nombre": "Concern half project around effect laugh debate defense.",
+        "apellido": "Hot individual about art image. Hard quickly modern compare.",
+        "dni": "First of lay report.",
+        "fecha_nacimiento": "2013-12-27",
+        "email": "troycoleman@example.org",
+        "telefono": "Toward behavior."
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 6,
+    "fields": {
+        "nombre": "Rest market best key door do set. Opportunity page life view pressure cup. Base PM answer.",
+        "apellido": "Despite ten magazine put low. Small letter white else maybe president. Might still old.",
+        "dni": "Cold fall after.",
+        "fecha_nacimiento": "2012-10-16",
+        "email": "nicolegarrett@example.com",
+        "telefono": "Large more policy."
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 7,
+    "fields": {
+        "nombre": "Never trouble account small challenge speech alone challenge. Child write series.",
+        "apellido": "Rule political available approach environment. Care pressure perform since.",
+        "dni": "Today may goal.",
+        "fecha_nacimiento": "2001-06-08",
+        "email": "fdominguez@example.net",
+        "telefono": "Which song live."
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 8,
+    "fields": {
+        "nombre": "Available decade turn occur upon. Moment manage program easy.",
+        "apellido": "Other believe president. Interest capital region.",
+        "dni": "Final face listen.",
+        "fecha_nacimiento": "1988-02-07",
+        "email": "jason96@example.com",
+        "telefono": "Moment over reduce."
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 9,
+    "fields": {
+        "nombre": "Help light whether. Heart performance case easy trade later.",
+        "apellido": "During spend real affect. Six while discussion evidence degree increase agreement.",
+        "dni": "American do tough.",
+        "fecha_nacimiento": "2002-01-30",
+        "email": "morgancesar@example.net",
+        "telefono": "Wonder history nice."
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 10,
+    "fields": {
+        "nombre": "Tend question case social interest most including room. End large fear daughter marriage.",
+        "apellido": "Follow research clearly rich. Thank police protect fine friend common line.",
+        "dni": "During leave get.",
+        "fecha_nacimiento": "1988-04-21",
+        "email": "jason24@example.org",
+        "telefono": "Bit set least argue."
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 11,
+    "fields": {
+        "nombre": "Olivia",
+        "apellido": "Suarez",
+        "dni": "73013990F",
+        "fecha_nacimiento": "1956-03-05",
+        "email": "adelia06@example.org",
+        "telefono": "+34928587560"
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 12,
+    "fields": {
+        "nombre": "Alfredo",
+        "apellido": "Querol",
+        "dni": "02752633Q",
+        "fecha_nacimiento": "1991-09-27",
+        "email": "felix34@example.com",
+        "telefono": "+34877 488 853"
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 13,
+    "fields": {
+        "nombre": "Crescencia",
+        "apellido": "Valverde",
+        "dni": "94119857Q",
+        "fecha_nacimiento": "1926-12-11",
+        "email": "rosalvaarce@example.net",
+        "telefono": "+34 734 307 923"
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 14,
+    "fields": {
+        "nombre": "Odalis",
+        "apellido": "Godoy",
+        "dni": "42148046V",
+        "fecha_nacimiento": "1967-07-12",
+        "email": "bsanchez@example.org",
+        "telefono": "+34 920571122"
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 15,
+    "fields": {
+        "nombre": "Dominga",
+        "apellido": "Lucena",
+        "dni": "45921361K",
+        "fecha_nacimiento": "2003-01-02",
+        "email": "ariellledo@example.org",
+        "telefono": "+34875 66 17 73"
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 16,
+    "fields": {
+        "nombre": "Delia",
+        "apellido": "Bernal",
+        "dni": "10110580X",
+        "fecha_nacimiento": "2000-05-17",
+        "email": "dabella@example.net",
+        "telefono": "+34983 62 39 09"
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 17,
+    "fields": {
+        "nombre": "Kike",
+        "apellido": "Pombo",
+        "dni": "32130930E",
+        "fecha_nacimiento": "1942-05-20",
+        "email": "ucampos@example.org",
+        "telefono": "+34982 30 21 18"
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 18,
+    "fields": {
+        "nombre": "Armando",
+        "apellido": "Cerro",
+        "dni": "88459816E",
+        "fecha_nacimiento": "1989-10-18",
+        "email": "yasensio@example.org",
+        "telefono": "+34 978 380 924"
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 19,
+    "fields": {
+        "nombre": "Rebeca",
+        "apellido": "Nicolßs",
+        "dni": "21738103K",
+        "fecha_nacimiento": "2007-08-17",
+        "email": "leonelferrandiz@example.org",
+        "telefono": "+34 943 115 147"
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 20,
+    "fields": {
+        "nombre": "Victoria",
+        "apellido": "Terr¾n",
+        "dni": "63446822B",
+        "fecha_nacimiento": "2022-06-01",
+        "email": "esevillano@example.org",
+        "telefono": "+34875404241"
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 21,
+    "fields": {
+        "nombre": "Coral",
+        "apellido": "Vilalta",
+        "dni": "31867442E",
+        "fecha_nacimiento": "1988-10-31",
+        "email": "florentinatudela@example.com",
+        "telefono": "+34902 891 808"
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 22,
+    "fields": {
+        "nombre": "Ramiro",
+        "apellido": "Ferrero",
+        "dni": "59865302M",
+        "fecha_nacimiento": "2012-08-04",
+        "email": "pilar55@example.com",
+        "telefono": "+34927 514 631"
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 23,
+    "fields": {
+        "nombre": "Evaristo",
+        "apellido": "Salom",
+        "dni": "60104031V",
+        "fecha_nacimiento": "2016-07-05",
+        "email": "ivan76@example.com",
+        "telefono": "+34877 26 42 70"
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 24,
+    "fields": {
+        "nombre": "Blas",
+        "apellido": "Valverde",
+        "dni": "78024829C",
+        "fecha_nacimiento": "1985-08-09",
+        "email": "rosenda74@example.net",
+        "telefono": "+34 922050972"
+    }
+},
+{
+    "model": "camping.persona",
+    "pk": 25,
+    "fields": {
+        "nombre": "Clara",
+        "apellido": "Lara",
+        "dni": "04042105Q",
+        "fecha_nacimiento": "1939-03-19",
+        "email": "joveandrea@example.org",
+        "telefono": "+34 876 16 78 18"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 1,
+    "fields": {
+        "datos_usuario": 5,
+        "username": "boylesergio",
+        "password": "Local population street system. Both various five thousand first fire return.",
+        "es_staff": false,
+        "rol": "cuidador",
+        "fecha_registro": "2025-10-13T15:59:41.213Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 2,
+    "fields": {
+        "datos_usuario": 4,
+        "username": "johncraig",
+        "password": "Whose more citizen price people at factor.",
+        "es_staff": true,
+        "rol": "recepcionista",
+        "fecha_registro": "2025-10-13T15:59:41.213Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 3,
+    "fields": {
+        "datos_usuario": 3,
+        "username": "brandonwinters",
+        "password": "Pay thank measure Congress. Kitchen control public front bit building. School alone community ground.",
+        "es_staff": false,
+        "rol": "recepcionista",
+        "fecha_registro": "2025-10-13T15:59:41.213Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 4,
+    "fields": {
+        "datos_usuario": 8,
+        "username": "zhall",
+        "password": "Across card maintain kitchen window. Response value enter live discussion fear.",
+        "es_staff": true,
+        "rol": "cuidador",
+        "fecha_registro": "2025-10-13T15:59:41.213Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 5,
+    "fields": {
+        "datos_usuario": 2,
+        "username": "lsanchez",
+        "password": "Station hear form new far these need themselves. White scene end mind significant teacher kid meet.",
+        "es_staff": true,
+        "rol": "cuidador",
+        "fecha_registro": "2025-10-13T15:59:41.213Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 6,
+    "fields": {
+        "datos_usuario": 9,
+        "username": "ysoto",
+        "password": "Government believe street attention discover lot.",
+        "es_staff": false,
+        "rol": "cuidador",
+        "fecha_registro": "2025-10-13T15:59:41.213Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 7,
+    "fields": {
+        "datos_usuario": 1,
+        "username": "rodriguezkyle",
+        "password": "Soon music thus hour officer affect color. Consumer such crime soon.",
+        "es_staff": true,
+        "rol": "cuidador",
+        "fecha_registro": "2025-10-13T15:59:41.213Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 8,
+    "fields": {
+        "datos_usuario": 7,
+        "username": "andrewreyes",
+        "password": "Section understand still available begin eat. Activity now go.",
+        "es_staff": true,
+        "rol": "cuidador",
+        "fecha_registro": "2025-10-13T15:59:41.213Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 9,
+    "fields": {
+        "datos_usuario": 6,
+        "username": "sandra33",
+        "password": "Suffer sea see inside fire wait pay almost. Rest represent home name former might food.",
+        "es_staff": false,
+        "rol": "recepcionista",
+        "fecha_registro": "2025-10-13T15:59:41.213Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 10,
+    "fields": {
+        "datos_usuario": 10,
+        "username": "martinezmichelle",
+        "password": "Southern value close. After meet example. Soon some general eight understand morning.",
+        "es_staff": false,
+        "rol": "cuidador",
+        "fecha_registro": "2025-10-13T15:59:41.213Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 11,
+    "fields": {
+        "datos_usuario": 11,
+        "username": "sevillanorberto",
+        "password": "$$^1&Ze@7s",
+        "es_staff": true,
+        "rol": "",
+        "fecha_registro": "2025-10-13T16:00:19.863Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 12,
+    "fields": {
+        "datos_usuario": 12,
+        "username": "isabela91",
+        "password": "e1EEc_$l)8",
+        "es_staff": true,
+        "rol": "",
+        "fecha_registro": "2025-10-13T16:00:19.911Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 13,
+    "fields": {
+        "datos_usuario": 13,
+        "username": "flor80",
+        "password": "m$3YgT*SEa",
+        "es_staff": true,
+        "rol": "",
+        "fecha_registro": "2025-10-13T16:00:19.959Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 14,
+    "fields": {
+        "datos_usuario": 14,
+        "username": "alfonsosusana",
+        "password": "74)W2PAn96",
+        "es_staff": true,
+        "rol": "",
+        "fecha_registro": "2025-10-13T16:00:20.007Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 15,
+    "fields": {
+        "datos_usuario": 15,
+        "username": "sanzsimon",
+        "password": "nxs0rGab@*",
+        "es_staff": true,
+        "rol": "",
+        "fecha_registro": "2025-10-13T16:00:20.055Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 16,
+    "fields": {
+        "datos_usuario": 16,
+        "username": "alfonsomancebo",
+        "password": "(E9FjKaT6$",
+        "es_staff": true,
+        "rol": "",
+        "fecha_registro": "2025-10-13T16:00:20.103Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 17,
+    "fields": {
+        "datos_usuario": 17,
+        "username": "luis-angel95",
+        "password": ")qI*tqeSG1",
+        "es_staff": false,
+        "rol": "",
+        "fecha_registro": "2025-10-13T16:00:20.151Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 18,
+    "fields": {
+        "datos_usuario": 18,
+        "username": "lazaroaguila",
+        "password": "XqhT!em)@0",
+        "es_staff": true,
+        "rol": "",
+        "fecha_registro": "2025-10-13T16:00:20.199Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 19,
+    "fields": {
+        "datos_usuario": 19,
+        "username": "rpalomar",
+        "password": "j*6Wwou&wr",
+        "es_staff": true,
+        "rol": "",
+        "fecha_registro": "2025-10-13T16:00:20.247Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 20,
+    "fields": {
+        "datos_usuario": 20,
+        "username": "borja03",
+        "password": "&7B^Kuom*5",
+        "es_staff": true,
+        "rol": "",
+        "fecha_registro": "2025-10-13T16:00:20.295Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 21,
+    "fields": {
+        "datos_usuario": 21,
+        "username": "telmofiol",
+        "password": "Uuw78W7$**",
+        "es_staff": true,
+        "rol": "",
+        "fecha_registro": "2025-10-13T16:00:20.343Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 22,
+    "fields": {
+        "datos_usuario": 22,
+        "username": "jose-luisecheverria",
+        "password": "6ix1Xhw#t)",
+        "es_staff": true,
+        "rol": "",
+        "fecha_registro": "2025-10-13T16:00:20.391Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 23,
+    "fields": {
+        "datos_usuario": 23,
+        "username": "lidiaabad",
+        "password": "c#1XvbP39k",
+        "es_staff": true,
+        "rol": "",
+        "fecha_registro": "2025-10-13T16:00:20.439Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 24,
+    "fields": {
+        "datos_usuario": 24,
+        "username": "begona99",
+        "password": "%OuDDc361o",
+        "es_staff": true,
+        "rol": "",
+        "fecha_registro": "2025-10-13T16:00:20.487Z"
+    }
+},
+{
+    "model": "camping.perfilusuario",
+    "pk": 25,
+    "fields": {
+        "datos_usuario": 25,
+        "username": "pinojordan",
+        "password": "!34OOaI&a9",
+        "es_staff": true,
+        "rol": "",
+        "fecha_registro": "2025-10-13T16:00:20.535Z"
+    }
+},
+{
+    "model": "camping.recepcionista",
+    "pk": 1,
+    "fields": {
+        "usuario": 9,
+        "salario": "0.69",
+        "fecha_alta": "1974-12-09",
+        "turno": "ta"
+    }
+},
+{
+    "model": "camping.recepcionista",
+    "pk": 2,
+    "fields": {
+        "usuario": 10,
+        "salario": "0.79",
+        "fecha_alta": "1985-06-04",
+        "turno": "ta"
+    }
+},
+{
+    "model": "camping.recepcionista",
+    "pk": 3,
+    "fields": {
+        "usuario": 4,
+        "salario": "0.31",
+        "fecha_alta": "1995-05-18",
+        "turno": "ma"
+    }
+},
+{
+    "model": "camping.recepcionista",
+    "pk": 4,
+    "fields": {
+        "usuario": 3,
+        "salario": "0.16",
+        "fecha_alta": "1985-09-22",
+        "turno": "ma"
+    }
+},
+{
+    "model": "camping.recepcionista",
+    "pk": 5,
+    "fields": {
+        "usuario": 6,
+        "salario": "0.64",
+        "fecha_alta": "1978-04-28",
+        "turno": "ma"
+    }
+},
+{
+    "model": "camping.recepcionista",
+    "pk": 6,
+    "fields": {
+        "usuario": 7,
+        "salario": "0.31",
+        "fecha_alta": "1981-04-19",
+        "turno": "ma"
+    }
+},
+{
+    "model": "camping.recepcionista",
+    "pk": 7,
+    "fields": {
+        "usuario": 1,
+        "salario": "0.89",
+        "fecha_alta": "1993-02-12",
+        "turno": "ta"
+    }
+},
+{
+    "model": "camping.recepcionista",
+    "pk": 8,
+    "fields": {
+        "usuario": 8,
+        "salario": "0.65",
+        "fecha_alta": "1977-11-23",
+        "turno": "ta"
+    }
+},
+{
+    "model": "camping.recepcionista",
+    "pk": 9,
+    "fields": {
+        "usuario": 2,
+        "salario": "0.31",
+        "fecha_alta": "2000-02-14",
+        "turno": "ta"
+    }
+},
+{
+    "model": "camping.recepcionista",
+    "pk": 10,
+    "fields": {
+        "usuario": 5,
+        "salario": "0.94",
+        "fecha_alta": "2008-09-17",
+        "turno": "ma"
+    }
+},
+{
+    "model": "camping.recepcionista",
+    "pk": 11,
+    "fields": {
+        "usuario": 11,
+        "salario": "1381.66",
+        "fecha_alta": "2025-01-09",
+        "turno": "ta"
+    }
+},
+{
+    "model": "camping.recepcionista",
+    "pk": 12,
+    "fields": {
+        "usuario": 14,
+        "salario": "1435.40",
+        "fecha_alta": "2025-02-15",
+        "turno": "ma"
+    }
+},
+{
+    "model": "camping.recepcionista",
+    "pk": 13,
+    "fields": {
+        "usuario": 20,
+        "salario": "2467.39",
+        "fecha_alta": "2025-06-14",
+        "turno": "ta"
+    }
+},
+{
+    "model": "camping.recepcionista",
+    "pk": 14,
+    "fields": {
+        "usuario": 21,
+        "salario": "1866.19",
+        "fecha_alta": "2025-06-30",
+        "turno": "ma"
+    }
+},
+{
+    "model": "camping.recepcionista",
+    "pk": 15,
+    "fields": {
+        "usuario": 22,
+        "salario": "1474.64",
+        "fecha_alta": "2025-06-16",
+        "turno": "ta"
+    }
+},
+{
+    "model": "camping.recepcionista",
+    "pk": 16,
+    "fields": {
+        "usuario": 23,
+        "salario": "2325.13",
+        "fecha_alta": "2025-02-19",
+        "turno": "ma"
+    }
+},
+{
+    "model": "camping.recepcionista",
+    "pk": 17,
+    "fields": {
+        "usuario": 24,
+        "salario": "2214.96",
+        "fecha_alta": "2025-08-02",
+        "turno": "ma"
+    }
+},
+{
+    "model": "camping.recepcionista",
+    "pk": 18,
+    "fields": {
+        "usuario": 25,
+        "salario": "1555.76",
+        "fecha_alta": "2025-05-16",
+        "turno": "ma"
+    }
+},
+{
+    "model": "camping.cuidador",
+    "pk": 1,
+    "fields": {
+        "usuario": 5,
+        "especialidad": "Travel nearly send go indeed consider recent.",
+        "disponible_de_noche": true,
+        "puntuacion": 5906
+    }
+},
+{
+    "model": "camping.cuidador",
+    "pk": 2,
+    "fields": {
+        "usuario": 9,
+        "especialidad": "Herself treatment camera down her.",
+        "disponible_de_noche": true,
+        "puntuacion": 15786
+    }
+},
+{
+    "model": "camping.cuidador",
+    "pk": 3,
+    "fields": {
+        "usuario": 10,
+        "especialidad": "Card claim with value.",
+        "disponible_de_noche": true,
+        "puntuacion": 21965
+    }
+},
+{
+    "model": "camping.cuidador",
+    "pk": 4,
+    "fields": {
+        "usuario": 3,
+        "especialidad": "Building alone only usually enough election.",
+        "disponible_de_noche": true,
+        "puntuacion": 13082
+    }
+},
+{
+    "model": "camping.cuidador",
+    "pk": 5,
+    "fields": {
+        "usuario": 1,
+        "especialidad": "Produce strategy president forward.",
+        "disponible_de_noche": true,
+        "puntuacion": -9496
+    }
+},
+{
+    "model": "camping.cuidador",
+    "pk": 6,
+    "fields": {
+        "usuario": 6,
+        "especialidad": "Blue country push establish something start.",
+        "disponible_de_noche": true,
+        "puntuacion": -22738
+    }
+},
+{
+    "model": "camping.cuidador",
+    "pk": 7,
+    "fields": {
+        "usuario": 4,
+        "especialidad": "Baby tough technology fire certainly receive.",
+        "disponible_de_noche": false,
+        "puntuacion": -6837
+    }
+},
+{
+    "model": "camping.cuidador",
+    "pk": 8,
+    "fields": {
+        "usuario": 2,
+        "especialidad": "In by knowledge include out daughter.",
+        "disponible_de_noche": false,
+        "puntuacion": 16420
+    }
+},
+{
+    "model": "camping.cuidador",
+    "pk": 9,
+    "fields": {
+        "usuario": 7,
+        "especialidad": "Parent third fly water.",
+        "disponible_de_noche": false,
+        "puntuacion": 26749
+    }
+},
+{
+    "model": "camping.cuidador",
+    "pk": 10,
+    "fields": {
+        "usuario": 8,
+        "especialidad": "Call for soldier though myself significant.",
+        "disponible_de_noche": true,
+        "puntuacion": -5794
+    }
+},
+{
+    "model": "camping.cuidador",
+    "pk": 11,
+    "fields": {
+        "usuario": 12,
+        "especialidad": "Matemßtico",
+        "disponible_de_noche": true,
+        "puntuacion": 1
+    }
+},
+{
+    "model": "camping.cuidador",
+    "pk": 12,
+    "fields": {
+        "usuario": 13,
+        "especialidad": "Pe¾n de explotaciones ganaderas",
+        "disponible_de_noche": true,
+        "puntuacion": 3
+    }
+},
+{
+    "model": "camping.cuidador",
+    "pk": 13,
+    "fields": {
+        "usuario": 15,
+        "especialidad": "Decorador de interior",
+        "disponible_de_noche": true,
+        "puntuacion": 4
+    }
+},
+{
+    "model": "camping.cuidador",
+    "pk": 14,
+    "fields": {
+        "usuario": 16,
+        "especialidad": "Agente de seguros",
+        "disponible_de_noche": false,
+        "puntuacion": 3
+    }
+},
+{
+    "model": "camping.cuidador",
+    "pk": 15,
+    "fields": {
+        "usuario": 18,
+        "especialidad": "Tenedor de libros",
+        "disponible_de_noche": false,
+        "puntuacion": 10
+    }
+},
+{
+    "model": "camping.cuidador",
+    "pk": 16,
+    "fields": {
+        "usuario": 19,
+        "especialidad": "Ingeniero quÝmico",
+        "disponible_de_noche": true,
+        "puntuacion": 9
+    }
+},
+{
+    "model": "camping.cliente",
+    "pk": 1,
+    "fields": {
+        "datos_cliente": 3,
+        "numero_cuenta": "Stand care away management.",
+        "nacionalidad": "Individual everyone upon pay.",
+        "acepta_publicidad": true
+    }
+},
+{
+    "model": "camping.cliente",
+    "pk": 2,
+    "fields": {
+        "datos_cliente": 7,
+        "numero_cuenta": "Require arrive bring.",
+        "nacionalidad": "Middle music thousand character until hot cell.",
+        "acepta_publicidad": false
+    }
+},
+{
+    "model": "camping.cliente",
+    "pk": 3,
+    "fields": {
+        "datos_cliente": 6,
+        "numero_cuenta": "Interest mind real building.",
+        "nacionalidad": "Free size team important.",
+        "acepta_publicidad": true
+    }
+},
+{
+    "model": "camping.cliente",
+    "pk": 4,
+    "fields": {
+        "datos_cliente": 5,
+        "numero_cuenta": "Huge activity common always.",
+        "nacionalidad": "Upon tend building out goal decade record.",
+        "acepta_publicidad": true
+    }
+},
+{
+    "model": "camping.cliente",
+    "pk": 5,
+    "fields": {
+        "datos_cliente": 2,
+        "numero_cuenta": "Picture actually west.",
+        "nacionalidad": "Season show become.",
+        "acepta_publicidad": false
+    }
+},
+{
+    "model": "camping.cliente",
+    "pk": 6,
+    "fields": {
+        "datos_cliente": 9,
+        "numero_cuenta": "Beyond enough image.",
+        "nacionalidad": "Bank fast war however attention. Care vote trip.",
+        "acepta_publicidad": true
+    }
+},
+{
+    "model": "camping.cliente",
+    "pk": 7,
+    "fields": {
+        "datos_cliente": 10,
+        "numero_cuenta": "Agent field study boy.",
+        "nacionalidad": "Event free radio house strategy name education.",
+        "acepta_publicidad": true
+    }
+},
+{
+    "model": "camping.cliente",
+    "pk": 8,
+    "fields": {
+        "datos_cliente": 4,
+        "numero_cuenta": "Player care day parent.",
+        "nacionalidad": "Hour health oil often.",
+        "acepta_publicidad": false
+    }
+},
+{
+    "model": "camping.cliente",
+    "pk": 9,
+    "fields": {
+        "datos_cliente": 8,
+        "numero_cuenta": "Mouth clear later able.",
+        "nacionalidad": "You a no window decision.",
+        "acepta_publicidad": true
+    }
+},
+{
+    "model": "camping.cliente",
+    "pk": 10,
+    "fields": {
+        "datos_cliente": 1,
+        "numero_cuenta": "Type work southern all most.",
+        "nacionalidad": "Theory over wrong mother give everyone threat.",
+        "acepta_publicidad": true
+    }
+},
+{
+    "model": "camping.cliente",
+    "pk": 11,
+    "fields": {
+        "datos_cliente": 17,
+        "numero_cuenta": "ES4774096490518311238363",
+        "nacionalidad": "Spain",
+        "acepta_publicidad": false
+    }
+},
+{
+    "model": "camping.camping",
+    "pk": 1,
+    "fields": {
+        "nombre": "Direction religious task growth wall hot. Like situation maintain keep focus.",
+        "ubicacion": "Tonight campaign audience research what. Ago chair science hair.\nWant hot note bad. Trade crime sign number.\nChild smile rock by deal federal yes. Choose among hot gun save tend.",
+        "estrellas": -19033,
+        "sitio_web": "https://www.chavez-phelps.com/wp-content/searchsearch.htm"
+    }
+},
+{
+    "model": "camping.camping",
+    "pk": 2,
+    "fields": {
+        "nombre": "Pay mention newspaper least detail gun.",
+        "ubicacion": "Field training citizen before article throughout agreement. Rock contain sound hundred. Since no trial music born.\nCommercial affect street carry away. Send mouth drive. Eat figure for.",
+        "estrellas": 26081,
+        "sitio_web": "https://www.turner-jarvis.org/category/main/appregister.htm"
+    }
+},
+{
+    "model": "camping.camping",
+    "pk": 3,
+    "fields": {
+        "nombre": "Tv night top expert eye. Wall life election adult. Cause middle could class price prepare commercial much.\nSocial Mrs stay treat.",
+        "ubicacion": "Herself look become seat measure decision only. Peace baby and. News year speech. Thing law degree left surface daughter.",
+        "estrellas": 2694,
+        "sitio_web": "https://www.love-roth.info/blog/categories/appauthor.jsp"
+    }
+},
+{
+    "model": "camping.camping",
+    "pk": 4,
+    "fields": {
+        "nombre": "Day against choice almost.\nSingle price increase result. Low dream art hand million wrong.",
+        "ubicacion": "Save once choose drop relate hundred stand know. May have budget our give woman decide.\nTraditional rich third read personal. Despite simply beat join role.",
+        "estrellas": 3868,
+        "sitio_web": "https://www.campbell.com/app/mainterms.jsp"
+    }
+},
+{
+    "model": "camping.camping",
+    "pk": 5,
+    "fields": {
+        "nombre": "Measure serious national technology. Investment ago fly option return money. Into million oil indicate listen which.",
+        "ubicacion": "Boy reach or baby last the. Method small seek beyond.\nPower catch consider bed western wonder. Rather adult drive almost herself authority.",
+        "estrellas": 17857,
+        "sitio_web": "http://www.colon.org/posts/posts/exploresearch.jsp"
+    }
+},
+{
+    "model": "camping.camping",
+    "pk": 6,
+    "fields": {
+        "nombre": "Worry career score. Degree fine work seat bad opportunity remember.",
+        "ubicacion": "Can central fast if list ago religious. Its central player hotel.\nPolitical lay price party note and experience.\nAlthough consider prevent wish onto hear fish. Cell range become radio age.",
+        "estrellas": 20101,
+        "sitio_web": "https://www.martin.net/wp-content/wp-contentterms.jsp"
+    }
+},
+{
+    "model": "camping.camping",
+    "pk": 7,
+    "fields": {
+        "nombre": "Practice toward especially require walk kind. Future art director program. Edge trial administration decide.",
+        "ubicacion": "Office reason manager vote himself. Everyone chair or near. Describe personal day art.\nArticle almost just blue member choice at. Must father people require somebody expect.",
+        "estrellas": -7476,
+        "sitio_web": "https://www.wallace.com/tagsfaq.php"
+    }
+},
+{
+    "model": "camping.camping",
+    "pk": 8,
+    "fields": {
+        "nombre": "Lose kind maintain like red fish. Change garden improve grow. Congress animal such court however tree.",
+        "ubicacion": "Democrat policy as others discuss second. Skill kid score behavior voice where.",
+        "estrellas": -28238,
+        "sitio_web": "http://johnson.info/posts/tags/searchabout.htm"
+    }
+},
+{
+    "model": "camping.camping",
+    "pk": 9,
+    "fields": {
+        "nombre": "Town plant consider nice film seat mission. Six among them card shoulder why.",
+        "ubicacion": "Share admit five question. Able again miss husband kid program religious third.\nMedical kind pass. Create so but window score. Fund learn would fall daughter.",
+        "estrellas": 23431,
+        "sitio_web": "http://www.jimenez.biz/blog/listfaq.htm"
+    }
+},
+{
+    "model": "camping.camping",
+    "pk": 10,
+    "fields": {
+        "nombre": "Several week far. Off thousand music too.\nShare whole range out seat catch agree.\nLocal marriage education. Court west necessary.",
+        "ubicacion": "Bar sometimes term population although federal. Which doctor deal reach after military whole dinner.",
+        "estrellas": -14484,
+        "sitio_web": "https://shaw.com/tags/category/exploresearch.php"
+    }
+},
+{
+    "model": "camping.camping",
+    "pk": 11,
+    "fields": {
+        "nombre": "TecnologÝas Calderon S.L.",
+        "ubicacion": "Urbanizaci¾n de Fausto CÚspedes 550 Apt. 73 \nSanta Cruz de Tenerife, 15610",
+        "estrellas": 2,
+        "sitio_web": "https://transportes.es/"
+    }
+},
+{
+    "model": "camping.camping",
+    "pk": 12,
+    "fields": {
+        "nombre": "Hnos SalvÓ S.A.",
+        "ubicacion": "Camino MoisÚs Escalona 37 Piso 1 \nCeuta, 34624",
+        "estrellas": 1,
+        "sitio_web": "http://despacho.es/"
+    }
+},
+{
+    "model": "camping.camping",
+    "pk": 13,
+    "fields": {
+        "nombre": "Hnos MartÝ S.Coop.",
+        "ubicacion": "Plaza Vito Botella 76 Apt. 51 \nLa Rioja, 32202",
+        "estrellas": 1,
+        "sitio_web": "https://servicios.es/"
+    }
+},
+{
+    "model": "camping.camping",
+    "pk": 14,
+    "fields": {
+        "nombre": "Construcci¾n Palomares y asociados S.L.",
+        "ubicacion": "Vial PacÝfica Lopez 3 Piso 2 \nValencia, 24477",
+        "estrellas": 1,
+        "sitio_web": "http://restauracion.es/"
+    }
+},
+{
+    "model": "camping.camping",
+    "pk": 15,
+    "fields": {
+        "nombre": "Martin Ortega Figueroa S.Com.",
+        "ubicacion": "Ca±ada de Concepci¾n Ribera 41\nSoria, 03122",
+        "estrellas": 3,
+        "sitio_web": "http://www.banco.com/"
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 1,
+    "fields": {
+        "camping": 4,
+        "numero": -10076,
+        "capacidad": 2,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 2,
+    "fields": {
+        "camping": 8,
+        "numero": -23265,
+        "capacidad": 2,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 3,
+    "fields": {
+        "camping": 3,
+        "numero": 9488,
+        "capacidad": 2,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 4,
+    "fields": {
+        "camping": 4,
+        "numero": 13886,
+        "capacidad": 2,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 5,
+    "fields": {
+        "camping": 5,
+        "numero": 23513,
+        "capacidad": 2,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 6,
+    "fields": {
+        "camping": 8,
+        "numero": 31606,
+        "capacidad": 2,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 7,
+    "fields": {
+        "camping": 4,
+        "numero": -411,
+        "capacidad": 2,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 8,
+    "fields": {
+        "camping": 7,
+        "numero": 15550,
+        "capacidad": 2,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 9,
+    "fields": {
+        "camping": 10,
+        "numero": 31144,
+        "capacidad": 2,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 10,
+    "fields": {
+        "camping": 5,
+        "numero": 30523,
+        "capacidad": 2,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 11,
+    "fields": {
+        "camping": 11,
+        "numero": 32,
+        "capacidad": 3,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 12,
+    "fields": {
+        "camping": 11,
+        "numero": 12,
+        "capacidad": 2,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 13,
+    "fields": {
+        "camping": 11,
+        "numero": 50,
+        "capacidad": 4,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 14,
+    "fields": {
+        "camping": 11,
+        "numero": 66,
+        "capacidad": 2,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 15,
+    "fields": {
+        "camping": 11,
+        "numero": 32,
+        "capacidad": 8,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 16,
+    "fields": {
+        "camping": 11,
+        "numero": 43,
+        "capacidad": 2,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 17,
+    "fields": {
+        "camping": 11,
+        "numero": 86,
+        "capacidad": 2,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 18,
+    "fields": {
+        "camping": 11,
+        "numero": 55,
+        "capacidad": 4,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 19,
+    "fields": {
+        "camping": 11,
+        "numero": 40,
+        "capacidad": 2,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 20,
+    "fields": {
+        "camping": 11,
+        "numero": 17,
+        "capacidad": 5,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 21,
+    "fields": {
+        "camping": 12,
+        "numero": 96,
+        "capacidad": 6,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 22,
+    "fields": {
+        "camping": 12,
+        "numero": 83,
+        "capacidad": 8,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 23,
+    "fields": {
+        "camping": 12,
+        "numero": 40,
+        "capacidad": 7,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 24,
+    "fields": {
+        "camping": 12,
+        "numero": 18,
+        "capacidad": 3,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 25,
+    "fields": {
+        "camping": 12,
+        "numero": 68,
+        "capacidad": 3,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 26,
+    "fields": {
+        "camping": 12,
+        "numero": 99,
+        "capacidad": 3,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 27,
+    "fields": {
+        "camping": 12,
+        "numero": 1,
+        "capacidad": 6,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 28,
+    "fields": {
+        "camping": 12,
+        "numero": 84,
+        "capacidad": 5,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 29,
+    "fields": {
+        "camping": 12,
+        "numero": 14,
+        "capacidad": 6,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 30,
+    "fields": {
+        "camping": 12,
+        "numero": 70,
+        "capacidad": 7,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 31,
+    "fields": {
+        "camping": 13,
+        "numero": 43,
+        "capacidad": 5,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 32,
+    "fields": {
+        "camping": 13,
+        "numero": 18,
+        "capacidad": 4,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 33,
+    "fields": {
+        "camping": 13,
+        "numero": 40,
+        "capacidad": 4,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 34,
+    "fields": {
+        "camping": 13,
+        "numero": 62,
+        "capacidad": 5,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 35,
+    "fields": {
+        "camping": 13,
+        "numero": 73,
+        "capacidad": 4,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 36,
+    "fields": {
+        "camping": 13,
+        "numero": 60,
+        "capacidad": 8,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 37,
+    "fields": {
+        "camping": 13,
+        "numero": 90,
+        "capacidad": 4,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 38,
+    "fields": {
+        "camping": 13,
+        "numero": 50,
+        "capacidad": 8,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 39,
+    "fields": {
+        "camping": 13,
+        "numero": 45,
+        "capacidad": 2,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 40,
+    "fields": {
+        "camping": 13,
+        "numero": 60,
+        "capacidad": 5,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 41,
+    "fields": {
+        "camping": 14,
+        "numero": 91,
+        "capacidad": 7,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 42,
+    "fields": {
+        "camping": 14,
+        "numero": 55,
+        "capacidad": 3,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 43,
+    "fields": {
+        "camping": 14,
+        "numero": 65,
+        "capacidad": 3,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 44,
+    "fields": {
+        "camping": 14,
+        "numero": 91,
+        "capacidad": 7,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 45,
+    "fields": {
+        "camping": 14,
+        "numero": 89,
+        "capacidad": 5,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 46,
+    "fields": {
+        "camping": 14,
+        "numero": 92,
+        "capacidad": 2,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 47,
+    "fields": {
+        "camping": 14,
+        "numero": 97,
+        "capacidad": 7,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 48,
+    "fields": {
+        "camping": 14,
+        "numero": 46,
+        "capacidad": 3,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 49,
+    "fields": {
+        "camping": 14,
+        "numero": 87,
+        "capacidad": 4,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 50,
+    "fields": {
+        "camping": 14,
+        "numero": 72,
+        "capacidad": 6,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 51,
+    "fields": {
+        "camping": 15,
+        "numero": 54,
+        "capacidad": 3,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 52,
+    "fields": {
+        "camping": 15,
+        "numero": 66,
+        "capacidad": 7,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 53,
+    "fields": {
+        "camping": 15,
+        "numero": 19,
+        "capacidad": 3,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 54,
+    "fields": {
+        "camping": 15,
+        "numero": 92,
+        "capacidad": 2,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 55,
+    "fields": {
+        "camping": 15,
+        "numero": 6,
+        "capacidad": 6,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 56,
+    "fields": {
+        "camping": 15,
+        "numero": 87,
+        "capacidad": 3,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 57,
+    "fields": {
+        "camping": 15,
+        "numero": 69,
+        "capacidad": 2,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 58,
+    "fields": {
+        "camping": 15,
+        "numero": 22,
+        "capacidad": 3,
+        "tiene_sombra": false
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 59,
+    "fields": {
+        "camping": 15,
+        "numero": 26,
+        "capacidad": 2,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.parcela",
+    "pk": 60,
+    "fields": {
+        "camping": 15,
+        "numero": 8,
+        "capacidad": 8,
+        "tiene_sombra": true
+    }
+},
+{
+    "model": "camping.vehiculo",
+    "pk": 1,
+    "fields": {
+        "tipo": "caravana",
+        "matricula": "Federal ok blue.",
+        "peso": 0.40809000246141425,
+        "marca": "Glass free serious too.",
+        "cliente": [
+            1,
+            8
+        ]
+    }
+},
+{
+    "model": "camping.vehiculo",
+    "pk": 2,
+    "fields": {
+        "tipo": "coche",
+        "matricula": "Arrive imagine.",
+        "peso": 0.391429471139473,
+        "marca": "Build live after now.",
+        "cliente": [
+            2,
+            4
+        ]
+    }
+},
+{
+    "model": "camping.vehiculo",
+    "pk": 3,
+    "fields": {
+        "tipo": "coche",
+        "matricula": "Let moment girl.",
+        "peso": 0.7404475794189714,
+        "marca": "Plant bed behavior.",
+        "cliente": [
+            8
+        ]
+    }
+},
+{
+    "model": "camping.vehiculo",
+    "pk": 4,
+    "fields": {
+        "tipo": "caravana",
+        "matricula": "Dinner bag her.",
+        "peso": 0.7600913600417991,
+        "marca": "Create item drop than.",
+        "cliente": [
+            2
+        ]
+    }
+},
+{
+    "model": "camping.vehiculo",
+    "pk": 5,
+    "fields": {
+        "tipo": "caravana",
+        "matricula": "Laugh thousand.",
+        "peso": 0.15553670264577546,
+        "marca": "Site early sister fill.",
+        "cliente": [
+            3,
+            10
+        ]
+    }
+},
+{
+    "model": "camping.vehiculo",
+    "pk": 6,
+    "fields": {
+        "tipo": "moto",
+        "matricula": "Per add almost.",
+        "peso": 0.5059831518195791,
+        "marca": "Design debate century.",
+        "cliente": [
+            1,
+            10
+        ]
+    }
+},
+{
+    "model": "camping.vehiculo",
+    "pk": 7,
+    "fields": {
+        "tipo": "moto",
+        "matricula": "Care environmental.",
+        "peso": 0.4222054528761978,
+        "marca": "Value center risk final.",
+        "cliente": [
+            7
+        ]
+    }
+},
+{
+    "model": "camping.vehiculo",
+    "pk": 8,
+    "fields": {
+        "tipo": "coche",
+        "matricula": "Fill area teach.",
+        "peso": 0.1734285962526556,
+        "marca": "Yes occur like.",
+        "cliente": [
+            10
+        ]
+    }
+},
+{
+    "model": "camping.vehiculo",
+    "pk": 9,
+    "fields": {
+        "tipo": "coche",
+        "matricula": "College our exist.",
+        "peso": 0.3144585365303255,
+        "marca": "Which various interest.",
+        "cliente": [
+            2
+        ]
+    }
+},
+{
+    "model": "camping.vehiculo",
+    "pk": 10,
+    "fields": {
+        "tipo": "caravana",
+        "matricula": "Many game dog.",
+        "peso": 0.5072045107867524,
+        "marca": "Hear cut treatment.",
+        "cliente": [
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "camping.vehiculo",
+    "pk": 11,
+    "fields": {
+        "tipo": "coche",
+        "matricula": "1938 GTP",
+        "peso": 1272.12,
+        "marca": "Servicios CFON S.L.",
+        "cliente": []
+    }
+},
+{
+    "model": "camping.vehiculo",
+    "pk": 12,
+    "fields": {
+        "tipo": "caravana",
+        "matricula": "C 2159 NP",
+        "peso": 2951.16,
+        "marca": "Prat y asociados S.Coop.",
+        "cliente": [
+            11
+        ]
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 1,
+    "fields": {
+        "nombre": "Reach case song interview mind company never. Central charge stock film.",
+        "descripcion": "Evidence television create executive. Follow as cold quality specific PM surface will. Boy she such.",
+        "cupo": 19810,
+        "precio": 0.615857300186597,
+        "requiere_material": false
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 2,
+    "fields": {
+        "nombre": "Tough collection hold. Television cut begin. Decide example recognize design public.",
+        "descripcion": "Beyond act cause quality.\nReally difference evidence play imagine ok whole. Away cut marriage table hotel.\nContain hope require lead meeting through. Book special seek attorney.",
+        "cupo": 3600,
+        "precio": 0.42739145213710994,
+        "requiere_material": true
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 3,
+    "fields": {
+        "nombre": "Fight west oil process hope growth fast. Film talk station coach. Firm art manager since science.",
+        "descripcion": "Indicate mention letter growth better little collection. Rich outside best no probably field.",
+        "cupo": 16840,
+        "precio": 0.8813206840289992,
+        "requiere_material": false
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 4,
+    "fields": {
+        "nombre": "Speech machine over onto project national economic.",
+        "descripcion": "Authority south husband. Send majority no most such. Why able tend.\nRepublican cultural either important old. Agency force upon writer reason. Issue range environmental must before interesting.",
+        "cupo": 27901,
+        "precio": 0.45656561322648315,
+        "requiere_material": false
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 5,
+    "fields": {
+        "nombre": "Deep stop matter factor democratic about nice. Central minute sometimes loss break research.",
+        "descripcion": "Support magazine son somebody build. Crime college thing performance newspaper owner talk.\nMemory draw prevent must college above receive expert. Democrat every writer grow.",
+        "cupo": 23618,
+        "precio": 0.18808256848471017,
+        "requiere_material": true
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 6,
+    "fields": {
+        "nombre": "Push recently choice. Market mention material pressure bill more air per.",
+        "descripcion": "Generation least reveal develop house issue suffer. Structure present any actually. Floor second person peace.",
+        "cupo": 17061,
+        "precio": 0.9982923280897975,
+        "requiere_material": false
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 7,
+    "fields": {
+        "nombre": "Project type someone child spring. Oil stop everybody brother positive.",
+        "descripcion": "Can give next nearly rather per another. Central training administration start land executive.\nSomething area enough kid event cup material. Truth education wrong and election really floor city.",
+        "cupo": 23826,
+        "precio": 0.11839218503838855,
+        "requiere_material": true
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 8,
+    "fields": {
+        "nombre": "Worker up crime player son.\nOver particular let. Toward country cover actually.",
+        "descripcion": "Student thank when hospital. Mother generation million marriage site amount.\nAmong heavy concern big win. Firm my prove season adult night machine.",
+        "cupo": 6657,
+        "precio": 0.8879610225730142,
+        "requiere_material": false
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 9,
+    "fields": {
+        "nombre": "Seat fine over how car turn safe. Occur little officer skill blood.",
+        "descripcion": "Instead stock must treatment tax. Oil hope quite pay consider while information.\nSafe skill product reason whose attorney tax between. Past and movie western.",
+        "cupo": 5517,
+        "precio": 0.02420871796591817,
+        "requiere_material": false
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 10,
+    "fields": {
+        "nombre": "White when address structure care any site. Page wall manager.",
+        "descripcion": "Determine soon clear firm. Fire impact skill name. Election kind Mr half.\nNever picture financial I system site. Six process phone report. Inside parent teacher toward.",
+        "cupo": 29138,
+        "precio": 0.7999254107493666,
+        "requiere_material": false
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 11,
+    "fields": {
+        "nombre": "mejores",
+        "descripcion": "Produce pie amigos usted actividades aquellas gracias. Importante amor familia semanas. Perdido violencia podrß.\nSiguientes libre consecuencia asÝ. Solamente santiago curso santa trabajadores.",
+        "cupo": 29,
+        "precio": 7.196936382700306,
+        "requiere_material": false
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 12,
+    "fields": {
+        "nombre": "paÝses",
+        "descripcion": "Cierto pensar tanto falta comunidad llegado. Electoral imposible obstante tanto ocasiones aspectos. PolÝtica saber alguien ·ltimos conciencia juan.",
+        "cupo": 10,
+        "precio": 6.5155716276781455,
+        "requiere_material": true
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 13,
+    "fields": {
+        "nombre": "bastante",
+        "descripcion": "Fernando muy hacen movimiento cßmara. Mirada serßn arte cualquier. Ning·n muestra sÝ tenido presenta.",
+        "cupo": 25,
+        "precio": 45.480632511573994,
+        "requiere_material": false
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 14,
+    "fields": {
+        "nombre": "cama",
+        "descripcion": "Educaci¾n diario varias costa tarde deben cuerpo. Control aun casi primera fue etc.",
+        "cupo": 12,
+        "precio": 28.711457822410377,
+        "requiere_material": false
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 15,
+    "fields": {
+        "nombre": "siguientes",
+        "descripcion": "Derecho diciembre allÝ propuesta cara toma. Madre uso cuatro relaci¾n. A±os texto ideas condiciones aspectos medidas y.\nProducto existen llegado Úl. Mercado cosa aquella contra m fßcil.",
+        "cupo": 8,
+        "precio": 32.490839862640726,
+        "requiere_material": false
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 16,
+    "fields": {
+        "nombre": "doctor",
+        "descripcion": "Llega hablar cada noche habla se±ora realidad haya. Da polÝticos ambiente propuesta n texto.\nDÝas instituto hacen paÝses.",
+        "cupo": 5,
+        "precio": 48.20573799931926,
+        "requiere_material": true
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 17,
+    "fields": {
+        "nombre": "ambiente",
+        "descripcion": "Llegado tÚrminos seguir espa±ola principio ya. Explic¾ grupos sean hermano.\nDiferentes argentina ni±os siglo alta sector creo mientras. Ocasiones cuya bastante se segundo lÝder.",
+        "cupo": 21,
+        "precio": 35.611467970818865,
+        "requiere_material": false
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 18,
+    "fields": {
+        "nombre": "creo",
+        "descripcion": "Parece ademßs primer grande abril dios animales.\nAmigos tanto seguridad noche. Doctor especie ante necesidad ella tuvo dio. Nuevas muestra alto ellos peor.",
+        "cupo": 6,
+        "precio": 37.28652004536422,
+        "requiere_material": false
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 19,
+    "fields": {
+        "nombre": "jorge",
+        "descripcion": "Calidad capacidad e momento humano podemos duda. Naturaleza a operaci¾n.\nSido dado encuentran don agua luis grado. Plan texto autoridades miembros. Vivir muy paÝses va importancia ademßs consejo.",
+        "cupo": 13,
+        "precio": 35.24762808988915,
+        "requiere_material": false
+    }
+},
+{
+    "model": "camping.actividad",
+    "pk": 20,
+    "fields": {
+        "nombre": "pedro",
+        "descripcion": "Teatro sobre origen intereses.\nAlgunas recuerdo mayo polÝtico. Campa±a mayor aquÝ flores imßgenes tarde ii.",
+        "cupo": 11,
+        "precio": 19.904642071767334,
+        "requiere_material": false
+    }
+},
+{
+    "model": "camping.reserva",
+    "pk": 1,
+    "fields": {
+        "cliente": 4,
+        "parcela": 10,
+        "fecha_inicio": "1984-01-08",
+        "fecha_fin": "2019-03-02",
+        "actividades": [
+            2,
+            8,
+            9
+        ]
+    }
+},
+{
+    "model": "camping.reserva",
+    "pk": 2,
+    "fields": {
+        "cliente": 7,
+        "parcela": 7,
+        "fecha_inicio": "2010-07-13",
+        "fecha_fin": "1971-08-21",
+        "actividades": [
+            1
+        ]
+    }
+},
+{
+    "model": "camping.reserva",
+    "pk": 3,
+    "fields": {
+        "cliente": 7,
+        "parcela": 5,
+        "fecha_inicio": "2009-08-11",
+        "fecha_fin": "1980-09-22",
+        "actividades": [
+            7
+        ]
+    }
+},
+{
+    "model": "camping.reserva",
+    "pk": 4,
+    "fields": {
+        "cliente": 6,
+        "parcela": 6,
+        "fecha_inicio": "1988-11-11",
+        "fecha_fin": "1994-07-12",
+        "actividades": [
+            3,
+            8,
+            9
+        ]
+    }
+},
+{
+    "model": "camping.reserva",
+    "pk": 5,
+    "fields": {
+        "cliente": 5,
+        "parcela": 10,
+        "fecha_inicio": "1997-05-18",
+        "fecha_fin": "2014-12-23",
+        "actividades": [
+            6
+        ]
+    }
+},
+{
+    "model": "camping.reserva",
+    "pk": 6,
+    "fields": {
+        "cliente": 8,
+        "parcela": 10,
+        "fecha_inicio": "1986-12-30",
+        "fecha_fin": "1971-07-10",
+        "actividades": [
+            1
+        ]
+    }
+},
+{
+    "model": "camping.reserva",
+    "pk": 7,
+    "fields": {
+        "cliente": 1,
+        "parcela": 8,
+        "fecha_inicio": "2000-11-20",
+        "fecha_fin": "2018-01-11",
+        "actividades": [
+            5,
+            8,
+            10
+        ]
+    }
+},
+{
+    "model": "camping.reserva",
+    "pk": 8,
+    "fields": {
+        "cliente": 10,
+        "parcela": 3,
+        "fecha_inicio": "1985-10-26",
+        "fecha_fin": "2005-01-14",
+        "actividades": [
+            4
+        ]
+    }
+},
+{
+    "model": "camping.reserva",
+    "pk": 9,
+    "fields": {
+        "cliente": 10,
+        "parcela": 4,
+        "fecha_inicio": "2012-02-16",
+        "fecha_fin": "2012-09-09",
+        "actividades": [
+            2,
+            6,
+            7
+        ]
+    }
+},
+{
+    "model": "camping.reserva",
+    "pk": 10,
+    "fields": {
+        "cliente": 4,
+        "parcela": 8,
+        "fecha_inicio": "1996-02-14",
+        "fecha_fin": "2014-06-25",
+        "actividades": [
+            4
+        ]
+    }
+},
+{
+    "model": "camping.reserva",
+    "pk": 11,
+    "fields": {
+        "cliente": 11,
+        "parcela": 15,
+        "fecha_inicio": "2025-06-09",
+        "fecha_fin": "2025-10-03",
+        "actividades": [
+            12,
+            18,
+            19
+        ]
+    }
+},
+{
+    "model": "camping.serviciosextra",
+    "pk": 1,
+    "fields": {
+        "nombre": "Such camera risk something hit color. Democratic grow scientist condition me once street.",
+        "precio": "0.32",
+        "descripcion": "Their safe matter oil whatever. Program present budget you successful. Son short myself building. Page hear way drug rock none coach.",
+        "disponible": true
+    }
+},
+{
+    "model": "camping.serviciosextra",
+    "pk": 2,
+    "fields": {
+        "nombre": "Produce cut worker. Manage stock probably buy far individual.",
+        "precio": "0.29",
+        "descripcion": "Light environmental instead some effort. Apply position learn degree ground the surface. Scientist most purpose stand run east answer. Even that white stay.",
+        "disponible": true
+    }
+},
+{
+    "model": "camping.serviciosextra",
+    "pk": 3,
+    "fields": {
+        "nombre": "Move speak experience bank phone citizen southern artist. Help long yard catch national if.",
+        "precio": "0.01",
+        "descripcion": "Bring himself idea where positive might market much. Strong bank goal charge. Itself true last plan.",
+        "disponible": true
+    }
+},
+{
+    "model": "camping.serviciosextra",
+    "pk": 4,
+    "fields": {
+        "nombre": "North prove various similar.",
+        "precio": "0.72",
+        "descripcion": "Energy movement two law some look benefit. Worry discuss item live. Economy any safe understand here air way.\nAround source none hard. Become hold until day age.",
+        "disponible": true
+    }
+},
+{
+    "model": "camping.serviciosextra",
+    "pk": 5,
+    "fields": {
+        "nombre": "Ever commercial student animal.",
+        "precio": "0.69",
+        "descripcion": "Her interest turn wish our. Shake during direction.\nChurch unit probably across instead he gas number. Us meet religious owner. Keep scene letter bed model. Pull authority hot tough vote few option.",
+        "disponible": true
+    }
+},
+{
+    "model": "camping.serviciosextra",
+    "pk": 6,
+    "fields": {
+        "nombre": "Middle make thus election early.",
+        "precio": "0.52",
+        "descripcion": "Region at close try. Without herself art share. Language accept morning draw close these southern.",
+        "disponible": true
+    }
+},
+{
+    "model": "camping.serviciosextra",
+    "pk": 7,
+    "fields": {
+        "nombre": "Environmental its prevent family.\nQuality body media able page out bring establish.",
+        "precio": "0.83",
+        "descripcion": "However film national decade land sister. Head table simply finally child PM someone finally.",
+        "disponible": true
+    }
+},
+{
+    "model": "camping.serviciosextra",
+    "pk": 8,
+    "fields": {
+        "nombre": "Child less yeah shake. Strategy young hand floor.",
+        "precio": "0.27",
+        "descripcion": "Sea training beyond level gun wonder.\nCar control thing. Store series year then wall.\nSeem protect expect officer. Grow subject also fly. Way mean several may marriage laugh management coach.",
+        "disponible": true
+    }
+},
+{
+    "model": "camping.serviciosextra",
+    "pk": 9,
+    "fields": {
+        "nombre": "System point citizen student.\nTop page reduce. American final teacher return soon rule.",
+        "precio": "0.07",
+        "descripcion": "Center yeah only enter provide include. Team century meet national such follow. Way head service worker wind.",
+        "disponible": true
+    }
+},
+{
+    "model": "camping.serviciosextra",
+    "pk": 10,
+    "fields": {
+        "nombre": "Room address final hope. Chance live history report.",
+        "precio": "0.65",
+        "descripcion": "Run still traditional might mother Congress. Than full rise people those capital.\nEast clearly dream bed stop public. Response tell discussion commercial.",
+        "disponible": true
+    }
+},
+{
+    "model": "camping.serviciosextra",
+    "pk": 11,
+    "fields": {
+        "nombre": "peque±a",
+        "precio": "48.46",
+        "descripcion": "Fßcil central madre. Cosa producto derechos tales europa muy g. Enfermedad quienes empresa incluso cargo.",
+        "disponible": false
+    }
+},
+{
+    "model": "camping.serviciosextra",
+    "pk": 12,
+    "fields": {
+        "nombre": "evitar",
+        "precio": "42.15",
+        "descripcion": "Gran cambio santiago octubre asociaci¾n. Gracias justicia gran cada trabajadores ßrea.",
+        "disponible": false
+    }
+},
+{
+    "model": "camping.serviciosextra",
+    "pk": 13,
+    "fields": {
+        "nombre": "l¾pez",
+        "precio": "44.17",
+        "descripcion": "Violencia lo ocasiones soluci¾n acto prueba buenos. Diferencia humano lugar. Manos secretario sÚ va encuentran local.",
+        "disponible": true
+    }
+},
+{
+    "model": "camping.serviciosextra",
+    "pk": 14,
+    "fields": {
+        "nombre": "conocimiento",
+        "precio": "8.49",
+        "descripcion": "Hay tarde ese tendrß. Llegar pacientes rodrÝguez camino instituto proyecto segundo victoria.\nTierra considera casos propios ocasiones conocimiento proyectos. Carßcter peso luz gracias entrada papel.",
+        "disponible": false
+    }
+},
+{
+    "model": "camping.serviciosextra",
+    "pk": 15,
+    "fields": {
+        "nombre": "superior",
+        "precio": "25.67",
+        "descripcion": "Principios menor supuesto poner esfuerzo luis. Anßlisis general habÝa miguel. Poco actitud lado son domingo.",
+        "disponible": false
+    }
+},
+{
+    "model": "camping.reservaextra",
+    "pk": 1,
+    "fields": {
+        "reserva": 1,
+        "cantidad_solicitada": 1,
+        "observaciones": "Chair people week peace different. Continue outside top thank road kind play base.",
+        "servicios_extra": [
+            4,
+            6
+        ]
+    }
+},
+{
+    "model": "camping.reservaextra",
+    "pk": 2,
+    "fields": {
+        "reserva": 3,
+        "cantidad_solicitada": 1,
+        "observaciones": "Else line agree type. Finish full board hospital particularly candidate. Eat dog election.",
+        "servicios_extra": [
+            5
+        ]
+    }
+},
+{
+    "model": "camping.reservaextra",
+    "pk": 3,
+    "fields": {
+        "reserva": 7,
+        "cantidad_solicitada": 1,
+        "observaciones": "View capital ok grow discussion. High him reality cost skin. Us catch early of.",
+        "servicios_extra": [
+            4
+        ]
+    }
+},
+{
+    "model": "camping.reservaextra",
+    "pk": 4,
+    "fields": {
+        "reserva": 1,
+        "cantidad_solicitada": 1,
+        "observaciones": "Center second direction fear music moment. Traditional recognize they.",
+        "servicios_extra": [
+            5
+        ]
+    }
+},
+{
+    "model": "camping.reservaextra",
+    "pk": 5,
+    "fields": {
+        "reserva": 7,
+        "cantidad_solicitada": 1,
+        "observaciones": "Before responsibility public their heart. Future oil certainly local back point.",
+        "servicios_extra": [
+            3,
+            9
+        ]
+    }
+},
+{
+    "model": "camping.reservaextra",
+    "pk": 6,
+    "fields": {
+        "reserva": 1,
+        "cantidad_solicitada": 1,
+        "observaciones": "Support mother point debate. Group majority especially enjoy read guy look. Despite find record road art. Fish create go ok our black.",
+        "servicios_extra": [
+            2,
+            9
+        ]
+    }
+},
+{
+    "model": "camping.reservaextra",
+    "pk": 7,
+    "fields": {
+        "reserva": 1,
+        "cantidad_solicitada": 1,
+        "observaciones": "Research wide great east herself support. Bar total see race say list.\nProduction again serve tell around also. Either forget truth by somebody.",
+        "servicios_extra": [
+            3,
+            8
+        ]
+    }
+},
+{
+    "model": "camping.reservaextra",
+    "pk": 8,
+    "fields": {
+        "reserva": 3,
+        "cantidad_solicitada": 1,
+        "observaciones": "Camera result color sort church. Offer plan sure design perform star indeed. Card buy attorney.",
+        "servicios_extra": [
+            2
+        ]
+    }
+},
+{
+    "model": "camping.reservaextra",
+    "pk": 9,
+    "fields": {
+        "reserva": 7,
+        "cantidad_solicitada": 1,
+        "observaciones": "Agency but focus meet woman project part. Movie this friend mouth trial table shoulder share. Writer expert dinner difficult you happy.",
+        "servicios_extra": [
+            6,
+            9,
+            10
+        ]
+    }
+},
+{
+    "model": "camping.reservaextra",
+    "pk": 10,
+    "fields": {
+        "reserva": 4,
+        "cantidad_solicitada": 1,
+        "observaciones": "Cold bag also evidence whether by director billion.",
+        "servicios_extra": [
+            5,
+            9,
+            10
+        ]
+    }
+},
+{
+    "model": "camping.reservaextra",
+    "pk": 11,
+    "fields": {
+        "reserva": 11,
+        "cantidad_solicitada": 1,
+        "observaciones": "Entonces modo produce naturaleza suficiente principal cambio.",
+        "servicios_extra": [
+            11,
+            13,
+            15
+        ]
+    }
+},
+{
+    "model": "camping.factura",
+    "pk": 1,
+    "fields": {
+        "reserva": 4,
+        "total": "0.93",
+        "emitida_en": "2025-10-13T15:59:41.213Z",
+        "pagado": true
+    }
+},
+{
+    "model": "camping.factura",
+    "pk": 2,
+    "fields": {
+        "reserva": 7,
+        "total": "0.44",
+        "emitida_en": "2025-10-13T15:59:41.213Z",
+        "pagado": false
+    }
+},
+{
+    "model": "camping.factura",
+    "pk": 3,
+    "fields": {
+        "reserva": 7,
+        "total": "0.38",
+        "emitida_en": "2025-10-13T15:59:41.213Z",
+        "pagado": true
+    }
+},
+{
+    "model": "camping.factura",
+    "pk": 4,
+    "fields": {
+        "reserva": 1,
+        "total": "0.23",
+        "emitida_en": "2025-10-13T15:59:41.213Z",
+        "pagado": true
+    }
+},
+{
+    "model": "camping.factura",
+    "pk": 5,
+    "fields": {
+        "reserva": 7,
+        "total": "0.36",
+        "emitida_en": "2025-10-13T15:59:41.213Z",
+        "pagado": false
+    }
+},
+{
+    "model": "camping.factura",
+    "pk": 6,
+    "fields": {
+        "reserva": 10,
+        "total": "0.76",
+        "emitida_en": "2025-10-13T15:59:41.213Z",
+        "pagado": false
+    }
+},
+{
+    "model": "camping.factura",
+    "pk": 7,
+    "fields": {
+        "reserva": 5,
+        "total": "0.59",
+        "emitida_en": "2025-10-13T15:59:41.213Z",
+        "pagado": false
+    }
+},
+{
+    "model": "camping.factura",
+    "pk": 8,
+    "fields": {
+        "reserva": 7,
+        "total": "0.02",
+        "emitida_en": "2025-10-13T15:59:41.213Z",
+        "pagado": true
+    }
+},
+{
+    "model": "camping.factura",
+    "pk": 9,
+    "fields": {
+        "reserva": 2,
+        "total": "0.04",
+        "emitida_en": "2025-10-13T15:59:41.213Z",
+        "pagado": false
+    }
+},
+{
+    "model": "camping.factura",
+    "pk": 10,
+    "fields": {
+        "reserva": 2,
+        "total": "0.66",
+        "emitida_en": "2025-10-13T15:59:41.213Z",
+        "pagado": true
+    }
+},
+{
+    "model": "camping.factura",
+    "pk": 11,
+    "fields": {
+        "reserva": 11,
+        "total": "1002.65",
+        "emitida_en": "2025-10-13T16:00:25.031Z",
+        "pagado": true
+    }
+}
+]

@@ -31,6 +31,6 @@ $RECYCLE.BIN/
 .history/
 *.code-workspace
 
-#Fixtures
-biblioteca/fixtures/
+#Fixtures No debería subirse, pero es la prueba de haberlo realizado (cuando no se deba subir, se descomenta y listo).
+#camping/fixtures/
 
