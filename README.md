@@ -12,7 +12,7 @@ Atributos:
 - `apellido` (CharField, max_length=100): Apellido de la persona.
 - `dni` (CharField, max_length=20, unique=True): Documento Nacional de Identidad, identificador único.
 - `fecha_nacimiento` (DateField): Fecha de nacimiento.
-- `email` (EmailField, unique=True, default=""): Correo electrónico, único en la base de datos.
+- `email` (EmailField, unique=True, default=""): Correo electrónico, único en la base de datos. Se utiliza el atributo EmailField que sirve para el control de estos.
 - `telefono` (CharField, max_length=20, default=""): Número de teléfono.
 
 ### **PerfilUsuario**
