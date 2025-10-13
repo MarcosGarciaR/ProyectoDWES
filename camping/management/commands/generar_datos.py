@@ -20,96 +20,139 @@ class Command(BaseCommand):
                 telefono = fake.phone_number()
             )
             personas.append(p)
+        
+        recepcionistas = []
+        cuidadores = []
+        no_staff = []
+        OPCIONES_STAFF = ['recepcionista','cuidador','cliente']
+        for persona in personas:
+            perfil = PerfilUsuario.objects.create(
+                datos_usuario = persona,
+                username = fake.unique.user_name(),
+                password = fake.password(),
+                es_staff = fake.boolean(chance_of_getting_true=66),
+                fecha_registro = timezone.now()
+            )
             
-            for persona in personas:
-                perfil = PerfilUsuario.objects.create(
-                    datos_usuario = persona,
-                    username = fake.unique.user_name(),
-                    password = fake.password(),
-                    es_staff = fake.boolean(chance_of_getting_true=2),
-                    fecha_registro = timezone.now()
+            if(perfil.es_staff):
+                rol = random.choice(OPCIONES_STAFF)
+                if(rol == 'recepcionista'):
+                    recepcionistas.append(perfil)
+                else:
+                    cuidadores.append(perfil)
+            else:
+                rol = 'cliente'
+                no_staff.append(perfil)
+        
+        for r in recepcionistas:
+            Recepcionista.objects.create(
+                usuario = r,
+                salario = round(random.uniform(1100, 2500), 2),
+                fecha_alta = fake.date_this_year(),
+                turno = random.choice(['ma','ta'])
+            )
+        
+        for c in cuidadores:
+            Cuidador.objects.create(
+                usuario = c,
+                especialidad = fake.job(),
+                disponible_de_noche = fake.boolean(),
+                puntuacion = random.randint(1, 10)
+            )
+        
+        clientes = []
+        for p in no_staff:
+            cliente = Cliente.objects.create(
+            datos_cliente = p.datos_usuario,
+            numero_cuenta = fake.iban(),
+            nacionalidad = fake.current_country(),
+            acepta_publicidad = fake.boolean()
+        )
+            clientes.append(cliente)
+        
+        campings = []
+        for _ in range(5):
+            c = Camping.objects.create(
+                nombre = fake.company(),
+                ubicacion = fake.address(),
+                estrellas = random.randint(1, 5),
+                sitio_web = fake.url()
+            )
+            campings.append(c)
+            
+        parcelas = []
+        for c in campings:
+            numeros_usados = set()
+            for _ in range(10):
+                numero_actual = fake.random_int(min=1, max=100)
+                while(numero_actual in numeros_usados):
+                    numero_actual = fake.random_int(min=1, max=100)
+                
+                
+                parcelas.append(Parcela.objects.create(
+                camping = c,
+                numero = numero_actual,
+                capacidad = random.randint(2,8),
+                tiene_sombra = fake.boolean()
                 )
-            
-            for p in perfil[:1]:
-                Recepcionista.objects.create(
-                    usuario = p,
-                    salario = round(random.uniform(1100, 2500), 2),
-                    fecha_alta = fake.date_this_year(),
-                    turno = random.choice(['ma','ta'])
+            )
+        
+        OPCIONES_VEHICULO = ['coche','moto','caravana']
+        for cl in clientes:
+            for _ in range(random.randint(1, 3)):
+                v = Vehiculo.objects.create(
+                    tipo = fake.random.choice(OPCIONES_VEHICULO),
+                    matricula = fake.unique.license_plate(),
+                    peso = round(random.uniform(500, 3500), 2),
+                    marca = fake.company()
                 )
+            v.cliente.add(cl)
             
-            for p in perfil[1:2]:
-                Cuidador.objects.create(
-                    usuario = p,
-                    especialidad = fake.job(),
-                    dispnible_de_noche = fake.boolean(),
-                    puntuacion = random.randint(1, 10)
-                )
-            
-            for p in 
-            Cliente.objects.create(
-                datos_cliente
-                numero_cuenta
-                nacionalidad
-                acepta_publicidad
-            )
-            
-            Camping.objects.create(
-                nombre
-                ubicacion
-                estrellas
-                sitio_web
-            )
-            
-            Parcela.objects.create(
-                camping
-                numero
-                capacidad
-                tiene_sombra
-            )
-            
-            Vehiculo.objects.create(
-            tipo
-            matricula
-            peso
-            cliente
-            marca
-            )
-            
-            Actividad.objects.create(
-            nombre
-            descripcion
-            cupo
-            precio
-            requiere_material
-            )
-            
-            Reserva.objects.create(
-            cliente
-            parcela
-            fecha_inicio
-            fecha_fin
-            actividades
+        actividades = []
+        for _ in range(10):
+            actividades.append(Actividad.objects.create(
+            nombre = fake.word(),
+            descripcion = fake.text(),
+            cupo = fake.random_int(1, 30),
+            precio = random.uniform(5,50),
+            requiere_material = fake.boolean()
+        ))
+        
+        reservas = []    
+        for c in clientes:
+            miFecha_inicio = fake.date_this_year()
+            r = Reserva.objects.create(
+                cliente = c,
+                parcela = random.choice(parcelas),
+            fecha_inicio = miFecha_inicio, 
+            fecha_fin =  fake.date_between_dates(miFecha_inicio, date_end=timezone.now().date()),
             
             )
-            ServiciosExtra.objects.create(
-            nombre
-            precio
-            descripcion
-            disponible
-            )
-            
-            ReservaExtra.objects.create(
-            reserva
-            servicios_extra
-            cantidad_solicitada
-            )
-            
+        r.actividades.set(random.sample(actividades, random.randint(1,3)))
+        reservas.append(r)
+        
+        servicios = []
+        for _ in range(5):
+            servicios.append(ServiciosExtra.objects.create(
+            nombre = fake.word(),
+            precio = random.uniform(5, 50),
+            descripcion = fake.text(),
+            disponible =  fake.boolean()
+        ))
+        
+        for r in reservas:
+            re = ReservaExtra.objects.create(
+            reserva = r,
+            cantidad_solicitada = fake.random_int(1, 5),
+            observaciones = fake.sentence(),
+        )
+            re.servicios_extra.add(*random.sample(servicios, random.randint(1, 5)))
+        
             Factura.objects.create(
-            reserva
-            total
-            emitida_en
-            pagado    
+                reserva = re,
+                total = random.uniform(50, 2000),
+                emitida_en = timezone.now(), 
+                pagado = fake.boolean()
             )
-            
-        self.stdout.write(self.style.SUCCES('Datos generados correctamente'))
+        
+        self.stdout.write(self.style.SUCCESS('Datos generados correctamente'))

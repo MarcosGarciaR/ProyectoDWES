@@ -18,18 +18,17 @@ class Persona(models.Model):
 class PerfilUsuario(models.Model):
     OPCIONES_ROL = [
         ('recepcionista', 'Recepcionista'),
-        ('cuidador', 'Cuidador'),
-        ('cliente','Cliente')
+        ('cuidador', 'Cuidador')
     ]
     
     datos_usuario = models.OneToOneField(Persona, on_delete=models.CASCADE, default="")
     username = models.CharField(max_length=50, unique=True, default="")
     password = models.CharField(max_length=128)
-    rol = models.CharField(max_length=20, choices=OPCIONES_ROL, default='cliente')
-    if(rol != 'cliente'):
-        es_staff = True
+    es_staff = models.BooleanField(default=False)
+    if(es_staff):
+        rol = models.CharField(max_length=20, choices=OPCIONES_ROL)
     else:
-        es_staff = False
+        rol = models.CharField(max_length=20, default='cliente')
     fecha_registro = models.DateTimeField(default=timezone.now)
 
 # RECEPCIONISTA
@@ -71,7 +70,7 @@ class Camping(models.Model):
 # PARCELA
 class Parcela(models.Model):
     camping = models.ForeignKey(Camping, on_delete=models.CASCADE)
-    numero = models.IntegerField(unique=True)
+    numero = models.IntegerField(unique=False)
     capacidad = models.PositiveIntegerField(default=2)
     tiene_sombra = models.BooleanField(default=False)
 
@@ -118,10 +117,9 @@ class ServiciosExtra(models.Model):
 # RESERVAEXTRA
 class ReservaExtra(models.Model):
     reserva = models.ForeignKey(Reserva, on_delete=models.CASCADE)
-    servicios_extra = models.ForeignKey(ServiciosExtra, on_delete=models.CASCADE)
+    servicios_extra = models.ManyToManyField(ServiciosExtra)
     cantidad_solicitada = models.IntegerField(default=1)
     observaciones = models.CharField(max_length=150, null=True, blank=True)
-
 
 
 # FACTURA
