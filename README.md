@@ -142,7 +142,7 @@ Atributos:
 - `pagado`: Estado del pago.
 
 
-## Parámetros Utilizados
+## Parámetros Utilizados para la creación de los Modelos
 - `max_length`: Limita la longitud del texto.
 - `unique`: Asegura que el valor sea único y no se repita.
 - `default`: Establece un valor por defecto.
@@ -153,7 +153,16 @@ Atributos:
 - `blank`: Define si el campo puede estar vacío.
 - `null`: Indica si el campo puede ser nulo.
 - `timezone.now`: Devuelve la fecha/hora actual.
+- `help_text`: Nos permite agregar un texto de ayuda.
 
+
+## Parámetros Utilizados para la generación de datos con Faker
+- `chance_of_getting_true`: Permite indicar el porcentaje de que un boolean sea True.
+- `random.randint`: Devuelve un numero entero mayor/igual y menor/igual que dos valores límite. 
+- `random.uniform`: Devuelve un numero float mayor/igual y menor/igual que dos valores límite.
+- `variable.{campo}.add`: Agrega (En mi caso, utilizado con v.cliente.add o re.servicios_extra.add).
+- `round`: Redondea un número float, a unos decimales que se indiquen.
+- `date_between_dates`: Agrega una fecha entre otras dos pasadas por parámetros.
 
 ## DIAGRAMA DE CLASES
 ![Diagrama del modelo Entidad-Relacion](diagrama/ModeloE_R_Camping.png)
