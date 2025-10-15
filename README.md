@@ -153,7 +153,7 @@ Atributos:
 - `blank`: Define si el campo puede estar vacío.
 - `null`: Indica si el campo puede ser nulo.
 - `timezone.now`: Devuelve la fecha/hora actual.
-
+- `models.PROTECT`: Impide que se elimine el campo si está relacionado con otro registro.
 
 ## DIAGRAMA DE CLASES
 ![Diagrama del modelo Entidad-Relacion](diagrama/ModeloE_R_Camping.png)
