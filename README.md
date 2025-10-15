@@ -153,6 +153,7 @@ Atributos:
 - `blank`: Define si el campo puede estar vacío.
 - `null`: Indica si el campo puede ser nulo.
 - `timezone.now`: Devuelve la fecha/hora actual.
+- `models.PROTECT`: Impide que se elimine el campo si está relacionado con otro registro.
 - `help_text`: Nos permite agregar un texto de ayuda.
 
 
