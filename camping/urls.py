@@ -1,8 +1,9 @@
-from django.urls import pathlib
+from django.urls import path
 from .import views
 
 urlpatterns = [
-    path('', views. , name=''),
+    path('', views.index , name='index'),
+    path('campings/', views.ver_campings , name='ver_campings'),
     
 ]
 
