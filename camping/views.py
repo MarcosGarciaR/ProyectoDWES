@@ -16,4 +16,13 @@ def ver_campings(request):
     return render(request, 'URLs/campings.html', {"mostrar_campings":campings})
 
 def ver_reservas_por_fecha(request):
+    reservas = Reserva.objects.select_related('cliente__datos_cliente').order_by('fecha_inicio')
+    #reservas = (Reserva.objects.raw("SELECT cr.id AS id, cp.nombre, cp.apellido, cr.fecha_inicio, cr.fecha_fin  FROM camping_reserva cr "
+    #                                + " JOIN camping_cliente cc ON cr.cliente_id = cc.id "
+    #                                + " JOIN camping_persona cp ON cc.id = cp.id "
+    #                                "   ORDER BY cr.fecha_inicio"))
     
+    return render(request, 'URLs/reservas_fecha.html', {"mostrar_reservas":reservas})
+
+
+
