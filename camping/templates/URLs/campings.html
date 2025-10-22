@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campings</title>
+</head>
+<body>
+    <ul>
+    {% for camping in mostrar_campings %}
+
+        <li>
+        <h2>Nombre: {{ camping.nombre }}</h2>
+        
+        <h4>Ubicación: {{ camping.ubicacion }}</h4>
+        <p>Estrellas: {{ camping.estrellas }}</p>
+        <p>Sitio Web: {{ camping.sitio_web }}</p>
+        <hr>
+
+        </li>
+    {% empty %}
+        <p>No hay campings disponibles</p>
+    {% endfor %}
+    </ul>
+</body>
+</html>
