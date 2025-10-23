@@ -27,9 +27,15 @@ def ver_reservas_por_fecha(request):
 
 
 def ver_reserva_por_id(request, id_reserva):
-    reserva = Reserva.objects.select_related().prefetch_related().get(id=id_reserva)
+    reserva = Reserva.objects.select_related('cliente__datos_cliente').prefetch_related("actividades").get(id=id_reserva)
     
-    reserva = Reserva.objects.raw("SELECT * from camping_reserva"
-                                    + "")
-    return render(request, 'URLs/reserva_por_id.html', {'mostrar_reserva_por_id':reserva})
-
+    """
+    reserva = Reserva.objects.raw("SELECT cr.id, cr.fecha_inicio, cr.fecha_fin, cp.nombre, cact.* from camping_reserva cr"
+                                    + "JOIN camping_camping_cliente cc ON cr.cliente_id = cc.id "
+                                    + "JOIN camping_persona cp ON cc.id = cp.id "
+                                    + "JOIN camping_reserva_actividades cra ON cra.reserva_id= cr.id "
+                                    + "JOIN camping_actividad cact ON cra.actividad_id = cact.id"
+                                    + "WHERE cr.id = id_reserva")
+    """
+    
+    return render(request, 'URLs/reserva_por_id.html', {'mostrar_reservaid':reserva})

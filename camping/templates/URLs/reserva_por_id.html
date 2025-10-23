@@ -6,15 +6,20 @@
     <title>Reserva por id</title>
 </head>
 <body>
-    <h1>Cliente: {{nombre}}{{apellido}}</h1>
-    <p>Fecha de Inicio {{}}</p>
-    <p>Fecha de Fin {{}}</p>
+    
+    <h1>Cliente: {{mostrar_reservaid.cliente.datos_cliente.nombre}}{{mostrar_reservaid.cliente.datos_cliente.apellido}}</h1>
+    <p>Fecha de Inicio: <i>{{mostrar_reservaid.fecha_inicio}}</i></p>
+    <p>Fecha de Fin: <i>{{mostrar_reservaid.fecha_fin}}</i></p>
 
     <h2>Actividades contratadas</h2>
     <ul>
-        {% for  in  %}
-        
-        {% empty %%}
+        {% for a in mostrar_reservaid.actividades.all %}
+        <li>
+            {{ a.nombre }}
+        </li>
+        {% empty %}
+        <li>No hay actividades contratadas para esta reserva.</li>
+
         {% endfor%}
 
     </ul>
