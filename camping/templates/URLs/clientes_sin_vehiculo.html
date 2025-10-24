@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes</title>
+</head>
+<body>
+    
+    <ul>
+        {% for cliente in mostrar_clientes_sin_vehiculo %}
+        <li>
+            <h2>Cliente:{{ cliente__datos_cliente__datos_usuario__persona.nombre }} {{ cliente.datos_cliente__datos_usuario.apellido }}</h2>
+            <p>Fecha de nacimiento: {{ cliente__datos_cliente__datos_usuario__persona.fecha_nacimiento }}</p>
+
+            <p>Teléfono de contacto: {{ cliente__datos_cliente__datos_usuario__persona.telefono }}</p>
+        </li>
+        {% empty %}
+        <li>Todos los clientes tienen vehículo asociado</li>
+        {% endfor %}
+
+    </ul>
+</body>
+</html>

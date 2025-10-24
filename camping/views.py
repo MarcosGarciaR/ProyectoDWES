@@ -103,4 +103,14 @@ def busqueda_descripcion_serviciosextra(request, texto):
     return render(request, 'URLs/servicios_extra_descripcion.html', {'mostrar_servicios':servicios})
 
 
+#   URL con filtro none CLIENTES que no aparecen en la tabla intermedia VEHICULO_CLIENTE
+def clientes_sin_vehiculo(request):
+    clientes = Cliente.objects.select_related('datos_cliente').prefetch_related("vehiculos").filter(id=None)
+    
+    """
+    clientes = Cliente.objects.raw("SELECT * FROM camping_cliente cc"
+                                    + "WHERE cc.id NOT IN ("SELECT cliente_id FROM camping_vehiculo_cliente")")
+    """
+    
+    return render(request, 'URLs/clientes_sin_vehiculo.html', {'mostrar_clientes_sin_vehiculo':clientes})
 

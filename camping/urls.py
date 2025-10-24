@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from .import views
 
 urlpatterns = [
@@ -10,6 +10,7 @@ urlpatterns = [
     path('servicios/', views.precio_medio_servicios , name='precio_medio_servicios'),
     path('cuidadores/<int:puntuacionPedida>/', views.puntuacionydisponibilidad_cuidadores , name='cuidadores_puntuacion_disponibilidad'),
     path('cuidadores/<str:texto>/', views.busqueda_descripcion_serviciosextra , name='descripcion_serviciosextra'),
+    re_path(r"^filtro[0-9]$", views.clientes_sin_vehiculo , name='clientes_sin_vehiculo'),
     
 ]
 

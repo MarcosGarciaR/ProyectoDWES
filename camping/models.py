@@ -98,7 +98,6 @@ class Actividad(models.Model):
 
 
 
-
 # RESERVA
 class Reserva(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
