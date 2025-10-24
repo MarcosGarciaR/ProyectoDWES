@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import *
+from django.db.models import Avg, Max, Min
 # from django.db.models import Q, Prefetch
 # from django.views.defaults import page_not_found
 
@@ -43,7 +44,6 @@ def ver_reserva_por_id(request, id_reserva):
 
 
 #   Hacer filtro AND con precio de factura > 'X' y capacidad de personas de la Parcela > Y
-
 def ver_factura_precio_capacidad(request, precio, capacidadParcela):
     facturas = Factura.objects.select_related('reserva__reserva__parcela').filter(total__gte=precio, reserva__reserva__parcela__capacidad__gte=capacidadParcela)
     
@@ -55,3 +55,16 @@ def ver_factura_precio_capacidad(request, precio, capacidadParcela):
                                     + "WHERE cf.total > precio AND cp.capacidad > capacidadParcela")
     """
     return render(request, 'URLs/factura_precio_capacidad.html',{'mostrar_facturas':facturas})
+
+
+#   URL con la media de precios de los servicios
+def precio_medio_servicios(request):
+    servicios = ServiciosExtra.objects.aggregate(Avg("precio"),Max("precio"),Min("precio"))
+    
+    media = servicios["precio__avg"]
+    maximo = servicios["precio__max"] 
+    minimo = servicios["precio__min"]
+    return render(request, 'URLs/servicios_media_puntos.html',{"media":media, "maximo":maximo, "minimo":minimo})
+
+
+
