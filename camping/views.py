@@ -12,19 +12,24 @@ def index(request):
 
 def ver_campings(request):
     campings = Camping.objects.all()
-    #campings = (Camping.objects.raw(" SELECT * FROM camping_camping c"))
+    
+    """
+    campings = (Camping.objects.raw(" SELECT * FROM camping_camping c"))
+    """
     
     return render(request, 'URLs/campings.html', {"mostrar_campings":campings})
 
 
 def ver_reservas_por_fecha(request):
     reservas = Reserva.objects.select_related('cliente__datos_cliente').order_by('fecha_inicio')
+    
     """
     reservas = (Reserva.objects.raw("SELECT cr.id AS id, cp.nombre, cp.apellido, cr.fecha_inicio, cr.fecha_fin  FROM camping_reserva cr "
                                     + " JOIN camping_cliente cc ON cr.cliente_id = cc.id "
                                     + " JOIN camping_persona cp ON cc.id = cp.id "
                                     "   ORDER BY cr.fecha_inicio"))
     """
+    
     return render(request, 'URLs/reservas_fecha.html', {"mostrar_reservas":reservas})
 
 
@@ -54,20 +59,48 @@ def ver_factura_precio_capacidad(request, precio, capacidadParcela):
                                     + "JOIN camping_parcela cp ON cr.parcela_id = cp.id"
                                     + "WHERE cf.total > precio AND cp.capacidad > capacidadParcela")
     """
+    
     return render(request, 'URLs/factura_precio_capacidad.html',{'mostrar_facturas':facturas})
 
 
 #   URL con la media de precios de los servicios
 def precio_medio_servicios(request):
     servicios = ServiciosExtra.objects.aggregate(Avg("precio"),Max("precio"),Min("precio"))
-    
     media = servicios["precio__avg"]
     maximo = servicios["precio__max"] 
-    minimo = servicios["precio__min"]
+    minimo = servicios["precio__min"]    
+    
+    """
+    servicios = ServiciosExtra.objects.raw("SELECT AVG(precio), MAX(precio), MIN(precio) FROM camping_serviciosextra")
+    """
+    
     return render(request, 'URLs/servicios_media_puntos.html',{"media":media, "maximo":maximo, "minimo":minimo})
 
 
 #   Hacer filtro OR con las puntuaciones de los cuidadores, > X o esté disponible de noche
 def puntuacionydisponibilidad_cuidadores(request, puntuacionPedida):
     cuidadores = Cuidador.objects.select_related('usuario__datos_usuario').filter(Q(puntuacion__gt=puntuacionPedida) | Q(disponible_de_noche=True) )
+    
+    """
+    cuidadores = Cuidador.objects.raw("Select * FROM camping_cuidador cc"
+                                        + "JOIN camping_perfilusuario cpu ON cc.usuario_id = cpu.id"
+                                        + "JOIN camping_persona cp ON cpu.datos_usuario.id = cp.id"
+                                        + "WHERE cc.puntuacion > puntuacionPedida OR cc.disponible_de_noche")
+    """
+    
     return render(request, 'URLs/puntuacionydisponibilidad_cuidadores.html', {'mostrar_cuidadores':cuidadores})
+
+
+#   Busqueda de ServiciosExtra cuya descripción tenga la palabra acciones.
+def busqueda_descripcion_serviciosextra(request, texto):
+    servicios = ServiciosExtra.objects.filter(descripcion__contains=texto)
+    
+    """
+    servicios = ServiciosExtra.objects.raw("SELECT * FROM camping_serviciosextra cse "
+                                            + "WHERE cse.descripcion LIKE %texto%")
+    """
+    
+    return render(request, 'URLs/servicios_extra_descripcion.html', {'mostrar_servicios':servicios})
+
+
+

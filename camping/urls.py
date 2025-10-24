@@ -9,6 +9,7 @@ urlpatterns = [
     path('factura-coste/<int:precio>/<int:capacidadParcela>/', views.ver_factura_precio_capacidad , name='ver_facturas'),
     path('servicios/', views.precio_medio_servicios , name='precio_medio_servicios'),
     path('cuidadores/<int:puntuacionPedida>/', views.puntuacionydisponibilidad_cuidadores , name='cuidadores_puntuacion_disponibilidad'),
+    path('cuidadores/<str:texto>/', views.busqueda_descripcion_serviciosextra , name='descripcion_serviciosextra'),
     
 ]
 

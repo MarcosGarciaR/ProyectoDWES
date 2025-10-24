@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios Extra</title>
+</head>
+<body>
+    <ul>
+        {% for servicio in mostrar_servicios %}
+        <li>
+            <h1>{{ servicio.nombre }}</h1>
+            <h4>Precio: <i>{{ servicio.precio }}</i> €</h4>
+            <p>{{ servicio.descripcion}}</p>
+        </li>
+        {% empty %}
+        <li>No hay servicios que tengan esta palabra en su descripción.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
