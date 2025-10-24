@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import *
-from django.db.models import Avg, Max, Min
+from django.db.models import Avg, Max, Min, Q
 # from django.db.models import Q, Prefetch
 # from django.views.defaults import page_not_found
 
@@ -43,7 +43,7 @@ def ver_reserva_por_id(request, id_reserva):
     return render(request, 'URLs/reserva_por_id.html', {'mostrar_reservaid':reserva})
 
 
-#   Hacer filtro AND con precio de factura > 'X' y capacidad de personas de la Parcela > Y
+#   Hacer filtro AND con precio de factura >= 'X' y capacidad de personas de la Parcela >= Y
 def ver_factura_precio_capacidad(request, precio, capacidadParcela):
     facturas = Factura.objects.select_related('reserva__reserva__parcela').filter(total__gte=precio, reserva__reserva__parcela__capacidad__gte=capacidadParcela)
     
@@ -67,4 +67,7 @@ def precio_medio_servicios(request):
     return render(request, 'URLs/servicios_media_puntos.html',{"media":media, "maximo":maximo, "minimo":minimo})
 
 
-
+#   Hacer filtro OR con las puntuaciones de los cuidadores, > X o esté disponible de noche
+def puntuacionydisponibilidad_cuidadores(request, puntuacionPedida):
+    cuidadores = Cuidador.objects.select_related('usuario__datos_usuario').filter(Q(puntuacion__gt=puntuacionPedida) | Q(disponible_de_noche=True) )
+    return render(request, 'URLs/puntuacionydisponibilidad_cuidadores.html', {'mostrar_cuidadores':cuidadores})
