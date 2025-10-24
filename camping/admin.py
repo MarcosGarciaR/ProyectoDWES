@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Persona, PerfilUsuario, Cliente, Recepcionista, Cuidador, Camping, Parcela, Vehiculo, Actividad, Reserva, ServiciosExtra, ReservaExtra, Factura
+from .models import Persona, PerfilUsuario, Cliente, Recepcionista, Cuidador, Camping, Parcela, Vehiculo, Actividad, Reserva, ServiciosExtra, ReservaExtras, Factura
 
 # Register your models here.
 admin.site.register(Persona)
@@ -16,7 +16,7 @@ admin.site.register(Actividad)
 
 admin.site.register(Reserva)
 admin.site.register(ServiciosExtra)
-admin.site.register(ReservaExtra)
+admin.site.register(ReservaExtras)
 
 admin.site.register(Factura)
 

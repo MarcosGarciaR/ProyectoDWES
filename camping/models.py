@@ -21,7 +21,7 @@ class PerfilUsuario(models.Model):
         ('cuidador', 'Cuidador')
     ]
     
-    datos_usuario = models.OneToOneField(Persona, on_delete=models.CASCADE)
+    datos_usuario = models.OneToOneField(Persona, on_delete=models.CASCADE, default="")
     username = models.CharField(max_length=50, unique=True, default="")
     password = models.CharField(max_length=128)
     es_staff = models.BooleanField(default=False)
@@ -52,7 +52,7 @@ class Cuidador(models.Model):
 
 # CLIENTE
 class Cliente(models.Model):
-    datos_cliente = models.OneToOneField(Persona, on_delete=models.CASCADE)
+    datos_cliente = models.OneToOneField(Persona, on_delete=models.CASCADE, default="")
     numero_cuenta = models.CharField(max_length=30, blank=True, null=True)
     nacionalidad = models.CharField(max_length=50)
     acepta_publicidad = models.BooleanField(default=False)
@@ -114,9 +114,9 @@ class ServiciosExtra(models.Model):
     descripcion = models.TextField(blank=True)
     disponible = models.BooleanField(default=True)
 
-# RESERVAEXTRA
-class ReservaExtra(models.Model):
-    reserva = models.ForeignKey(Reserva, on_delete=models.CASCADE)
+# RESERVAEXTRAS
+class ReservaExtras(models.Model):
+    reserva = models.OneToOneField(Reserva, on_delete=models.CASCADE)
     servicios_extra = models.ManyToManyField(ServiciosExtra)
     cantidad_solicitada = models.IntegerField(default=1)
     observaciones = models.CharField(max_length=150, null=True, blank=True)
@@ -124,12 +124,7 @@ class ReservaExtra(models.Model):
 
 # FACTURA
 class Factura(models.Model):
-    reserva = models.OneToOneField(ReservaExtra, on_delete=models.CASCADE)
+    reserva = models.OneToOneField(ReservaExtras, on_delete=models.CASCADE)
     total = models.DecimalField(max_digits=8, decimal_places=2)
     emitida_en = models.DateTimeField(default=timezone.now)
     pagado = models.BooleanField(default=False)
-    
-    
-    
-    
-    
