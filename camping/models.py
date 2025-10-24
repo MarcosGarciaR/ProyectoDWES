@@ -21,7 +21,7 @@ class PerfilUsuario(models.Model):
         ('cuidador', 'Cuidador')
     ]
     
-    datos_usuario = models.OneToOneField(Persona, on_delete=models.CASCADE, default="")
+    datos_usuario = models.OneToOneField(Persona, on_delete=models.CASCADE)
     username = models.CharField(max_length=50, unique=True, default="")
     password = models.CharField(max_length=128)
     es_staff = models.BooleanField(default=False)
@@ -52,7 +52,7 @@ class Cuidador(models.Model):
 
 # CLIENTE
 class Cliente(models.Model):
-    datos_cliente = models.OneToOneField(Persona, on_delete=models.CASCADE, default="")
+    datos_cliente = models.OneToOneField(Persona, on_delete=models.CASCADE)
     numero_cuenta = models.CharField(max_length=30, blank=True, null=True)
     nacionalidad = models.CharField(max_length=50)
     acepta_publicidad = models.BooleanField(default=False)
@@ -124,7 +124,7 @@ class ReservaExtra(models.Model):
 
 # FACTURA
 class Factura(models.Model):
-    reserva = models.ForeignKey(ReservaExtra, on_delete=models.CASCADE)
+    reserva = models.OneToOneField(ReservaExtra, on_delete=models.CASCADE)
     total = models.DecimalField(max_digits=8, decimal_places=2)
     emitida_en = models.DateTimeField(default=timezone.now)
     pagado = models.BooleanField(default=False)
