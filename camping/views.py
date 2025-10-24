@@ -42,6 +42,8 @@ def ver_reserva_por_id(request, id_reserva):
     return render(request, 'URLs/reserva_por_id.html', {'mostrar_reservaid':reserva})
 
 
+#   Hacer filtro AND con precio de factura > 'X' y capacidad de personas de la Parcela > Y
+
 def ver_factura_precio_capacidad(request, precio, capacidadParcela):
     facturas = Factura.objects.select_related('reservaextra__reserva').prefetch_related("reserva__parcela").filter(total__gt=precio, reserva__parcela__capacidad__gt=capacidadParcela)
     
@@ -53,3 +55,5 @@ def ver_factura_precio_capacidad(request, precio, capacidadParcela):
                                     + "WHERE cf.precio > precio AND cp.capacidad > capacidadParcela")
     """
     return render(request, 'URLs/factura_precio_capacidad.html',{'mostrar_facturas':facturas})
+
+

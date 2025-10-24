@@ -141,7 +141,7 @@ class Command(BaseCommand):
         ))
         
         for r in reservas:
-            re = ReservaExtra.objects.create(
+            re = ReservaExtras.objects.create(
             reserva = r,
             cantidad_solicitada = fake.random_int(1, 5),
             observaciones = fake.sentence(),

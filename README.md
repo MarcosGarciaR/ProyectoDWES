@@ -165,5 +165,17 @@ Atributos:
 - `round`: Redondea un número float, a unos decimales que se indiquen.
 - `date_between_dates`: Agrega una fecha entre otras dos pasadas por parámetros.
 
+
+## Parámetros Utilizados para la creación de las vistas
+- `select_related`: Sirve para obtener los datos de las relaciones OneToOne, ManytoOne.
+- `prefetch_related`: Sirve para obtener los datos de las relaciones ManytoMany.
+- `order_by`: Nos permite ordenar los resultados de una consulta.
+- `get`: Recibe cómo parámetro, la columna que desea buscar y el valor de esa columna, para obtener el registro concreto.
+- `filter`: Sirve para filtrar por un campo en la base de datos, podemos usar “,” para hacer "AND".
+- `__gt`: Nos permite buscar valores superiores al parámetro recibido (Mayor que)
+- `__it`: Nos permite buscar valores inferiores al parámetro recibido (Menor que)
+
+- `raw()`: Nos permite hacer las consultas como en SQL normal, aunque no están optimizadas.
+
 ## DIAGRAMA DE CLASES
 ![Diagrama del modelo Entidad-Relacion](diagrama/ModeloE_R_Camping.png)
