@@ -172,8 +172,13 @@ Atributos:
 - `order_by`: Nos permite ordenar los resultados de una consulta.
 - `get`: Recibe cómo parámetro, la columna que desea buscar y el valor de esa columna, para obtener el registro concreto.
 - `filter`: Sirve para filtrar por un campo en la base de datos, podemos usar “,” para hacer "AND".
-- `__gt`: Nos permite buscar valores superiores al parámetro recibido (Mayor que)
-- `__it`: Nos permite buscar valores inferiores al parámetro recibido (Menor que)
+
+### SÍMBOLOS MATEMÁTICOS DE DJANGO
+- `__gt`: Nos permite buscar valores superiores al parámetro recibido (Mayor que ESTRICTO) - greater than
+- `__lt`: Nos permite buscar valores inferiores al parámetro recibido (Menor que ESTRICTO) - less than
+- `__gte`: Valores superiores/iguales al parámetro recibido (Mayor o igual) - greater than or equals
+- `__lte`: Valores menores/iguales al parámetro recibido (Menor o igual) - greater than or equals
+
 
 - `raw()`: Nos permite hacer las consultas como en SQL normal, aunque no están optimizadas.
 

@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Factura con precio y capacidad</title>
-</head>
-<body>
-
+  </head>
+  <body>
     <ul>
-        
+      {% for fact in mostrar_facturas %}
+
+      <li>
+            <h3>Información de la parcela</h3>    
+        <p>Nº Parcela: {{ fact.reserva.reserva.parcela.numero }}&nbsp;&nbsp;&nbsp;Capacidad parcela: {{ fact.reserva.reserva.parcela.capacidad }}</p>
+        <p><b>Precio de la reserva: <i>{{ fact.total }}€</b></i></p>
+        <p>Fecha de emisión: {{ fact.emitida_en }}</p>    
+        <p>Estado del pago: {{ fact.pagado }}</p>
+
+        <hr />
+      </li>
+      {% empty %}
+      <p>No hay reservas que cumplan los requisitos</p>
+      {% endfor %}
     </ul>
-</body>
+  </body>
 </html>
