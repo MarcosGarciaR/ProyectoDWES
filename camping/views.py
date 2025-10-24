@@ -44,7 +44,7 @@ def ver_reserva_por_id(request, id_reserva):
 #   Hacer filtro AND con precio de factura > 'X' y capacidad de personas de la Parcela > Y
 
 def ver_factura_precio_capacidad(request, precio, capacidadParcela):
-    facturas = Factura.objects.select_related('reservaextra__reserva').prefetch_related("parcela").filter(total__gt=precio, parcela__capacidad__gt=capacidadParcela)
+    facturas = Factura.objects.select_related('reservaextra__reserva').prefetch_related("reserva__parcela").filter(total__gt=precio, reserva__parcela__capacidad__gt=capacidadParcela)
     
     """
     facturas = Factura.objects.raw("SELECT * FROM camping_factura cf"
