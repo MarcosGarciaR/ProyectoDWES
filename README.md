@@ -2,6 +2,7 @@
 Este proyecto tratará sobre una página web dedicada en un sistema de gestión de campings.
 Esta web permitirá administrar clientes, empleados, reservas, actividades y facturación.
 
+
 ## DEFINICIÓN DE LOS MODELOS
 ### **Persona** 
 Descripción: 
@@ -142,7 +143,7 @@ Atributos:
 - `pagado`: Estado del pago.
 
 
-## Parámetros Utilizados para la creación de los Modelos
+### Parámetros Utilizados para la creación de los Modelos
 - `max_length`: Limita la longitud del texto.
 - `unique`: Asegura que el valor sea único y no se repita.
 - `default`: Establece un valor por defecto.
@@ -157,7 +158,7 @@ Atributos:
 - `help_text`: Nos permite agregar un texto de ayuda.
 
 
-## Parámetros Utilizados para la generación de datos con Faker
+### Parámetros Utilizados para la generación de datos con Faker
 - `chance_of_getting_true`: Permite indicar el porcentaje de que un boolean sea True.
 - `random.randint`: Devuelve un numero entero mayor/igual y menor/igual que dos valores límite. 
 - `random.uniform`: Devuelve un numero float mayor/igual y menor/igual que dos valores límite.
@@ -166,12 +167,89 @@ Atributos:
 - `date_between_dates`: Agrega una fecha entre otras dos pasadas por parámetros.
 
 
-## Parámetros Utilizados para la creación de las vistas
+
+## Creación de las URLs
+
+### URL 1
+Mostrar la información de todos los campings existentes.
+
+Requisito/s que cumple:
+- Ninguno. Prueba inicial para comprender un poco el funcionamiento.
+
+### URL 2
+Mostrar todas las reservas ordenadas por fecha de inicio. 
+
+Requisito/s que cumple:
+- Parámetro entero
+- Relación OneToOne
+
+### URL 3
+Mostrar la reserva cuyo ID se recibe como parámetro.
+
+Requisito/s que cumple:
+- Parámetro entero
+- Ordenación con ORDER BY
+- Relación ManyToMany
+
+### URL 4
+Mostrar las facturas que tienen un coste superior o igual a 'X' y cuya parcela asociada tiene capacidad mayor o igual a 'Y'.
+
+Requisito/s que cumple:
+- Dos parámetros
+- Parámetro entero
+- Filtro AND
+- Relación OneToMany / ManyToOne
+
+### URL 5
+Mostrar Media, Máximo y Mínimo de los precios de los servicios disponibles.
+
+Requisito/s que cumple:
+- Qset con aggregate
+
+### URL 6
+Mostrar los cuidadores con puntuación superior a la recibida O con disponibilidad durante las noches.
+
+Requisito/s que cumple:
+- Parámetro entero
+- Filtro OR
+
+### URL 7
+Mostrar los servicios que incluyen una palabra en su descripción.
+
+Requisito/s que cumple:
+- Parámetro STR
+
+### URL 8
+Mostrar los clientes que no tienen vehículo asociado.
+
+Requisito/s que cumple:
+- r_path
+- Filtro none con tabla intermedia
+
+### URL 9
+Mostrar las reservas que no tienen actividades asociadas.
+El limit hará que solo se muestren X reservas (Yo voy a mostrar sólo 10)
+
+Arreglo ya que la URL 8 no muestra datos + propiedad Limit.
+
+
+Requisito/s que cumple:
+- Limit
+- r_path
+- Filtro none con tabla intermedia
+
+### URL 10
+Requisito/s que cumple:
+
+
+### Parámetros Utilizados para la creación de las vistas
 - `select_related`: Sirve para obtener los datos de las relaciones OneToOne, ManytoOne.
 - `prefetch_related`: Sirve para obtener los datos de las relaciones ManytoMany.
 - `order_by`: Nos permite ordenar los resultados de una consulta.
 - `get`: Recibe cómo parámetro, la columna que desea buscar y el valor de esa columna, para obtener el registro concreto.
 - `filter`: Sirve para filtrar por un campo en la base de datos, podemos usar “,” para hacer "AND".
+- `Prefetch`: Permite realizar Inner Join en las relaciones inversas mediante el uso del atributo related_name.
+- `__isnull=True`: Igual que el None, pero para relaciones MtM. En mi caso, la relación es MtM por lo que None no valdría, debe utilizarse 'isnull'.
 
 ### SÍMBOLOS MATEMÁTICOS DE DJANGO
 - `__gt`: Nos permite buscar valores superiores al parámetro recibido (Mayor que ESTRICTO) - greater than

@@ -104,7 +104,7 @@ class Reserva(models.Model):
     parcela = models.OneToOneField(Parcela, on_delete=models.PROTECT)
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField()
-    actividades = models.ManyToManyField(Actividad)
+    actividades = models.ManyToManyField(Actividad, related_name="actividades")
 
 # ServiciosEXTRA
 class ServiciosExtra(models.Model):
