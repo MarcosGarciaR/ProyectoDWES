@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reservas de cliente</title>
+</head>
+<body>
+    
+    <h1>Reservas de {{ cliente.datos_cliente.nombre }} {{cliente.datos_cliente.apellido }}</h1>
+    <ul>
+        {% for reserva in cliente.reservas.all %}
+        <li>{{ reserva.fecha_inicio }} - {{ reserva.fecha_fin }}</li>
+        {% empty %}
+        <li>Este cliente no tiene reservas.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

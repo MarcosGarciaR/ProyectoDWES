@@ -30,7 +30,7 @@ class Command(BaseCommand):
                 datos_usuario = persona,
                 username = fake.unique.user_name(),
                 password = fake.password(),
-                es_staff = fake.boolean(chance_of_getting_true=66),
+                es_staff = fake.boolean(chance_of_getting_true=20),
                 fecha_registro = timezone.now()
             )
             
@@ -120,16 +120,17 @@ class Command(BaseCommand):
         
         reservas = []    
         for c in clientes:
-            miFecha_inicio = fake.date_this_year()
-            r = Reserva.objects.create(
-                cliente = c,
-                parcela = random.choice(parcelas),
-            fecha_inicio = miFecha_inicio, 
-            fecha_fin =  fake.date_between_dates(miFecha_inicio, date_end=timezone.now().date()),
-            
-            )
-        r.actividades.set(random.sample(actividades, random.randint(1,3)))
-        reservas.append(r)
+            for _ in range(random.randint(1,3)):
+                miFecha_inicio = fake.date_this_year()
+                r = Reserva.objects.create(
+                    cliente = c,
+                    parcela = random.choice(parcelas),
+                fecha_inicio = miFecha_inicio, 
+                fecha_fin =  fake.date_between_dates(miFecha_inicio, date_end=timezone.now().date()),
+                
+                )
+                r.actividades.set(random.sample(actividades, random.randint(1,3)))
+                reservas.append(r)
         
         servicios = []
         for _ in range(5):
@@ -141,16 +142,17 @@ class Command(BaseCommand):
         ))
         
         for r in reservas:
-            re = ReservaExtras.objects.create(
-            reserva = r,
-            cantidad_solicitada = fake.random_int(1, 5),
-            observaciones = fake.sentence(),
-            )
+            if fake.boolean(chance_of_getting_true=70):
+                re = ReservaExtras.objects.create(
+                reserva = r,
+                cantidad_solicitada = fake.random_int(1, 5),
+                observaciones = fake.sentence(),
+                )
             re.servicios_extra.add(*random.sample(servicios, random.randint(1, 5)))
             
             Factura.objects.create(
                 reserva = re,
-                total = random.uniform(50, 2000),
+                total = round(random.uniform(50, 2000), 2),
                 emitida_en = timezone.now(), 
                 pagado = fake.boolean()
             )

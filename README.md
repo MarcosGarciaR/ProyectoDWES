@@ -232,15 +232,16 @@ El limit hará que solo se muestren X reservas (Yo voy a mostrar sólo 10)
 
 Arreglo ya que la URL 8 no muestra datos + propiedad Limit.
 
-
 Requisito/s que cumple:
 - Limit
 - r_path
 - Filtro none con tabla intermedia
 
 ### URL 10
-Requisito/s que cumple:
+Mostrar las reservas que ha hecho un cliente.
 
+Requisito/s que cumple:
+- Relación Reversa
 
 ### Parámetros Utilizados para la creación de las vistas
 - `select_related`: Sirve para obtener los datos de las relaciones OneToOne, ManytoOne.

@@ -127,3 +127,9 @@ def reservas_sin_actividades(request):
     """
     
     return render(request, 'URLs/reservas_sin_actividades.html', {'mostrar_reservas':reservas})
+
+
+#   Ver las reservas que ha realizado un cliente.
+def reservas_de_cliente_por_id(request, cliente_id):
+    cliente = Cliente.objects.select_related('datos_cliente') .prefetch_related("reservas").get(id=cliente_id)
+    return render(request, 'URLs/reservas_cliente.html', {'cliente': cliente})
