@@ -138,3 +138,6 @@ def reservas_de_cliente_por_id(request, cliente_id):
 #   PÁGINAS DE ERRORES
 def mi_error_404(request, exception=None):
     return render(request, 'Errores/404.html',None,None,404)
+
+def mi_error_400(request, exception=None):
+    return render(request, 'Errores/400.html',None,None,400)
