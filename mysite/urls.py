@@ -25,6 +25,7 @@ urlpatterns = [
 ]
 
 
-from django.conf.urls import handler404, handler400
+from django.conf.urls import handler404, handler400, handler403
 handler404 = "camping.views.mi_error_404"
 handler400 = "camping.views.mi_error_400"
+handler403 = "camping.views.mi_error_403"

@@ -141,3 +141,6 @@ def mi_error_404(request, exception=None):
 
 def mi_error_400(request, exception=None):
     return render(request, 'Errores/400.html',None,None,400)
+
+def mi_error_403(request, exception=None):
+    return render(request, 'Errores/403.html',None,None,403)
