@@ -107,7 +107,7 @@ def busqueda_descripcion_serviciosextra(request, texto):
 
 #   URL con filtro none CLIENTES que no aparecen en la tabla intermedia VEHICULO_CLIENTE
 def clientes_sin_vehiculo(request):
-    clientes = Cliente.objects.select_related('datos_cliente').prefetch_related(Prefetch("vehiculos")).filter(vehiculos__isnull=True)
+    clientes = Cliente.objects.select_related('datos_cliente').filter(vehiculos__isnull=True)
     
     """
     clientes = Cliente.objects.raw("SELECT * FROM camping_cliente cc"
@@ -132,6 +132,14 @@ def reservas_sin_actividades(request):
 #   Ver las reservas que ha realizado un cliente.
 def reservas_de_cliente_por_id(request, cliente_id):
     cliente = Cliente.objects.select_related('datos_cliente') .prefetch_related("reservas").get(id=cliente_id)
+    
+    """
+    cliente = Cliente.objects.raw("SELECT * FROM camping_cliente cc"
+                                    + "JOIN camping_datos_cliente cdc ON c.datos_cliente_id = cdc.id"
+                                    + "JOIN camping_reserva cr ON cr.cliente_id = cc.id"
+                                    + "WHERE c.id = %s", [cliente_id])
+    """
+    
     return render(request, 'URLs/reservas_cliente.html', {'cliente': cliente})
 
 

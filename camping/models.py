@@ -101,7 +101,7 @@ class Actividad(models.Model):
 # RESERVA
 class Reserva(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name="reservas")
-    parcela = models.OneToOneField(Parcela, on_delete=models.PROTECT)
+    parcela = models.ForeignKey(Parcela, on_delete=models.PROTECT)
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField()
     actividades = models.ManyToManyField(Actividad, related_name="actividades")

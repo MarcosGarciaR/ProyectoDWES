@@ -7,18 +7,20 @@
 </head>
 <body>
     
-    <ul>
+
+    </ul>
+
+        <ul>
         {% for cliente in mostrar_clientes_sin_vehiculo %}
         <li>
-            <h2>Cliente:{{ cliente__datos_cliente__datos_usuario__persona.nombre }} {{ cliente.datos_cliente__datos_usuario.apellido }}</h2>
-            <p>Fecha de nacimiento: {{ cliente__datos_cliente__datos_usuario__persona.fecha_nacimiento }}</p>
-
-            <p>Teléfono de contacto: {{ cliente__datos_cliente__datos_usuario__persona.telefono }}</p>
+            <h2>Cliente: {{ cliente.datos_cliente.nombre }} {{ cliente.datos_cliente.apellido }}</h2>
+            <p>Fecha de nacimiento: {{ cliente.datos_cliente.fecha_nacimiento }}</p>
+            <p>Teléfono de contacto: {{ cliente.datos_cliente.telefono }}</p>      
+            <p>Nacionalidad: {{ cliente.nacionalidad }}</p>
         </li>
         {% empty %}
         <li>Todos los clientes tienen vehículo asociado</li>
         {% endfor %}
-
     </ul>
 </body>
 </html>

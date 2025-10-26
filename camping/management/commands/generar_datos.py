@@ -99,14 +99,15 @@ class Command(BaseCommand):
         
         OPCIONES_VEHICULO = ['coche','moto','caravana']
         for cl in clientes:
-            for _ in range(random.randint(1, 3)):
-                v = Vehiculo.objects.create(
-                    tipo = fake.random.choice(OPCIONES_VEHICULO),
-                    matricula = fake.unique.license_plate(),
-                    peso = round(random.uniform(500, 3500), 2),
-                    marca = fake.company()
-                )
-            v.cliente.add(cl)
+            if fake.boolean(chance_of_getting_true=85):
+                for _ in range(random.randint(1, 3)):
+                    v = Vehiculo.objects.create(
+                        tipo = fake.random.choice(OPCIONES_VEHICULO),
+                        matricula = fake.unique.license_plate(),
+                        peso = round(random.uniform(500, 3500), 2),
+                        marca = fake.company()
+                    )
+                v.cliente.add(cl)
             
         actividades = []
         for _ in range(10):
@@ -129,7 +130,8 @@ class Command(BaseCommand):
                 fecha_fin =  fake.date_between_dates(miFecha_inicio, date_end=timezone.now().date()),
                 
                 )
-                r.actividades.set(random.sample(actividades, random.randint(1,3)))
+                if fake.boolean(chance_of_getting_true=85):
+                    r.actividades.set(random.sample(actividades, random.randint(1,5)))
                 reservas.append(r)
         
         servicios = []
@@ -142,12 +144,11 @@ class Command(BaseCommand):
         ))
         
         for r in reservas:
-            if fake.boolean(chance_of_getting_true=70):
-                re = ReservaExtras.objects.create(
-                reserva = r,
-                cantidad_solicitada = fake.random_int(1, 5),
-                observaciones = fake.sentence(),
-                )
+            re = ReservaExtras.objects.create(
+            reserva = r,
+            cantidad_solicitada = fake.random_int(1, 5),
+            observaciones = fake.sentence(),
+            )
             re.servicios_extra.add(*random.sample(servicios, random.randint(1, 5)))
             
             Factura.objects.create(
