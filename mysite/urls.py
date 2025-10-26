@@ -23,3 +23,7 @@ urlpatterns = [
     path('__debug__/', include("debug_toolbar.urls")),
     path('', include('camping.urls')),
 ]
+
+
+from django.conf.urls import handler404
+handler404 = "camping.views.mi_error_404"

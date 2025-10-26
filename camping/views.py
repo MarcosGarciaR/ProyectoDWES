@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import *
 from django.db.models import Avg, Max, Min, Q, Prefetch
-# from django.views.defaults import page_not_found
+from django.views.defaults import page_not_found
 
 
 # Create your views here.
@@ -133,3 +133,8 @@ def reservas_sin_actividades(request):
 def reservas_de_cliente_por_id(request, cliente_id):
     cliente = Cliente.objects.select_related('datos_cliente') .prefetch_related("reservas").get(id=cliente_id)
     return render(request, 'URLs/reservas_cliente.html', {'cliente': cliente})
+
+
+#   PÁGINAS DE ERRORES
+def mi_error_404(request, exception=None):
+    return render(request, 'Errores/404.html',None,None,404)
