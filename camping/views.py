@@ -21,7 +21,7 @@ def ver_campings(request):
 
 #   Ordenar las reservas por fecha de inicio
 def ver_reservas_por_fecha(request):
-    reservas = Reserva.objects.select_related('cliente__datos_cliente').order_by('fecha_inicio')
+    reservas = Reserva.objects.select_related('cliente__datos_cliente').order_by('fecha_inicio').all()
     
     """
     reservas = (Reserva.objects.raw("SELECT cr.id AS id, cp.nombre, cp.apellido, cr.fecha_inicio, cr.fecha_fin  FROM camping_reserva cr "
@@ -51,7 +51,7 @@ def ver_reserva_por_id(request, id_reserva):
 
 #   Mostrar las facturas mediante el uso de un filtro AND con precio de factura >= 'X' y capacidad de personas de la Parcela >= Y
 def ver_factura_precio_capacidad(request, precio, capacidadParcela):
-    facturas = Factura.objects.select_related('reserva__reserva__parcela').filter(total__gte=precio, reserva__reserva__parcela__capacidad__gte=capacidadParcela)
+    facturas = Factura.objects.select_related('reserva__reserva__parcela').filter(total__gte=precio, reserva__reserva__parcela__capacidad__gte=capacidadParcela).all()
     
     """
     facturas = Factura.objects.raw("SELECT * FROM camping_factura cf"
@@ -67,9 +67,13 @@ def ver_factura_precio_capacidad(request, precio, capacidadParcela):
 #   URL con la media de precios de los servicios
 def precio_medio_servicios(request):
     servicios = ServiciosExtra.objects.aggregate(Avg("precio"),Max("precio"),Min("precio"))
+    
+    """AGREGAR ALL
+        servicios = ServiciosExtra.objects. 
+    """
     media = servicios["precio__avg"]
     maximo = servicios["precio__max"] 
-    minimo = servicios["precio__min"]    
+    minimo = servicios["precio__min"]
     
     """
     servicios = ServiciosExtra.objects.raw("SELECT AVG(precio), MAX(precio), MIN(precio) FROM camping_serviciosextra")
@@ -80,7 +84,7 @@ def precio_medio_servicios(request):
 
 #   Mostrar los cuidadores mediante un filtro OR con las puntuaciones de los cuidadores, > X o esté disponible de noche
 def puntuacionydisponibilidad_cuidadores(request, puntuacionPedida):
-    cuidadores = Cuidador.objects.select_related('usuario__datos_usuario').filter(Q(puntuacion__gt=puntuacionPedida) | Q(disponible_de_noche=True) )
+    cuidadores = Cuidador.objects.select_related('usuario__datos_usuario').filter(Q(puntuacion__gt=puntuacionPedida) | Q(disponible_de_noche=True)).all()
     
     """
     cuidadores = Cuidador.objects.raw("Select * FROM camping_cuidador cc"
@@ -94,7 +98,7 @@ def puntuacionydisponibilidad_cuidadores(request, puntuacionPedida):
 
 #   Busqueda de ServiciosExtra cuya descripción tenga la palabra recibida por parámetro.
 def busqueda_descripcion_serviciosextra(request, texto):
-    servicios = ServiciosExtra.objects.filter(descripcion__contains=texto)
+    servicios = ServiciosExtra.objects.filter(descripcion__contains=texto).all()
     
     """
     textoDescripcion = "'%"+texto+"%'"
@@ -107,7 +111,7 @@ def busqueda_descripcion_serviciosextra(request, texto):
 
 #   URL con filtro none CLIENTES que no aparecen en la tabla intermedia VEHICULO_CLIENTE
 def clientes_sin_vehiculo(request):
-    clientes = Cliente.objects.select_related('datos_cliente').filter(vehiculos__isnull=True)
+    clientes = Cliente.objects.select_related('datos_cliente').filter(vehiculos=None).all()
     
     """
     clientes = Cliente.objects.raw("SELECT * FROM camping_cliente cc"
@@ -119,7 +123,7 @@ def clientes_sin_vehiculo(request):
 
 #   Mostrar las reservas que no tienen actividades asociadas
 def reservas_sin_actividades(request):
-    reservas = Reserva.objects.select_related("cliente__datos_cliente").prefetch_related(Prefetch("actividades")).filter(actividades__isnull=True).order_by('id')[:10]
+    reservas = Reserva.objects.select_related("cliente__datos_cliente").prefetch_related(Prefetch("actividades")).filter(actividades=None).order_by('id')[:10].all()
     
     """
     reservas = Reserva.objects.raw("SELECT * FROM camping_reserva cr"
@@ -155,3 +159,17 @@ def mi_error_403(request, exception=None):
 
 def mi_error_500(request, exception=None):
     return render(request, 'Errores/500.html',None,None,500)
+
+
+
+# PRUEBA DE CLASE
+
+def prueba_clase(request):
+    #recepcionistas = Persona.objects.all().filter(salario = 1968.15 ).filter( turno = 'ma' )
+    
+    #recepcionistas = Persona.objects.select_related('usuario_id').all()
+    
+    recepcionistas = Recepcionista.objects.raw(" SELECT * FROM camping_recepcionista cr "
+    #                                            + "WHERE cr.salario = 1968.15 AND cr.turno = 'ma' "
+                                                + "JOIN camping_perfilusuario cpu ON cr.usuario_id = cpu.id ")
+    return render(request, 'URLs/recepcionistas.html', {'recepcionistas':recepcionistas})

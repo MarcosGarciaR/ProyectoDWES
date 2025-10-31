@@ -227,7 +227,7 @@ Requisito/s que cumple:
 - Filtro none con tabla intermedia
 
 ### URL 9
-Mostrar las reservas que no tienen actividades asociadas.
+Mostrar las 10 primeras reservas que no tienen actividades asociadas.
 El limit hará que solo se muestren X reservas (Yo voy a mostrar sólo 10)
 
 Arreglo ya que la URL 8 no muestra datos + propiedad Limit.

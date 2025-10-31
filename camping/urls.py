@@ -14,5 +14,6 @@ urlpatterns = [
     re_path(r"^reserva[0-9]$", views.reservas_sin_actividades , name='reservas_sin_actividades'),
     path('cliente/<int:cliente_id>/reservas/', views.reservas_de_cliente_por_id , name='reservas_de_cliente_por_id'),
     
+    path('recepcionistas/', views.prueba_clase , name='prueba_clase'),
 ]
 

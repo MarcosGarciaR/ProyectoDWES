@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=ç, initial-scale=1.0">
+    <title>Personas</title>
+</head>
+<body>
+    <ul>
+        {% for recepcionista in recepcionistas %}
+        <li>
+            <h1></h1>
+            <p>Alta: {{ recepcionista.fecha_alta }}</p>
+        </li>
+        <hr>
+        {% empty %}
+        <li>No hay personas</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
