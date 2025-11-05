@@ -9,7 +9,7 @@
     <ul>
         {% for recepcionista in recepcionistas %}
         <li>
-            <h1></h1>
+            <h1>{{ recepcionista.usuario.datos_usuario.nombre }}</h1>
             <p>Alta: {{ recepcionista.fecha_alta }}</p>
         </li>
         <hr>

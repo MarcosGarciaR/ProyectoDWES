@@ -145,14 +145,14 @@ class Command(BaseCommand):
         
         for r in reservas:
             re = ReservaExtras.objects.create(
-            reserva = r,
+            reserva_asociada = r,
             cantidad_solicitada = fake.random_int(1, 5),
             observaciones = fake.sentence(),
             )
             re.servicios_extra.add(*random.sample(servicios, random.randint(1, 5)))
             
             Factura.objects.create(
-                reserva = re,
+                reserva_extra = re,
                 total = round(random.uniform(50, 2000), 2),
                 emitida_en = timezone.now(), 
                 pagado = fake.boolean()

@@ -21,7 +21,7 @@ def ver_campings(request):
 
 #   Ordenar las reservas por fecha de inicio
 def ver_reservas_por_fecha(request):
-    reservas = Reserva.objects.select_related('cliente__datos_cliente').order_by('fecha_inicio').all()
+    reservas = Reserva.objects.select_related('parcela__camping').select_related('cliente__datos_cliente').order_by('fecha_inicio').all()
     
     """
     reservas = (Reserva.objects.raw("SELECT cr.id AS id, cp.nombre, cp.apellido, cr.fecha_inicio, cr.fecha_fin  FROM camping_reserva cr "
@@ -51,7 +51,7 @@ def ver_reserva_por_id(request, id_reserva):
 
 #   Mostrar las facturas mediante el uso de un filtro AND con precio de factura >= 'X' y capacidad de personas de la Parcela >= Y
 def ver_factura_precio_capacidad(request, precio, capacidadParcela):
-    facturas = Factura.objects.select_related('reserva__reserva__parcela').filter(total__gte=precio, reserva__reserva__parcela__capacidad__gte=capacidadParcela).all()
+    facturas = Factura.objects.select_related('reserva_de_factura__reserva_asociada__parcela').filter(total__gte=precio, reserva_de_factura__reserva_asociada__parcela__capacidad__gte=capacidadParcela).all()
     
     """
     facturas = Factura.objects.raw("SELECT * FROM camping_factura cf"

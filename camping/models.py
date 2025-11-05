@@ -115,7 +115,7 @@ class ServiciosExtra(models.Model):
 
 # RESERVAEXTRAS
 class ReservaExtras(models.Model):
-    reserva = models.OneToOneField(Reserva, on_delete=models.CASCADE)
+    reserva_asociada = models.OneToOneField(Reserva, on_delete=models.CASCADE)
     servicios_extra = models.ManyToManyField(ServiciosExtra)
     cantidad_solicitada = models.IntegerField(default=1)
     observaciones = models.CharField(max_length=150, null=True, blank=True)
@@ -123,7 +123,7 @@ class ReservaExtras(models.Model):
 
 # FACTURA
 class Factura(models.Model):
-    reserva = models.OneToOneField(ReservaExtras, on_delete=models.CASCADE)
+    reserva_extra = models.OneToOneField(ReservaExtras, on_delete=models.CASCADE)
     total = models.DecimalField(max_digits=8, decimal_places=2)
     emitida_en = models.DateTimeField(default=timezone.now)
     pagado = models.BooleanField(default=False)
