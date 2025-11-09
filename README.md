@@ -262,5 +262,15 @@ Requisito/s que cumple:
 
 - `raw()`: Nos permite hacer las consultas como en SQL normal, aunque no están optimizadas.
 
+
+
+## Template Tags
+
+
+## Operadores
+
+## Template Filters
+
+
 ## DIAGRAMA DE CLASES
 ![Diagrama del modelo Entidad-Relacion](diagrama/ModeloE_R_Camping.png)

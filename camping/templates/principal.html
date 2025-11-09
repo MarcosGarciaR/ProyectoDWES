@@ -1,0 +1,22 @@
+<html>
+    {% load static %}
+    <head>
+        <title>CampNatur</title>
+        <link rel="stylesheet" href="{% static 'css/cabecera_urls.css' %}" />
+
+        <script src="{% static 'javascript/javascript_prueba.js' %}"></script>
+    </head>
+
+
+
+    {% block cabecera %}
+    <h1>Gestión de campings</h1>
+        <img src="{% static 'imagenes/logoWeb.png' %}">
+            {% include "cabecera_urls.html" %}
+    {% endblock %}
+
+    {% block contenido %}
+    {% endblock %}
+
+    {% include "pie_de_pag.html" %}
+</html>
