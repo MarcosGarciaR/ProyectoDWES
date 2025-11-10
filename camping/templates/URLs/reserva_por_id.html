@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reserva por id</title>
-</head>
-<body>
-    
+{% extends "../principal.html" %}
+{% block contenido %}
     <h1>Cliente: {{mostrar_reservaid.cliente.datos_cliente.nombre}}{{mostrar_reservaid.cliente.datos_cliente.apellido}}</h1>
     <p>Fecha de Inicio: <i>{{mostrar_reservaid.fecha_inicio}}</i></p>
     <p>Fecha de Fin: <i>{{mostrar_reservaid.fecha_fin}}</i></p>
@@ -19,10 +12,8 @@
         </li>
         {% empty %}
         <li>No hay actividades contratadas para esta reserva.</li>
-
         {% endfor%}
 
     </ul>
 
-</body>
-</html>
+{% endblock %}

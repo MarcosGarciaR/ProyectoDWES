@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservas Por Fecha</title>
-</head>
-<body>
+{% extends "../principal.html" %}
+{% block contenido %}
         <ul>
     {% for reserva in mostrar_reservas %}
 
@@ -21,5 +15,4 @@
         <p>Aún no hay reservas</p>
     {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

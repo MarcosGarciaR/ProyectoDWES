@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuidadores</title>
-</head>
-<body>
+{% extends "../principal.html" %}
+{% block contenido %}
     <h1 style="text-align:center">Cuidadores con puntuacion mayor o igual a 7 o disponibles de noche</h1>
+    
     {% for cuidador in mostrar_cuidadores %}
     <p>{{ cuidador.usuario.datos_usuario.nombre }} {{ cuidador.usuario.datos_usuario.apellido }} - {{cuidador.puntuacion}} - {{cuidador.disponible_de_noche}}</p>
 
@@ -14,5 +9,4 @@
     <p>No hay cuidadores que cumplan estos requisitos</p>
 
     {% endfor %}
-</body>
-</html>
+{% endblock %}

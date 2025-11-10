@@ -3,23 +3,37 @@
     {% load static %}
     <head>
         <title>CampNatur</title>
-        <link rel="stylesheet" href="{% static 'css/cabecera_urls.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/cabecera.css' %}" />
 
         <script src="{% static 'javascript/javascript_prueba.js' %}"></script>
     </head>
 
-
-
+<header>
     {% block cabecera %}
-    <div id="cabecera">
-        <img src="{% static 'imagenes/logoWeb.png' %}">
-        <h1>Gestión de campings</h1>
-    </div>
+        <div id="cabecera">
+            <img src="{% static 'imagenes/logo_web.png' %}">
+            <h1>Gestión de campings</h1>
+        </div>
+        <hr>
         {% include "cabecera_urls.html" %}
-            {% endblock %}
+        <hr>
+    {% endblock %}
+</header>
 
+<body>
     {% block contenido %}
     {% endblock %}
+</body>
 
+<footer>
+    <pre>
+    PREGUNTAS:
+    COMO HACER PARA CAMBIAR LOS DIFERENTES NOMBRES DE LA PÁGINA EN CADA URL (El title lo tiene principal, por lo que no se puede cambiar por ej de CampNatur a Campings en la url de campings).
+    Los css y eso solo funcionan si el debug está en True, como hacerlo.
+    </pre>
+    
     {% include "pie_de_pag.html" %}
+</footer>
+
 </html>
+

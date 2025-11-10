@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campings</title>
-</head>
-<body>
-
-    {% extneds %}
-    <ul>
+{% extends "../principal.html" %}
+{% block contenido %}
+<ul>
     {% for camping in mostrar_campings %}
 
         <li>
@@ -24,5 +16,4 @@
         <p>No hay campings disponibles</p>
     {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

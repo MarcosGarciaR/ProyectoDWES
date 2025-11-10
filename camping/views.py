@@ -22,7 +22,7 @@ def ver_campings(request):
 #   Ordenar las reservas por fecha de inicio
 def ver_reservas_por_fecha(request):
     reservas = Reserva.objects.select_related('cliente__datos_cliente','parcela__camping').order_by('fecha_inicio').all()
-    
+
     """
     reservas = (Reserva.objects.raw("SELECT cr.id AS id, cp.nombre, cp.apellido, cr.fecha_inicio, cr.fecha_fin  FROM camping_reserva cr "
                                     + " JOIN camping_cliente cc ON cr.cliente_id = cc.id "

@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clientes</title>
-</head>
-<body>
-    
-
+{% extends '../principal.html' %}
+{% block contenido %}
     </ul>
 
         <ul>
@@ -18,9 +10,9 @@
             <p>Teléfono de contacto: {{ cliente.datos_cliente.telefono }}</p>      
             <p>Nacionalidad: {{ cliente.nacionalidad }}</p>
         </li>
+        <hr>
         {% empty %}
         <li>Todos los clientes tienen vehículo asociado</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

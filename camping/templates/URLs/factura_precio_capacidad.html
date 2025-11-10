@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Factura con precio y capacidad</title>
-  </head>
-  <body>
+{% extends "../principal.html" %}
+{% block contenido %}
     <ul>
       {% for fact in mostrar_facturas %}
 
@@ -22,5 +16,4 @@
       <p>No hay reservas que cumplan los requisitos</p>
       {% endfor %}
     </ul>
-  </body>
-</html>
+{% endblock %}

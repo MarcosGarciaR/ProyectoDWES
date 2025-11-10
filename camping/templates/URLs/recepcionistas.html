@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=ç, initial-scale=1.0">
-    <title>Personas</title>
-</head>
-<body>
+{% extends "../principal.html" %}
+{% block contenido %}
     <ul>
         {% for recepcionista in recepcionistas %}
         <li>
@@ -17,6 +11,4 @@
         <li>No hay personas</li>
         {% endfor %}
     </ul>
-
-</body>
-</html>
+{% endblock %}

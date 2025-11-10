@@ -1,3 +1,8 @@
+{% load static %}
+<head>
+        <link rel="stylesheet" href="{% static 'css/urls_cabecera.css' %}" />
+</head>
+
 <div id="lista_urls">
     <ul>
         <li><a href="{% url 'ver_campings' %}">Campings</a></li>
@@ -13,4 +18,3 @@
         <li><a href="{% url 'prueba_clase' %}">URL hecha en Clase</a></li>
     </ul>
 </div>
-    <hr>

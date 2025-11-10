@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Precios</title>
-</head>
-<body>
+{% extends "../principal.html" %}
+{% block contenido %}
 <p>Media de precios: {{ media }}</p>
 <p>Máximo de precios: {{ maximo }}</p>
 <p>Mínimo de precios: {{ minimo }}</p>
     
-</body>
-</html>
+{% endblock %}
