@@ -1,4 +1,5 @@
 <html>
+    
     {% load static %}
     <head>
         <title>CampNatur</title>
@@ -10,10 +11,12 @@
 
 
     {% block cabecera %}
-    <h1>Gestión de campings</h1>
+    <div id="cabecera">
         <img src="{% static 'imagenes/logoWeb.png' %}">
-            {% include "cabecera_urls.html" %}
-    {% endblock %}
+        <h1>Gestión de campings</h1>
+    </div>
+        {% include "cabecera_urls.html" %}
+            {% endblock %}
 
     {% block contenido %}
     {% endblock %}

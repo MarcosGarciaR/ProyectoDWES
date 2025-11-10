@@ -1,19 +1,21 @@
-h1{
-    text-align: center;
-    color: olivedrab;
-    text-decoration: underline;
-}
-
-ul{
-    width: 95%;
-    justify-content: center;
-    align-items: center;
+#cabecera{
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+    align-items: center; 
+    justify-content: space-between; 
 }
 
-img{
-    width: 250px;
+div img {
+    height: 60px;
+}
+
+div h1 {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    font-size: 2em;
+    color: rgb(100, 131, 38);
+}
+
+#lista_urls{
     display: flex;
 }
