@@ -1,8 +1,9 @@
 <html>
-    
     {% load static %}
     <head>
+        {% block titulo %}
         <title>CampNatur</title>
+        {% endblock %}
         <link rel="stylesheet" href="{% static 'css/cabecera.css' %}" />
 
         <script src="{% static 'javascript/javascript_prueba.js' %}"></script>
@@ -11,7 +12,7 @@
 <header>
     {% block cabecera %}
         <div id="cabecera">
-            <img src="{% static 'imagenes/logo_web.png' %}">
+            <img src="{% static 'imagenes/logo_web.png' %}" href="index.html">
             <h1>Gestión de campings</h1>
         </div>
         <hr>
@@ -26,12 +27,7 @@
 </body>
 
 <footer>
-    <pre>
-    PREGUNTAS:
-    COMO HACER PARA CAMBIAR LOS DIFERENTES NOMBRES DE LA PÁGINA EN CADA URL (El title lo tiene principal, por lo que no se puede cambiar por ej de CampNatur a Campings en la url de campings).
-    Los css y eso solo funcionan si el debug está en True, como hacerlo.
-    </pre>
-    
+    <a href="https://docs.djangoproject.com/en/5.1/ref/templates/builtins/"></a>
     {% include "pie_de_pag.html" %}
 </footer>
 
