@@ -1,0 +1,6 @@
+<div>
+        <h1>ID de Reserva: {{ reserva.id }}</h1>
+        <h3>Nombre del cliente: {{ reserva.cliente.datos_cliente.nombre }} {{reserva.cliente.datos_cliente.apellido}}</h3>
+        <p>Fecha Inicio: {{ reserva.fecha_inicio|date:"l j/n/Y" }}</p>
+        <p>Fecha Fin: {{ reserva.fecha_fin|date:"l j/n/Y" }}</p>
+</div>

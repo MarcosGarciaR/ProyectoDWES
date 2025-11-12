@@ -46,7 +46,7 @@ def ver_reserva_por_id(request, id_reserva):
                                     + "WHERE cr.id = %s", [id_reserva])[0]
     """
     
-    return render(request, 'URLs/reserva_por_id.html', {'mostrar_reservaid':reserva})
+    return render(request, 'URLs/reserva_por_id.html', {'reserva':reserva})
 
 
 #   Mostrar las facturas mediante el uso de un filtro AND con precio de factura >= 'X' y capacidad de personas de la Parcela >= Y

@@ -1,19 +1,22 @@
 {% extends "../principal.html" %}
 {% block contenido %}
-    <h1>Cliente: {{mostrar_reservaid.cliente.datos_cliente.nombre}}{{mostrar_reservaid.cliente.datos_cliente.apellido}}</h1>
-    <p>Fecha de Inicio: <i>{{mostrar_reservaid.fecha_inicio}}</i></p>
-    <p>Fecha de Fin: <i>{{mostrar_reservaid.fecha_fin}}</i></p>
-
+    <h1>Cliente: {{reserva.cliente.datos_cliente.nombre}} {{reserva.cliente.datos_cliente.apellido}}</h1>
+    <br>
+    {% include '../Plantillas_Modelos/reservas.html'%}
+    <br>
     <h2>Actividades contratadas</h2>
+    {% if reserva.actividades.all %}
     <ul>
-        {% for a in mostrar_reservaid.actividades.all %}
+        {% for actividad in reserva.actividades.all %}
         <li>
-            {{ a.nombre }}
+            {% include '../Plantillas_Modelos/actividades.html' %}
         </li>
+        <br>
         {% empty %}
         <li>No hay actividades contratadas para esta reserva.</li>
         {% endfor%}
-
     </ul>
-
+    {% else %}
+    <p>No hay actividades contratadas para esta reserva.</p>
+    {% endif %}
 {% endblock %}

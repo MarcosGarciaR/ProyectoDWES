@@ -1,16 +1,12 @@
 {% extends '../principal.html' %}
 {% block contenido %}
-    </ul>
-
-        <ul>
+    <ul>
         {% for cliente in mostrar_clientes_sin_vehiculo %}
         <li>
-            <h2>Cliente: {{ cliente.datos_cliente.nombre }} {{ cliente.datos_cliente.apellido }}</h2>
-            <p>Fecha de nacimiento: {{ cliente.datos_cliente.fecha_nacimiento }}</p>
-            <p>Teléfono de contacto: {{ cliente.datos_cliente.telefono }}</p>      
-            <p>Nacionalidad: {{ cliente.nacionalidad }}</p>
+            {% include '../Plantillas_Modelos/clientes.html' %}
         </li>
         <hr>
+        <br>
         {% empty %}
         <li>Todos los clientes tienen vehículo asociado</li>
         {% endfor %}

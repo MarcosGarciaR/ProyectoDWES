@@ -5,18 +5,13 @@
 {% block contenido %}
 <ul>
     {% for camping in mostrar_campings %}
-
-        <li>
-        <h2>Nombre: {{ camping.nombre }}</h2>
-        
-        <h4>Ubicación: {{ camping.ubicacion }}</h4>
-        <p>Estrellas: {{ camping.estrellas }}</p>
-        <p>Sitio Web: {{ camping.sitio_web }}</p>
-        <hr>
-
-        </li>
+    <li>
+        {% include '../Plantillas_Modelos/campings.html'%}
+    </li>
+    <hr>
+    <br>
     {% empty %}
         <p>No hay campings disponibles</p>
     {% endfor %}
-    </ul>
+</ul>
 {% endblock %}

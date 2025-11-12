@@ -3,10 +3,10 @@
     <ul>
         {% for servicio in mostrar_servicios %}
         <li>
-            <h1>{{ servicio.nombre }}</h1>
-            <h4>Precio: <i>{{ servicio.precio }}</i> €</h4>
-            <p>{{ servicio.descripcion}}</p>
+            {% include '../Plantillas_Modelos/servicios.html' %}
         </li>
+        <hr>
+        <br>
         {% empty %}
         <li>No hay servicios que tengan esta palabra en su descripción.</li>
         {% endfor %}

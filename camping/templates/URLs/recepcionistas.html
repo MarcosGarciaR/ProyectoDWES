@@ -3,10 +3,10 @@
     <ul>
         {% for recepcionista in recepcionistas %}
         <li>
-            <h1>{{ recepcionista.usuario.datos_usuario.nombre }}</h1>
-            <p>Alta: {{ recepcionista.fecha_alta }}</p>
+        {% include '../Plantillas_Modelos/recepcionistas.html' %}
         </li>
         <hr>
+        <br>
         {% empty %}
         <li>No hay personas</li>
         {% endfor %}

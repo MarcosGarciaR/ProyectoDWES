@@ -1,12 +1,14 @@
 {% extends "../principal.html" %}
 {% block contenido %}
     <h1 style="text-align:center">Cuidadores con puntuacion mayor o igual a 7 o disponibles de noche</h1>
-    
+    <ul>
     {% for cuidador in mostrar_cuidadores %}
-    <p>{{ cuidador.usuario.datos_usuario.nombre }} {{ cuidador.usuario.datos_usuario.apellido }} - {{cuidador.puntuacion}} - {{cuidador.disponible_de_noche}}</p>
-
+    <li>
+        {% include '../Plantillas_Modelos/cuidadores.html' %}
+    </li>
+    <br>
     {% empty %}
-    <p>No hay cuidadores que cumplan estos requisitos</p>
-
+        <p>No hay cuidadores que cumplan estos requisitos</p>
     {% endfor %}
+    </ul>
 {% endblock %}

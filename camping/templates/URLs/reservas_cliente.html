@@ -1,9 +1,15 @@
 {% extends '../principal.html' %}
 {% block contenido %}
-    <h1>Reservas de {{ cliente.datos_cliente.nombre }} {{cliente.datos_cliente.apellido }}</h1>
+    {% include '../Plantillas_Modelos/clientes.html' %} 
+    <br>
+    <h1>RESERVAS </h1>
     <ul>
         {% for reserva in cliente.reservas.all %}
-        <li>{{ reserva.fecha_inicio }} - {{ reserva.fecha_fin }}</li>
+        <li>
+            {% include '../Plantillas_Modelos/reservas.html' %}
+        </li>
+        <hr>
+        <br>
         {% empty %}
         <li>Este cliente no tiene reservas.</li>
         {% endfor %}

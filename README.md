@@ -265,11 +265,40 @@ Requisito/s que cumple:
 
 
 ## Template Tags
-
+- `block/endblock`: Define un bloque usable en otra template.
+- `extends`: Extiende a una clase padre desde otro archivo.
+- `include`: Carga una plantilla y la representa con el contexto actual.
+- `for/In`: Recorre cada elemento de una matriz, haciendo que el elemento esté disponible en una variable de contexto.
+- `for/Empty`: Utilizado junto con el for/In, para establecer un escape en caso de no haber datos.
+- `load`: Carga un conjunto de etiquetas de plantillas personalizadas
 
 ## Operadores
+- `if`:   
+- ``:  
+- ``:  
+- ``:  
+- ``:  
 
 ## Template Filters
+- `date`: Con él podemos darle a la fecha el formato que deseemos de manera aislada.
+- `upper`: Convierte un string completo a Mayúsculas. 
+- `url`: Nos permite agregar un enlace a otra dirección. 
+- ``: 
+- ``: 
+
+
+## Usos de los parámetros poco utilizados (no voy a poner dónde utilizo los template tags porque se utilizan en muchos lugares, prácticamente en todos los archivos).
+### if
+En el archivo reserva_por_id se utiliza un if normal para comprobar que esa reserva tiene actividades, de lo contrario saltar rápido al escape.
+
+### date
+Utilizado en los modelos con atributos date o dateTime para dar formato.
+
+### upper
+Utilizado para el nombre de los clientes.
+
+### url
+En campings, para mostrar un enlace a la web de cada camping.
 
 
 ## DIAGRAMA DE CLASES
