@@ -97,7 +97,6 @@ class Actividad(models.Model):
     requiere_material = models.BooleanField(default=False)
 
 
-
 # RESERVA
 class Reserva(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name="reservas")

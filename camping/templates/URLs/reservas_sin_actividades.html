@@ -1,9 +1,9 @@
-{% extends "../principal.html" %}
+{% extends "principal.html" %}
 {% block contenido %}
     <ul>
         {% for reserva in mostrar_reservas %}
         <li>
-            {% include '../Plantillas_Modelos/reserva_sin_actividades.html' %}
+            {% include 'Plantillas_Modelos/reserva_sin_actividades.html' %}
         </li>
         <hr>
         <br>

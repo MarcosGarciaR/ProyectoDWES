@@ -1,9 +1,9 @@
-{% extends "../principal.html" %}
+{% extends "principal.html" %}
 {% block contenido %}
     <ul>
         {% for servicio in mostrar_servicios %}
         <li>
-            {% include '../Plantillas_Modelos/servicios.html' %}
+            {% include 'Plantillas_Modelos/servicios.html' %}
         </li>
         <hr>
         <br>

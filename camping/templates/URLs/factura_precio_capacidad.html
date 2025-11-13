@@ -1,8 +1,8 @@
-{% extends "../principal.html" %} {% block contenido %}
+{% extends "principal.html" %} {% block contenido %}
 <ul>
   {% for fact in mostrar_facturas %} 
   <li>
-    {% include '../Plantillas_Modelos/facturas.html' %}
+    {% include 'Plantillas_Modelos/facturas.html' %}
     <hr>
   </li>
   <br>

@@ -1,7 +1,22 @@
-<div>
-    <h3>Información de la parcela</h3>    
-    <p>Nº Parcela: {{ fact.reserva.reserva.parcela.numero }}&nbsp;&nbsp;&nbsp;Capacidad parcela: {{ fact.reserva.reserva.parcela.capacidad }}</p>
-    <p><b>Precio de la reserva: <i>{{ fact.total }}€</b></i></p>
-    <p>Fecha de emisión: {{ fact.emitida_en|date:"l j/n/Y" }} a las {{ fact.emitida_en|time:"P" }}</p>
-    <p>Estado del pago: {{ fact.pagado }}</p>
+<div>   
+    <p>Nº Parcela: {{ fact.reserva_extra.reserva_asociada.parcela.numero }}&nbsp;&nbsp;&nbsp;Capacidad parcela: {{ fact.reserva_extra.reserva_asociada.parcela.capacidad }}</p>
+    <p><b>Precio de la reserva: <i>{{ fact.total }}€</b></i> 
+        {% if fact.total <= 350 %}
+            - Precio bajo
+        {% elif fact.total >= 800%}
+            - Precio alto
+        {% else %}
+            - Precio medio
+        {% endif %}
+    </p>
+    <p>Fecha de emisión: {{ fact.emitida_en|date:"l j/n/Y"|capfirst }} a las {{ fact.emitida_en|time:"P" }}</p>
+    <p>Estado del pago: 
+        {% if fact.pagado is True %}
+        Pagado.
+        {% elif fact.pagado is not True%}
+        Pendiente de pago.
+        {% else %}
+        Sin información del pago.
+        {% endif %}
+    </p>
 </div>

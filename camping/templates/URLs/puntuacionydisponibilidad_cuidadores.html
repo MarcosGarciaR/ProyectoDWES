@@ -1,10 +1,10 @@
-{% extends "../principal.html" %}
+{% extends "principal.html" %}
 {% block contenido %}
     <h1 style="text-align:center">Cuidadores con puntuacion mayor o igual a 7 o disponibles de noche</h1>
     <ul>
     {% for cuidador in mostrar_cuidadores %}
     <li>
-        {% include '../Plantillas_Modelos/cuidadores.html' %}
+        {% include 'Plantillas_Modelos/cuidadores.html' %}
     </li>
     <br>
     {% empty %}

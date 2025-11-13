@@ -1,3 +1,7 @@
 <div>
-    <p>{{ cuidador.usuario.datos_usuario.nombre }} {{ cuidador.usuario.datos_usuario.apellido }} - {{cuidador.puntuacion}} - {{cuidador.disponible_de_noche}}</p>
+    <p>{{ cuidador.usuario.datos_usuario.nombre }} {{ cuidador.usuario.datos_usuario.apellido }} - {{ cuidador.puntuacion }}- {{cuidador.disponible_de_noche}}
+    {% if cuidador.puntuacion > 8 %}
+    --> Muy bueno    
+    {% endif %}
+    </p>
 </div>

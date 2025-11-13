@@ -273,23 +273,33 @@ Requisito/s que cumple:
 - `load`: Carga un conjunto de etiquetas de plantillas personalizadas
 
 ## Operadores
-- `if`:   
-- ``:  
-- ``:  
-- ``:  
-- ``:  
+- `if (boolean)`: Condicionante que se ejecuta si el valor es True.
+- `<=`: Menor o igual que.
+- `>=`: Mayor o igual que.
+- `>`: Mayor que.
+- `is`: Indica si es la condicion (En mi caso si es True).
+- `is not`: Indica si NO es la condición.
 
 ## Template Filters
 - `date`: Con él podemos darle a la fecha el formato que deseemos de manera aislada.
 - `upper`: Convierte un string completo a Mayúsculas. 
-- `url`: Nos permite agregar un enlace a otra dirección. 
-- ``: 
-- ``: 
+- `capfirst`: Convierte a mayúscula la primera letra de la secuencia.
+- `urlize`: Convierte el texto dentro de HTML a URL.
+- `title`: Convierte la primera letra de todas las palabras de la cadena a mayúscula. 
 
 
 ## Usos de los parámetros poco utilizados (no voy a poner dónde utilizo los template tags porque se utilizan en muchos lugares, prácticamente en todos los archivos).
-### if
-En el archivo reserva_por_id se utiliza un if normal para comprobar que esa reserva tiene actividades, de lo contrario saltar rápido al escape.
+### if booleano
+En el archivo reserva_por_id se utiliza un if booleano para comprobar que esa reserva tiene actividades, de lo contrario saltar rápido al escape.
+
+### >= | <=
+En el archivo facturas.html, para clasificar la factura según el precio.
+
+### > 
+En cuidadores.html, para indicar los que tienen una muy buena puntuación.
+
+### is / is not
+En el archivo facturas.html, para indicar el estado del pago es True o False, según el estado (ambos usan True como condición, ya que is True, indica que si está pagado, y is not True, que no)
 
 ### date
 Utilizado en los modelos con atributos date o dateTime para dar formato.
@@ -297,9 +307,14 @@ Utilizado en los modelos con atributos date o dateTime para dar formato.
 ### upper
 Utilizado para el nombre de los clientes.
 
-### url
-En campings, para mostrar un enlace a la web de cada camping.
+### capfirst
+En las fechas, para que la primera letra del día salga en mayúsculas.
 
+### urlize
+En campings, para la URL de cada camping, en lugar de utilizar una etiqueta HTML <a>, utilizo el filtro.
+
+### title
+En servicios, para poner como título el nombre de cada servicio.
 
 ## DIAGRAMA DE CLASES
 ![Diagrama del modelo Entidad-Relacion](diagrama/ModeloE_R_Camping.png)

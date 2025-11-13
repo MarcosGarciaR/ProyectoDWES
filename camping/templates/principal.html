@@ -4,7 +4,7 @@
         {% block titulo %}
         <title>CampNatur</title>
         {% endblock %}
-        <link rel="stylesheet" href="{% static 'css/cabecera.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/cabecera.css' %}"/>
 
         <script src="{% static 'javascript/javascript_prueba.js' %}"></script>
     </head>
@@ -27,11 +27,6 @@
 </body>
 
 <footer>
-    <pre>
-        PREGUNTA
-        En la URL 3 (reserva por parametro de ID), como puedo utilizar la plantilla clientes.html para ver los datos del cliente que ha reservado.
-        En la URL 1, como puedo poner la URL con el Template Filter URL (Sitio Web: {# {% url {{ camping.sitio_web }} %} #} MIRAR EL ARCHIVO EN VSCODE)
-    </pre>
     <a href="https://docs.djangoproject.com/en/5.1/ref/templates/builtins/"></a>
     {% include "pie_de_pag.html" %}
 </footer>
