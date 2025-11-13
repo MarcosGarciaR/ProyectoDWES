@@ -1,4 +1,4 @@
-{% extends "../principal.html" %}
+{% extends "principal.html" %}
 {% block titulo %}
     <title>Campings</title>
 {% endblock %}
@@ -6,7 +6,7 @@
 <ul>
     {% for camping in mostrar_campings %}
     <li>
-        {% include '../Plantillas_Modelos/campings.html'%}
+        {% include 'Plantillas_Modelos/campings.html'%}
     </li>
     <hr>
     <br>

@@ -45,8 +45,8 @@ def ver_reserva_por_id(request, id_reserva):
                                     + "JOIN camping_actividad cact ON cra.actividad_id = cact.id"
                                     + "WHERE cr.id = %s", [id_reserva])[0]
     """
-    
-    return render(request, 'URLs/reserva_por_id.html', {'reserva':reserva})
+    cliente = reserva.cliente
+    return render(request, 'URLs/reserva_por_id.html', {'reserva':reserva, 'cliente':cliente})
 
 
 #   Mostrar las facturas mediante el uso de un filtro AND con precio de factura >= 'X' y capacidad de personas de la Parcela >= Y
