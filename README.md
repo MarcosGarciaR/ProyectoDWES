@@ -330,7 +330,7 @@ En campings, para la URL de cada camping, en lugar de utilizar una etiqueta HTML
 En servicios, para poner como título el nombre de cada servicio.
 
 ### add
-
+En actividades, para agregar capacidad a cada actividad.
 
 ### yesno
 
