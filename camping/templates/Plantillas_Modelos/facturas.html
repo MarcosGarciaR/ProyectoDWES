@@ -1,5 +1,8 @@
 <div>   
-    <p>Nº Parcela: {{ fact.reserva_extra.reserva_asociada.parcela.numero }}&nbsp;&nbsp;&nbsp;Capacidad parcela: {{ fact.reserva_extra.reserva_asociada.parcela.capacidad }}</p>
+    <p>Nº Parcela: {{ fact.reserva_extra.reserva_asociada.parcela.numero }}&nbsp;&nbsp;&nbsp;
+        Capacidad parcela: {{ fact.reserva_extra.reserva_asociada.parcela.capacidad }}&nbsp;&nbsp;&nbsp;
+        {{ fact.reserva_extra.reserva_asociada.parcela.tiene_sombra|yesno:"Con Sombre, Sin sombra" }}
+    </p>
     <p><b>Precio de la reserva: <i>{{ fact.total }}€</b></i> 
         {% if fact.total <= 350 %}
             - Precio bajo

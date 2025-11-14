@@ -316,6 +316,7 @@ Utilizado para el nombre de los clientes.
 En actividades, para mostrar la descripción completa en minúsculas.
 
 ### default
+En clientes, para indicar una nacionalidad por defecto en caso de no encontrarse (o pérdida del registro).
 
 ### floatformat
 En servicios_media_puntos, para limitar los decimales de cada parámetro.
@@ -324,7 +325,7 @@ En servicios_media_puntos, para limitar los decimales de cada parámetro.
 En las fechas, para que la primera letra del día salga en mayúsculas.
 
 ### urlize
-En campings, para la URL de cada camping, en lugar de utilizar una etiqueta HTML <a>, utilizo el filtro.
+En campings, para la URL de cada camping, en lugar de utilizar una etiqueta HTML '<a>', utilizo el filtro.
 
 ### title
 En servicios, para poner como título el nombre de cada servicio.
@@ -333,6 +334,7 @@ En servicios, para poner como título el nombre de cada servicio.
 En actividades, para agregar capacidad a cada actividad.
 
 ### yesno
+En las facturas, para indicar si una parcela tiene sombra (True), o no (False).
 
 
 ## DIAGRAMA DE CLASES
