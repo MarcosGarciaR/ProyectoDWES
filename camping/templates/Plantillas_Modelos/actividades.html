@@ -1,6 +1,6 @@
 <div>
     <h3>{{ actividad.nombre }}</h3>
-    <p>{{ actividad.descripcion }}</p>
+    <p>{{ actividad.descripcion|lower }}</p>
     <h4>Capacidad para: {{ actividad.cupo }} personas</h4>
     <h4>Necesita material: {% if actividad.requiere_material %} Si {% else %} No {% endif %}</h4>
 </div>

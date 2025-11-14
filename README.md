@@ -283,9 +283,14 @@ Requisito/s que cumple:
 ## Template Filters
 - `date`: Con él podemos darle a la fecha el formato que deseemos de manera aislada.
 - `upper`: Convierte un string completo a Mayúsculas. 
+- `lower`: Convierte un texto a minúsculas.
+- `default`: Si el valor es vacío, usa el valor por defecto.
+- `floatformat`: Formatea números decimales a un número fijo de decimales.
 - `capfirst`: Convierte a mayúscula la primera letra de la secuencia.
 - `urlize`: Convierte el texto dentro de HTML a URL.
 - `title`: Convierte la primera letra de todas las palabras de la cadena a mayúscula. 
+- `add`: Suma un número al valor.
+- `yesno`: Convierte valores booleanos a textos personalizados (Si/No).
 
 
 ## Usos de los parámetros poco utilizados (no voy a poner dónde utilizo los template tags porque se utilizan en muchos lugares, prácticamente en todos los archivos).
@@ -307,6 +312,14 @@ Utilizado en los modelos con atributos date o dateTime para dar formato.
 ### upper
 Utilizado para el nombre de los clientes.
 
+### lower
+En actividades, para mostrar la descripción completa en minúsculas.
+
+### default
+
+### floatformat
+En servicios_media_puntos, para limitar los decimales de cada parámetro.
+
 ### capfirst
 En las fechas, para que la primera letra del día salga en mayúsculas.
 
@@ -315,6 +328,12 @@ En campings, para la URL de cada camping, en lugar de utilizar una etiqueta HTML
 
 ### title
 En servicios, para poner como título el nombre de cada servicio.
+
+### add
+
+
+### yesno
+
 
 ## DIAGRAMA DE CLASES
 ![Diagrama del modelo Entidad-Relacion](diagrama/ModeloE_R_Camping.png)
