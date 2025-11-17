@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'camping',
     'debug_toolbar',
     'django_seed',
+    'django_bootstrap5',
+    'django_bootstrap_icons',
+    
     
 ]
 
