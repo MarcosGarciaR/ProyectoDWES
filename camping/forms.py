@@ -1,7 +1,8 @@
 from django import forms
 from django.forms import ModelForm
 from .models import *
-
+from .forms import *
+from django.contrib import messages
 
 
 """
@@ -27,19 +28,36 @@ class PersonaModelForm(ModelForm):
         labels = {
             "nombre": ("Nombre de la persona"),
             "apellido": ("Apellidos"),
-            
         }
         """WIDGETS => dar formato especial al campo"""
-        
-        
+        widgets = {
+            "fecha_nacimiento":forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+        }
         
         """ 
         LOCALIZED_FIELDS => Para tener en cuenta la zona horaria en la creación de la fecha.        
         """
         localized_fields = ["fecha_nacimiento"]
 
-
-
+    def clean(self):
+        super().clean()
+        
+        nombre = self.cleaned_data('nombre')
+        apellido =  self.cleaned_data('apellido')
+        dni =  self.cleaned_data('dni')
+        fecha_nacimiento =  self.cleaned_data('fecha_nacimiento')
+        email =  self.cleaned_data('email')
+        telefono =  self.cleaned_data('telefono')
+        
+        if len(dni) != 9:
+            self.add_error('dni',"El DNI no es correcto")
+        
+        miDNI = Persona.objects.get(dni = dni)
+        if (not miDNI is None):
+            self.add_error('dni', "Este DNI ya existe")
+            
+            
+        return self.cleaned_data
 
 
 
