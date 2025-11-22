@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import *
+from .forms import *
 from django.db.models import Avg, Max, Min, Q, Prefetch
 from django.views.defaults import page_not_found
 
@@ -17,7 +18,7 @@ def ver_campings(request):
     campings = (Camping.objects.raw(" SELECT * FROM camping_camping c"))
     """
     
-    return render(request, 'URLs/campings.html', {"mostrar_campings":campings})
+    return render(request, 'URLs/campings/lista_campings.html', {"mostrar_campings":campings})
 
 #   Ordenar las reservas por fecha de inicio
 def ver_reservas_por_fecha(request):
@@ -176,5 +177,41 @@ def prueba_clase(request):
 
 
 
+<<<<<<< HEAD
 """=========================================================================================================================FORMULARIOS========================================================================================================================="""
+=======
+def persona_create(request):
+    datosFormulario = None
+    if(request.method == 'POST'):
+        datosFormulario = request.POST
+        
+    
+    formulario = PersonaModelForm(datosFormulario)
+    if(request.method == "POST"):
+        if formulario.is_valid():
+            try:
+                formulario.save()
+            except Exception as error:
+                print(error)
+            
+    return render(request, 'persona/create_Bootstrap_Library.html', {'formulario':formulario})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> PruebaFormularios
 

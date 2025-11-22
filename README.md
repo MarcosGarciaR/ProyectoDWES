@@ -346,6 +346,11 @@ En las facturas, para indicar si una parcela tiene sombra (True), o no (False).
 - ``: 
 - ``: 
 
+## FormsFields
+
+###
+
+###
 
 ## DIAGRAMA DE CLASES
 ![Diagrama del modelo Entidad-Relacion](diagrama/ModeloE_R_Camping.png)
