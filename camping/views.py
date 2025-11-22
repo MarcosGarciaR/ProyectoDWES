@@ -173,3 +173,8 @@ def prueba_clase(request):
     #                                            + "WHERE cr.salario = 1968.15 AND cr.turno = 'ma' "
                                                 + "JOIN camping_perfilusuario cpu ON cr.usuario_id = cpu.id ")
     return render(request, 'URLs/recepcionistas.html', {'recepcionistas':recepcionistas})
+
+
+
+"""=========================================================================================================================FORMULARIOS========================================================================================================================="""
+
