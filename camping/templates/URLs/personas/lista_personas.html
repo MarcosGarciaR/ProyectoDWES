@@ -1,0 +1,17 @@
+{% extends "principal.html" %}
+{% block titulo %}
+    <title>Personas</title>
+{% endblock %}
+{% block contenido %}
+<ul>
+    {% for persona in mostrar_personas %}
+    <li>
+        {% include 'URLs/personas/personas.html'%}
+    </li>
+    <hr>
+    <br>
+    {% empty %}
+        <p>No hay personas disponibles</p>
+    {% endfor %}
+</ul>
+{% endblock %}

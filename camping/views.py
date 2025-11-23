@@ -31,7 +31,7 @@ def ver_reservas_por_fecha(request):
                                     "   ORDER BY cr.fecha_inicio"))
     """
     
-    return render(request, 'URLs/reservas_fecha.html', {"mostrar_reservas":reservas})
+    return render(request, 'URLs/reservas/reservas_fecha.html', {"mostrar_reservas":reservas})
 
 
 #   Ver la reserva cuyo ID se pasa por la URL
@@ -47,7 +47,7 @@ def ver_reserva_por_id(request, id_reserva):
                                     + "WHERE cr.id = %s", [id_reserva])[0]
     """
     cliente = reserva.cliente
-    return render(request, 'URLs/reserva_por_id.html', {'reserva':reserva, 'cliente':cliente})
+    return render(request, 'URLs/reservas/reserva_por_id.html', {'reserva':reserva, 'cliente':cliente})
 
 
 #   Mostrar las facturas mediante el uso de un filtro AND con precio de factura >= 'X' y capacidad de personas de la Parcela >= Y
@@ -62,7 +62,7 @@ def ver_factura_precio_capacidad(request, precio, capacidadParcela):
                                     + "WHERE cf.total > %s AND cp.capacidad > %s", [int(precio),int(capacidadParcela)])
     """
     
-    return render(request, 'URLs/factura_precio_capacidad.html',{'mostrar_facturas':facturas})
+    return render(request, 'URLs/facturas/factura_precio_capacidad.html',{'mostrar_facturas':facturas})
 
 
 #   URL con la media de precios de los servicios
@@ -80,7 +80,7 @@ def precio_medio_servicios(request):
     servicios = ServiciosExtra.objects.raw("SELECT AVG(precio), MAX(precio), MIN(precio) FROM camping_serviciosextra")
     """
     
-    return render(request, 'URLs/servicios_media_puntos.html',{"media":media, "maximo":maximo, "minimo":minimo})
+    return render(request, 'URLs/serviciosExtra/servicios_media_puntos.html',{"media":media, "maximo":maximo, "minimo":minimo})
 
 
 #   Mostrar los cuidadores mediante un filtro OR con las puntuaciones de los cuidadores, > X o esté disponible de noche
@@ -94,7 +94,7 @@ def puntuacionydisponibilidad_cuidadores(request, puntuacionPedida):
                                         + "WHERE cc.puntuacion > %s OR cc.disponible_de_noche", [int(puntuacionPedida)])
     """
     
-    return render(request, 'URLs/puntuacionydisponibilidad_cuidadores.html', {'mostrar_cuidadores':cuidadores})
+    return render(request, 'URLs/cuidadores/puntuacionydisponibilidad_cuidadores.html', {'mostrar_cuidadores':cuidadores})
 
 
 #   Busqueda de ServiciosExtra cuya descripción tenga la palabra recibida por parámetro.
@@ -107,7 +107,7 @@ def busqueda_descripcion_serviciosextra(request, texto):
                                             + "WHERE cse.descripcion LIKE %s", [textoDescripcion])
     """
     
-    return render(request, 'URLs/servicios_extra_descripcion.html', {'mostrar_servicios':servicios})
+    return render(request, 'URLs/serviciosExtra/servicios_extra_descripcion.html', {'mostrar_servicios':servicios})
 
 
 #   URL con filtro none CLIENTES que no aparecen en la tabla intermedia VEHICULO_CLIENTE
@@ -119,7 +119,7 @@ def clientes_sin_vehiculo(request):
                                     + "WHERE cc.id NOT IN ("SELECT cliente_id FROM camping_vehiculo_cliente")")
     """
     
-    return render(request, 'URLs/clientes_sin_vehiculo.html', {'mostrar_clientes_sin_vehiculo':clientes})
+    return render(request, 'URLs/clientes/clientes_sin_vehiculo.html', {'mostrar_clientes_sin_vehiculo':clientes})
 
 
 #   Mostrar las reservas que no tienen actividades asociadas
@@ -131,7 +131,7 @@ def reservas_sin_actividades(request):
                                     + "WHERE cr.id NOT IN ("SELECT reserva_id FROM camping_reserva_actividades")")
     """
     
-    return render(request, 'URLs/reservas_sin_actividades.html', {'mostrar_reservas':reservas})
+    return render(request, 'URLs/reservas/reservas_sin_actividades.html', {'mostrar_reservas':reservas})
 
 
 #   Ver las reservas que ha realizado un cliente.
@@ -145,7 +145,7 @@ def reservas_de_cliente_por_id(request, cliente_id):
                                     + "WHERE c.id = %s", [cliente_id])
     """
     
-    return render(request, 'URLs/reservas_cliente.html', {'cliente': cliente})
+    return render(request, 'URLs/reservas/reservas_cliente.html', {'cliente': cliente})
 
 
 #   PÁGINAS DE ERRORES
@@ -169,38 +169,53 @@ def prueba_clase(request):
     #recepcionistas = Persona.objects.all().filter(salario = 1968.15 ).filter( turno = 'ma' )
     
     #recepcionistas = Persona.objects.select_related('usuario_id').all()
-    
     recepcionistas = Recepcionista.objects.raw(" SELECT * FROM camping_recepcionista cr "
     #                                            + "WHERE cr.salario = 1968.15 AND cr.turno = 'ma' "
                                                 + "JOIN camping_perfilusuario cpu ON cr.usuario_id = cpu.id ")
-    return render(request, 'URLs/recepcionistas.html', {'recepcionistas':recepcionistas})
+    return render(request, 'URLs/recepcionistas/recepcionistas.html', {'recepcionistas':recepcionistas})
 
 
+#   Ver la lista de personas
+def ver_personas(request):
+    personas = Persona.objects.all()
+    
+    """
+    personas = (Persona.objects.raw(" SELECT * FROM camping_persona p"))
+    """
+    
+    return render(request, 'URLs/personas/lista_personas.html', {"mostrar_personas":personas})
 
-"""=========================================================================================================================FORMULARIOS========================================================================================================================="""
-def persona_create(request):
+"""=================================================================================FORMULARIOS========================================================================================================================="""
+def crear_persona_modelo(request):
     datosFormulario = None
     if(request.method == 'POST'):
         datosFormulario = request.POST
-        
-    
     formulario = PersonaModelForm(datosFormulario)
+    
     if(request.method == "POST"):
         if formulario.is_valid():
             try:
                 formulario.save()
             except Exception as error:
                 print(error)
-            
-    return render(request, 'persona/create_Bootstrap_Library.html', {'formulario':formulario})
+        
+    
+    return render(request, 'URLs/persona/create.html', {'formulario':formulario})
 
 
 
+def crear_persona_modelo(formulario):
+    persona_creado = False
+    if formulario.is_valid():
+        try:
+            formulario.save()
+            persona_creado = True
+        except Exception as error:
+            print(error)
+    
+    return persona_creado
 
-
-
-
-
+    return render(request, 'URLs/persona/create.html', {'formulario':formulario})
 
 
 

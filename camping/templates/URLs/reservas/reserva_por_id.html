@@ -1,15 +1,15 @@
 {% extends "principal.html" %}
 {% block contenido %}
-    {% include 'Plantillas_Modelos/clientes.html' %}
+    {% include 'URLs/clientes/clientes.html' %}
     <br>
-    {% include 'Plantillas_Modelos/reservas.html'%}
+    {% include 'URLs/reservas/reservas.html'%}
     <br>
     <h2>Actividades contratadas</h2>
     {% if reserva.actividades.all %}
     <ul>
         {% for actividad in reserva.actividades.all %}
         <li>
-            {% include 'Plantillas_Modelos/actividades.html' %}
+            {% include 'URLs/actividades/actividades.html' %}
         </li>
         <br>
         {% empty %}
