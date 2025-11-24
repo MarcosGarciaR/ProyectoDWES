@@ -2,7 +2,8 @@ from django import forms
 from django.forms import ModelForm
 from .models import *
 from .forms import *
-from django.contrib import messages
+from datetime import date
+
 
 
 """
@@ -27,7 +28,7 @@ class PersonaModelForm(ModelForm):
         fields = '__all__'
         labels = {
             "nombre": ("Nombre de la persona"),
-            "apellido": ("Apellidos"),
+            "apellido": ("Apellidos")
         }
         """WIDGETS => dar formato especial al campo"""
         widgets = {
@@ -42,20 +43,36 @@ class PersonaModelForm(ModelForm):
     def clean(self):
         super().clean()
         
-        nombre = self.cleaned_data('nombre')
-        apellido =  self.cleaned_data('apellido')
-        dni =  self.cleaned_data('dni')
-        fecha_nacimiento =  self.cleaned_data('fecha_nacimiento')
-        email =  self.cleaned_data('email')
-        telefono =  self.cleaned_data('telefono')
+        nombre = self.cleaned_data.get('nombre')
+        apellido = self.cleaned_data.get('apellido')
+        dni = self.cleaned_data.get('dni')
+        fecha_nacimiento = self.cleaned_data.get('fecha_nacimiento')
+        email = self.cleaned_data.get('email')
+        telefono = self.cleaned_data.get('telefono')
+        
+        if len(nombre) < 3:
+            self.add_error('nombre', 'El nombre es muy corto')
+        
+        if len(apellido) < 3:
+            self.add_error('nombre', 'El nombre es muy corto')
         
         if len(dni) != 9:
-            self.add_error('dni',"El DNI no es correcto")
+            self.add_error('dni',"El formato del DNI no es correcto")
         
-        miDNI = Persona.objects.get(dni = dni)
+        miDNI = Persona.objects.filter(dni=dni).first()
         if (not miDNI is None):
-            self.add_error('dni', "Este DNI ya existe")
+            self.add_error('dni', "Este DNI no está disponible")
             
+        if fecha_nacimiento > date.today():
+            self.add_error('fecha_nacimiento', 'La fecha de nacimiento no puede ser posterior a la fecha de hoy')
+        
+        miEmail = Persona.objects.filter(email=email).first()
+        if(not miEmail is None):
+            self.add_error('email', "Este email no está disponible")
+        
+        miTelefono = Persona.objects.filter(telefono = telefono).first()
+        if len(telefono) < 9 or telefono == 0 or (not miTelefono is None):
+            self.add_error('telefono', 'El telefono es incorrecto')
             
         return self.cleaned_data
 

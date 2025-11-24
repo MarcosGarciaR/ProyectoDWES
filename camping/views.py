@@ -3,6 +3,7 @@ from .models import *
 from .forms import *
 from django.db.models import Avg, Max, Min, Q, Prefetch
 from django.views.defaults import page_not_found
+from django.contrib import messages
 
 
 # Create your views here.
@@ -196,20 +197,20 @@ def crear_persona(request):
     if(request.method == "POST"):
         persona_creado = crear_persona_modelo(formulario)
         if(persona_creado):
-            messages.success(request, "Se ha creado el libro "+formulario.cleaned_data.get('nombre')+ " correctamente")
+            messages.success(request, "Se ha creado la persona con nombre "+formulario.cleaned_data.get('nombre')+ " correctamente")
             return redirect("ver_personas")
                 
     return render(request, 'URLs/personas/create.html', {'formulario':formulario})
 
 def crear_persona_modelo(formulario):
-    presona_creado=False
+    persona_creado=False
     if formulario.is_valid():
         try:
             formulario.save()
             persona_creado = True
         except Exception as error:
             print(error)
-
+    
     return persona_creado
 
 
