@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
 from django.db.models import Avg, Max, Min, Q, Prefetch
@@ -186,37 +186,31 @@ def ver_personas(request):
     return render(request, 'URLs/personas/lista_personas.html', {"mostrar_personas":personas})
 
 """=================================================================================FORMULARIOS========================================================================================================================="""
-def crear_persona_modelo(request):
+
+def crear_persona(request):
     datosFormulario = None
     if(request.method == 'POST'):
         datosFormulario = request.POST
     formulario = PersonaModelForm(datosFormulario)
     
     if(request.method == "POST"):
-        if formulario.is_valid():
-            try:
-                formulario.save()
-            except Exception as error:
-                print(error)
-        
-    
-    return render(request, 'URLs/persona/create.html', {'formulario':formulario})
-
-
+        persona_creado = crear_persona_modelo(formulario)
+        if(persona_creado):
+            messages.success(request, "Se ha creado el libro "+formulario.cleaned_data.get('nombre')+ " correctamente")
+            return redirect("ver_personas")
+                
+    return render(request, 'URLs/personas/create.html', {'formulario':formulario})
 
 def crear_persona_modelo(formulario):
-    persona_creado = False
+    presona_creado=False
     if formulario.is_valid():
         try:
             formulario.save()
             persona_creado = True
         except Exception as error:
             print(error)
-    
+
     return persona_creado
-
-    return render(request, 'URLs/persona/create.html', {'formulario':formulario})
-
 
 
 

@@ -18,6 +18,6 @@ urlpatterns = [
     path('personas/', views.ver_personas, name='ver_personas'),
     
     
-    path('formulario_persona/', views.crear_persona_modelo , name='crear_persona')
+    path('formulario_persona/', views.crear_persona , name='crear_persona')
 ]
 

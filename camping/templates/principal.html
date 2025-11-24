@@ -1,3 +1,5 @@
+{% load django_bootstrap5 %}
+
 <html>
     {% load static %}
     <head>
@@ -23,6 +25,8 @@
 
 <body>
     {% block contenido %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
     {% endblock %}
 </body>
 
@@ -32,4 +36,3 @@
 </footer>
 
 </html>
-

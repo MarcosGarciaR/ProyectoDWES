@@ -23,8 +23,8 @@ class PersonaForm(forms.Form):
 
 class PersonaModelForm(ModelForm):
     class Meta:
-        nombre = Persona
-        fields = ['__all__']
+        model = Persona
+        fields = '__all__'
         labels = {
             "nombre": ("Nombre de la persona"),
             "apellido": ("Apellidos"),

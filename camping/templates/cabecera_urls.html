@@ -4,7 +4,7 @@
 </head>
 
 <div id="lista_urls">
-    <ul>
+    <ul id="URLs">
         <li><a href="{% url 'ver_campings' %}">Campings</a></li>
         <li><a href="{% url 'ver_reservas' %}">Reservas Ordenadas por fecha</a></li>
         <li><a href="{% url 'ver_reserva_por_id' 4 %}">Reserva con ID</a></li>
@@ -17,5 +17,8 @@
         <li><a href="{% url 'reservas_de_cliente_por_id' cliente_id=6 %}">Reservas de un cliente</a></li>
         <li><a href="{% url 'prueba_clase' %}">URL hecha en Clase</a></li>
         <li><a href="{% url 'ver_personas' %}">Personas</a></li>
+    </ul>
+    <ul id="Formularios">
+        <li><a href="{% url 'crear_persona' %}">Crear Persona</a></li>
     </ul>
 </div>

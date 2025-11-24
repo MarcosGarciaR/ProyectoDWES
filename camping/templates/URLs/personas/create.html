@@ -1,7 +1,6 @@
-<form action = " " method= "post">
-
+<form action= "" method = "post">
+    {% load django_bootstrap5 %}
     {% csrf_token %}
-
-    {{ formulario }}
+    {% bootstrap_form formulario %}
     <button type="submit">Enviar</button>
 </form>
