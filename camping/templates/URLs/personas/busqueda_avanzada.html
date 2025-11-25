@@ -1,10 +1,11 @@
 {% extends "principal.html" %} {% block contenido %}
+<form action = "buscar_personas" method = "GET">
 
-<form action= "{% url 'crear_persona' %}" method = "POST">
     {% load django_bootstrap5 %}
     {% csrf_token %}
     {% bootstrap_form formulario %}
     <button type="submit">Enviar</button>
+
 </form>
 
 {% endblock %}

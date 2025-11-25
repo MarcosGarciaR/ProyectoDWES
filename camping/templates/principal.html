@@ -6,6 +6,8 @@
         {% block titulo %}
         <title>CampNatur</title>
         {% endblock %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
         <link rel="stylesheet" href="{% static 'css/cabecera.css' %}"/>
 
         <script src="{% static 'javascript/javascript_prueba.js' %}"></script>
@@ -24,9 +26,8 @@
 </header>
 
 <body>
+    {% bootstrap_messages %}
     {% block contenido %}
-        {% bootstrap_css %}
-        {% bootstrap_javascript %}
     {% endblock %}
 </body>
 

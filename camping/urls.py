@@ -18,6 +18,7 @@ urlpatterns = [
     path('personas/', views.ver_personas, name='ver_personas'),
     
     
-    path('formulario_persona/', views.crear_persona , name='crear_persona')
+    path('formulario_persona/', views.crear_persona , name='crear_persona'),
+    path('busqueda_personas/', views.buscar_personas, name='buscar_personas'),
 ]
 

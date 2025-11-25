@@ -5,7 +5,6 @@ from .forms import *
 from datetime import date
 
 
-
 """
 class PersonaForm(forms.Form):
     nombre = forms.CharField(label="Nombre", required=True, max_length=200, help_text="Máximo de 200 carácteres")
@@ -28,7 +27,8 @@ class PersonaModelForm(ModelForm):
         fields = '__all__'
         labels = {
             "nombre": ("Nombre de la persona"),
-            "apellido": ("Apellidos")
+            "apellido": ("Apellidos"),
+            'dni': ("DNI")
         }
         """WIDGETS => dar formato especial al campo"""
         widgets = {
@@ -75,6 +75,81 @@ class PersonaModelForm(ModelForm):
             self.add_error('telefono', 'El telefono es incorrecto')
             
         return self.cleaned_data
+
+
+class BusquedaPersonasForm(forms.Form):
+    nombreBusqueda = forms.CharField(required=False, label="Nombre")
+    
+    apellidosBusqueda = forms.CharField(required=False, label="Apellidos")
+
+    dni = forms.CharField(required=False, label="DNI")
+
+    annioActual = date.today().year
+    YEAR_CHOICES = [(y, y) for y in range(1920, annioActual)]
+    annio_nacimiento = forms.ChoiceField(label="Año de nacimiento", choices=YEAR_CHOICES, required=False)
+    """
+    forms.DateField(label="Año de Nacimiento",
+                                        required=False,
+                                        widget=forms.SelectDateWidget(empty_label="Seleccione el año de Nacimiento")
+                                        )
+    """
+    
+    def clean(self):
+        super().clean()
+        
+        nombreBusqueda = self.cleaned_data.get('nombreBusqueda')
+        apellidosBusqueda = self.cleaned_data.get('apellidosBusqueda')
+        dni = self.cleaned_data.get('dni')
+        annio_nacimiento = self.cleaned_data.get('annio_nacimiento')
+        
+        if(nombreBusqueda == "" 
+            and apellidosBusqueda == "" 
+            and dni == "" 
+            and annio_nacimiento is None
+            ):
+            self.add_error('nombreBusqueda', 'Debe introducir al menos un campo de busqueda')
+            self.add_error('apellidosBusqueda', 'Debe introducir al menos un campo de busqueda')
+            self.add_error('dni', 'Debe introducir al menos un campo de busqueda')
+            self.add_error('annio_nacimiento', 'Debe introducir al menos un campo de busqueda')
+        
+        else:
+            annioActual = date.today().year
+    
+            if(nombreBusqueda != "" and len(nombreBusqueda) < 3):
+                self.add_error('nombreBusqueda', 'El nombre es demasiado corto')
+            
+            if(apellidosBusqueda != "" and len(apellidosBusqueda) < 3):
+                self.add_error('apellidosBusqueda', 'El apellido es demasiado corto')
+            
+            if(dni != "" and len(dni) <8 or len(dni) > 10):
+                self.add_error('dni', "El DNI no es correcto")
+                
+            
+            if(annio_nacimiento > annioActual):
+                self.add_error("annio_nacimiento", "El año de nacimiento no puede ser posterior al año actual")
+                
+        return self.cleaned_data
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

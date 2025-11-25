@@ -214,7 +214,41 @@ def crear_persona_modelo(formulario):
     return persona_creado
 
 
-
+def buscar_personas(request):
+    formulario = BusquedaPersonasForm(request.GET)
+    
+    if(len(request.GET) > 0):
+        formulario = BusquedaPersonasForm(request.GET)
+        
+    if formulario.is_valid():
+        mensaje_busqueda = "Se ha buscado por los siguientes valores:"
+        
+        # QUERY SETS AQUI
+        QSpersonas = Persona.objects
+        
+        nombreBusqueda = formulario.cleaned_data.get('nombreBusqueda')
+        apellidosBusqueda = formulario.cleaned_data.get('apellidosBusqueda')
+        dni = formulario.cleaned_data.get('dni')
+        annio_nacimiento = formulario.cleaned_data.get('annio_nacimiento')
+        
+        if(nombreBusqueda != ""):
+            QSpersonas = QSpersonas.filter(nombre__contains=nombreBusqueda)
+            mensaje_busqueda += "\nNombre con contenido: "+nombreBusqueda
+        
+        if(apellidosBusqueda != ""):
+            QSpersonas = QSpersonas.filter(apellido__contains=apellidosBusqueda)
+            mensaje_busqueda += "\nApellido con contenido: "+apellidosBusqueda
+        
+        if(dni != ""):
+            QSpersonas = QSpersonas.filter(dni__contains=dni)
+            mensaje_busqueda += "\Con DNI: "+dni
+        
+        #if(annio_nacimiento != )
+        
+    else:
+        formulario = BusquedaPersonasForm(None)
+    
+    return render(request, 'URLs/personas/busqueda_avanzada.html', {'formulario':formulario})
 
 
 
