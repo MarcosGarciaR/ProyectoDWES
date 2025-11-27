@@ -54,7 +54,7 @@ class PersonaModelForm(ModelForm):
             self.add_error('nombre', 'El nombre es muy corto')
         
         if len(apellido) < 3:
-            self.add_error('nombre', 'El nombre es muy corto')
+            self.add_error('apellido', 'El apellido es muy corto')
         
         if len(dni) != 9:
             self.add_error('dni',"El formato del DNI no es correcto")
@@ -71,11 +71,11 @@ class PersonaModelForm(ModelForm):
             self.add_error('email', "Este email no está disponible")
         
         miTelefono = Persona.objects.filter(telefono = telefono).first()
-        if len(telefono) < 9 or telefono == 0 or (not miTelefono is None):
+        if len(telefono) < 9 or telefono.strip("0") == "" or (not miTelefono is None):
             self.add_error('telefono', 'El telefono es incorrecto')
             
         return self.cleaned_data
-
+    
 
 class BusquedaPersonasForm(forms.Form):
     nombreBusqueda = forms.CharField(required=False, label="Nombre")
@@ -84,9 +84,8 @@ class BusquedaPersonasForm(forms.Form):
 
     dni = forms.CharField(required=False, label="DNI")
 
-    annioActual = date.today().year
-    YEAR_CHOICES = [(y, y) for y in range(1920, annioActual)]
-    annio_nacimiento = forms.ChoiceField(label="Año de nacimiento", choices=YEAR_CHOICES, required=False)
+    
+    annio_nacimiento = forms.IntegerField(required=False, label="Año de nacimiento")
     """
     forms.DateField(label="Año de Nacimiento",
                                         required=False,
@@ -124,9 +123,8 @@ class BusquedaPersonasForm(forms.Form):
             if(dni != "" and len(dni) <8 or len(dni) > 10):
                 self.add_error('dni', "El DNI no es correcto")
                 
-            
-            if(annio_nacimiento > annioActual):
-                self.add_error("annio_nacimiento", "El año de nacimiento no puede ser posterior al año actual")
+            if(annio_nacimiento != "" and annio_nacimiento < 0 or annio_nacimiento > annioActual):
+                self.add_error("annio_nacimiento", "El año de nacimiento no es válido")
                 
         return self.cleaned_data
 
