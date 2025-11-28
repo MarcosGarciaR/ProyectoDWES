@@ -1,5 +1,5 @@
 {% extends "principal.html" %} {% block contenido %}
-<form action = "buscar_personas" method = "GET">
+<form action = "{% url 'buscar_personas' %}" method = "GET">
 
     {% load django_bootstrap5 %}
     {% csrf_token %}

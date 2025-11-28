@@ -120,10 +120,10 @@ class BusquedaPersonasForm(forms.Form):
             if(apellidosBusqueda != "" and len(apellidosBusqueda) < 3):
                 self.add_error('apellidosBusqueda', 'El apellido es demasiado corto')
             
-            if(dni != "" and len(dni) <8 or len(dni) > 10):
+            if(dni != "" and len(dni) < 8 or len(dni) > 10):
                 self.add_error('dni', "El DNI no es correcto")
                 
-            if(annio_nacimiento != "" and annio_nacimiento < 0 or annio_nacimiento > annioActual):
+            if(annio_nacimiento  is not None and ( annio_nacimiento < 0 or annio_nacimiento > annioActual)):
                 self.add_error("annio_nacimiento", "El año de nacimiento no es válido")
                 
         return self.cleaned_data

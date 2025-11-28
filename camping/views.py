@@ -245,6 +245,9 @@ def buscar_personas(request):
         
         #if(annio_nacimiento != )
         
+        formulario = QSpersonas
+        return render(request, 'URLs/personas/busqueda_avanzada.html', {'formulario':formulario})
+
     else:
         formulario = BusquedaPersonasForm(None)
     
