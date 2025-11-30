@@ -19,5 +19,7 @@ urlpatterns = [
     
     path('formulario_persona/', views.crear_persona , name='crear_persona'),
     path('busqueda_personas/', views.buscar_personas, name='buscar_personas'),
+    path('persona/editar/<int:persona_id>', views.persona_editar, name='editar_persona'),
+    path('persona/eliminar/<int:persona_id>', views.persona_eliminar, name='eliminar_persona'),
 ]
 

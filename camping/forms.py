@@ -59,19 +59,29 @@ class PersonaModelForm(ModelForm):
         if len(dni) != 9:
             self.add_error('dni',"El formato del DNI no es correcto")
         
-        miDNI = Persona.objects.filter(dni=dni).first()
-        if (not miDNI is None):
+        miPersona = Persona.objects.filter(dni=dni).first()
+        if (not (miPersona is None or (not self.instance is None and miPersona.id == self.instance.id )
+                )
+        ):
             self.add_error('dni', "Este DNI no está disponible")
             
         if fecha_nacimiento > date.today():
             self.add_error('fecha_nacimiento', 'La fecha de nacimiento no puede ser posterior a la fecha de hoy')
         
         miEmail = Persona.objects.filter(email=email).first()
-        if(not miEmail is None):
+        if (not (miEmail is None or (not self.instance is None and miEmail.id == self.instance.id )
+                )
+        ):
             self.add_error('email', "Este email no está disponible")
         
+        """
+        Telefono < 9 digitos (más si por +34 etc)
+        Telefono, quitando 0, no sea vacío (no sea todo ceros)
+        NO (Teléfono vacio O (objeto no es None y el ID de telefono es el de instancia)) == NO (False OR True) = NO (True) = False = No entra en el if
+        """
+        
         miTelefono = Persona.objects.filter(telefono = telefono).first()
-        if len(telefono) < 9 or telefono.strip("0") == "" or (not miTelefono is None):
+        if len(telefono) < 9 or telefono.strip("0") == "" or not (miTelefono is None or (not self.instance is None and miTelefono.id == self.instance.id ) ):
             self.add_error('telefono', 'El telefono es incorrecto')
             
         return self.cleaned_data
@@ -84,14 +94,8 @@ class BusquedaPersonasForm(forms.Form):
 
     dni = forms.CharField(required=False, label="DNI")
 
-    
     annio_nacimiento = forms.IntegerField(required=False, label="Año de nacimiento")
-    """
-    forms.DateField(label="Año de Nacimiento",
-                                        required=False,
-                                        widget=forms.SelectDateWidget(empty_label="Seleccione el año de Nacimiento")
-                                        )
-    """
+    
     
     def clean(self):
         super().clean()
@@ -120,7 +124,7 @@ class BusquedaPersonasForm(forms.Form):
             if(apellidosBusqueda != "" and len(apellidosBusqueda) < 3):
                 self.add_error('apellidosBusqueda', 'El apellido es demasiado corto')
             
-            if(dni != "" and len(dni) < 8 or len(dni) > 10):
+            if(dni != "" and (len(dni) < 8 or len(dni) > 10)):
                 self.add_error('dni', "El DNI no es correcto")
                 
             if(annio_nacimiento  is not None and ( annio_nacimiento < 0 or annio_nacimiento > annioActual)):

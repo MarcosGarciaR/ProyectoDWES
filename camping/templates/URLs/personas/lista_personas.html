@@ -2,7 +2,17 @@
 {% block titulo %}
     <title>Personas</title>
 {% endblock %}
+
+{% block cabecera_extra %}
+    {% load static %}
+    <script type="text/javascript" src="{% static 'javascript/principal.js' %}" ></script>
+{% endblock %}
+
 {% block contenido %}
+    {% if texto_busqueda %}
+    <p>{{texto_busqueda}}</p>
+    {% endif %}
+    
 <ul>
     {% for persona in mostrar_personas %}
     <li>

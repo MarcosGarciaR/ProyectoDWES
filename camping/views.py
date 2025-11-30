@@ -188,6 +188,8 @@ def ver_personas(request):
 
 """=================================================================================FORMULARIOS========================================================================================================================="""
 
+# PERSONA
+## CREATE
 def crear_persona(request):
     datosFormulario = None
     if(request.method == 'POST'):
@@ -214,39 +216,42 @@ def crear_persona_modelo(formulario):
     return persona_creado
 
 
+## READ
 def buscar_personas(request):
     formulario = BusquedaPersonasForm(request.GET)
     
     if(len(request.GET) > 0):
         formulario = BusquedaPersonasForm(request.GET)
         
-    if formulario.is_valid():
-        mensaje_busqueda = "Se ha buscado por los siguientes valores:"
-        
-        # QUERY SETS AQUI
-        QSpersonas = Persona.objects
-        
-        nombreBusqueda = formulario.cleaned_data.get('nombreBusqueda')
-        apellidosBusqueda = formulario.cleaned_data.get('apellidosBusqueda')
-        dni = formulario.cleaned_data.get('dni')
-        annio_nacimiento = formulario.cleaned_data.get('annio_nacimiento')
-        
-        if(nombreBusqueda != ""):
-            QSpersonas = QSpersonas.filter(nombre__contains=nombreBusqueda)
-            mensaje_busqueda += "\nNombre con contenido: "+nombreBusqueda
-        
-        if(apellidosBusqueda != ""):
-            QSpersonas = QSpersonas.filter(apellido__contains=apellidosBusqueda)
-            mensaje_busqueda += "\nApellido con contenido: "+apellidosBusqueda
-        
-        if(dni != ""):
-            QSpersonas = QSpersonas.filter(dni__contains=dni)
-            mensaje_busqueda += "\Con DNI: "+dni
-        
-        #if(annio_nacimiento != )
-        
-        formulario = QSpersonas
-        return render(request, 'URLs/personas/busqueda_avanzada.html', {'formulario':formulario})
+        if formulario.is_valid():
+            mensaje_busqueda = "Se ha buscado por los siguientes valores:\n"
+            
+            # QUERY SETS AQUI
+            QSpersonas = Persona.objects
+            
+            nombreBusqueda = formulario.cleaned_data.get('nombreBusqueda')
+            apellidosBusqueda = formulario.cleaned_data.get('apellidosBusqueda')
+            dni = formulario.cleaned_data.get('dni')
+            annio_nacimiento = formulario.cleaned_data.get('annio_nacimiento')
+            
+            if(nombreBusqueda != ""):
+                QSpersonas = QSpersonas.filter(nombre__contains=nombreBusqueda)
+                mensaje_busqueda += "Nombre con contenido: "+nombreBusqueda + "\n"
+            
+            if(apellidosBusqueda != ""):
+                QSpersonas = QSpersonas.filter(apellido__contains=apellidosBusqueda)
+                mensaje_busqueda += "Apellido con contenido: "+apellidosBusqueda + "\n"
+            
+            if(dni != ""):
+                QSpersonas = QSpersonas.filter(dni__contains=dni)
+                mensaje_busqueda += "Con DNI: "+dni + "\n"
+            
+            if(annio_nacimiento != None ):
+                QSpersonas = QSpersonas.filter(fecha_nacimiento__year= annio_nacimiento)
+                mensaje_busqueda += "Con año de nacimiento: "+annio_nacimiento
+            
+            personas = QSpersonas.all()
+            return render(request, 'URLs/personas/lista_personas.html', {'mostrar_personas':personas, "texto_busqueda":mensaje_busqueda})
 
     else:
         formulario = BusquedaPersonasForm(None)
@@ -254,8 +259,38 @@ def buscar_personas(request):
     return render(request, 'URLs/personas/busqueda_avanzada.html', {'formulario':formulario})
 
 
+## UPDATE
+def persona_editar(request, persona_id):
+    persona = Persona.objects.get(id = persona_id)
+    datosFormulario = None
+    
+    if(request.method == 'POST'):
+        datosFormulario = request.POST
+    formulario = PersonaModelForm(datosFormulario, instance = persona)
+    
+    
+    if(request.method == "POST"):
+        if formulario.is_valid():
+            try:
+                formulario.save()
+                messages.success(request, 'Se ha editado la persona '+formulario.cleaned_data.get('dni')+" correctamente")
+                return redirect('ver_personas')
+            except Exception as e:
+                print(e)
+    
+    return render(request, 'URLs/personas/actualizar.html', {'formulario':formulario, 'persona':persona})
 
 
+## DELETE
+
+def persona_eliminar(request, persona_id):
+    persona = Persona.objects.get(id = persona_id)
+    try:
+        persona.delete()
+    except Exception as e:
+        print(e)
+    
+    return redirect('ver_personas')
 
 
 

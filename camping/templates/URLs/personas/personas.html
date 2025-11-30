@@ -1,4 +1,20 @@
 <div>
-        <h2>Nombre: {{ persona.nombre }}</h2>
-        <p>DNI: {{ persona.dni }}</p>
+    <h2>{{ persona.nombre }} {{ persona.apellido}}</h2>
+    <p>DNI: {{ persona.dni }}</p>
+    <p>E-mail: {{ persona.email }} </p>
+</div>
+{% load bootstrap_icons %}
+<div class="row btn-group">
+    <div class="mb-2">
+        <button type="button" 
+                class="btn btn-outline-primary"> 
+                <a href="{% url 'editar_persona' persona.id %}" ><span>{% bs_icon 'pencil' %}</span></a>
+        </button>
+
+
+            <button class="btn btn-danger" type="button" onclick="return eliminarPersona()">
+                <a href="{% url "eliminar_persona" persona.id %}"><span>{% bs_icon 'trash' %}</span></a>
+            </button> 
+    </div>
+    
 </div>
