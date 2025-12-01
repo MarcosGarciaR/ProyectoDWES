@@ -292,4 +292,39 @@ def persona_eliminar(request, persona_id):
     return redirect('ver_personas')
 
 
+# PERFILES DE USUARIO
+def ver_perfiles(request):
+    perfiles = PerfilUsuario.objects.select_related('datos_usuario').all()
+    
+    return render(request, 'URLs/perfilesUsuario/lista_perfiles.html', {'mostrar_perfiles':perfiles})
+
+## CREATE
+def crear_perfilUsuario(request):
+    datosFormulario = None
+    if(request.method == 'POST'):
+        datosFormulario = request.POST
+    formulario = PerfilUsuarioModelForm(datosFormulario, request.FILES)
+    
+    if(request.method == "POST"):
+        perfil_creado = crear_perfil_modelo(formulario)
+        if(perfil_creado):
+            messages.success(request, "Se ha creado el usuario con userName "+formulario.cleaned_data.get('username')+ " correctamente")
+            return redirect("ver_perfiles")
+                
+    return render(request, 'URLs/perfilesUsuario/create.html', {'formulario':formulario})
+
+def crear_perfil_modelo(formulario):
+    perfil_creado =False
+    if formulario.is_valid():
+        try:
+            formulario.save()
+            perfil_creado = True
+        except Exception as error:
+            print(error)
+    
+    return perfil_creado
+
+
+
+
 

@@ -1,0 +1,17 @@
+{% load static %}
+<div class="perfil-container">
+    <div class="datos">
+        <h1>{{ perfil.datos_usuario.nombre }}</h1>
+        <p>UserName: {{ perfil.username }}</p>
+        <p>Pwd: {{ perfil.password }}</p>
+        <p>Registro: {{ perfil.fecha_registro|date:"l j/n/Y"|capfirst }}</p>
+    </div>
+
+    <div class="foto">
+        {% if user.foto_perfil %}
+            <img src="{{ user.foto_perfil.url }}" alt="Foto de perfil">
+        {% else %}
+            <img src="{% static 'imagenes/foto_perfil_base.png' %}" alt="Foto de perfil">
+        {% endif %}
+    </div>
+</div>

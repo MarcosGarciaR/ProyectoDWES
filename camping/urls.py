@@ -15,17 +15,30 @@ urlpatterns = [
     path('cliente/<int:cliente_id>/reservas/', views.reservas_de_cliente_por_id , name='reservas_de_cliente_por_id'),
     
     path('recepcionistas/', views.prueba_clase , name='prueba_clase'),
+    
     path('personas/', views.ver_personas, name='ver_personas'),
+    path('perfiles', views.ver_perfiles, name="ver_perfiles"),
+    
+    
+    
     
     path('formulario_persona/', views.crear_persona , name='crear_persona'),
     path('busqueda_personas/', views.buscar_personas, name='buscar_personas'),
     path('persona/editar/<int:persona_id>', views.persona_editar, name='editar_persona'),
     path('persona/eliminar/<int:persona_id>', views.persona_eliminar, name='eliminar_persona'),
     
-    
+    path('formulario_perfilUsuario/', views.crear_perfilUsuario, name="crear_perfilUsuario"),
     
     
     
     
 ]
+
+
+## PARA LAS IMAGENES DE PERFIL DE LOS USUARIOS
+from django.conf import settings
+from django.conf.urls.static import static
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

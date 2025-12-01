@@ -1,0 +1,29 @@
+{% extends "principal.html" %}
+{% block titulo %}
+    <title>Perfiles de Usuario</title>
+{% endblock %}
+
+{% block cabecera_extra %}
+    {% load static %}
+    
+        <link rel="stylesheet" href="{% static 'css/perfiles.css' %}"/>
+    <script type="text/javascript" src="{% static 'javascript/javascript_prueba.js' %}" ></script>
+{% endblock %}
+
+{% block contenido %}
+    {% if texto_busqueda %}
+    <p>{{texto_busqueda}}</p>
+    {% endif %}
+    
+<ul>
+    {% for perfil in mostrar_perfiles %}
+    <li>
+        {% include 'URLs/perfilesUsuario/perfil.html'%}
+    </li>
+    <hr>
+    <br>
+    {% empty %}
+        <p>No hay perfiles disponibles</p>
+    {% endfor %}
+</ul>
+{% endblock %}

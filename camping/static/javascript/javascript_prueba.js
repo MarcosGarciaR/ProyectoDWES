@@ -5,3 +5,11 @@ function eliminarPersona(dni){
     else
         return false;
 }
+
+function eliminarPerfil(username){
+    var x = confirm("¿Eliminar el usuario " + username + " ?");
+    if(x)
+        return true;
+    else
+        return false;
+}

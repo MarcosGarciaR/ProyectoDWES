@@ -1,0 +1,23 @@
+.perfil-container {
+    display: flex;
+    align-items: center;       
+    justify-content: space-between; 
+}
+
+.perfil-container .datos {
+    text-align: left;
+}
+
+.perfil-container .foto img {
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+    margin-right: 300px;
+}
+
+@media (max-width: 800px){
+
+    .perfil-container .foto img {
+        margin-right: 100px;
+    }
+}

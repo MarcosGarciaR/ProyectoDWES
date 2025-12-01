@@ -5,8 +5,6 @@
 
 <div id="lista_urls">
     <ul>
-        <!-- Ejemplo de botón simple -->
-        <li><a href="#">Inicio</a></li>
 
         <!-- URLs 1 con submenú -->
         <li class="tiene-submenu">
@@ -24,6 +22,7 @@
                 <li><a href="{% url 'reservas_de_cliente_por_id' cliente_id=6 %}">Reservas de un cliente</a></li>
                 <li><a href="{% url 'prueba_clase' %}">URL hecha en Clase</a></li>
                 <li><a href="{% url 'ver_personas' %}">Personas</a></li>
+                <li><a href="{% url 'ver_perfiles' %}">Perfiles</a></li>
             </ul>
         </li>
 
@@ -39,6 +38,14 @@
                     </ul>
                 </li>
                 
+                <li class="tiene-submenu">
+                    <a href="#">Perfiles de usuario</a>
+                    <ul>
+                        <li><a href="{% url "crear_perfilUsuario" %}">Crear perfil de usuario</a></li>
+                        <li><a>Buscar perfil de usuario</a></li>
+                    </ul>
+
+                </li>
             </ul>
         </li>
 

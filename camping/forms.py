@@ -20,7 +20,7 @@ class PersonaForm(forms.Form):
     telefono = 
     
 """
-
+## PERSONA
 class PersonaModelForm(ModelForm):
     class Meta:
         model = Persona
@@ -141,22 +141,72 @@ class BusquedaPersonasForm(forms.Form):
         return self.cleaned_data
 
 
+## PERFILUSUARIO CON FOTO DE PERFIL
 
+class PerfilUsuarioModelForm(ModelForm):
+    class Meta:
+        model = PerfilUsuario
+        fields = '__all__'
+        labels = {
+            "username": "Nombre de usuario",
+            "password": "Contraseña",
+        }
+        widgets = {
+            'password': forms.PasswordInput(),
+            'es_staff': forms.CheckboxInput(),
+            'fecha_registro': forms.HiddenInput(),
+            'foto_perfil': forms.FileInput(attrs={'accept': 'image/*'}),
+        }
+        localized_fields = ["fecha_registro"]
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Filtrar personas que aún no tienen perfil
+        # Si estamos editando, incluir la persona asociada actual
+        if self.instance and self.instance.pk:
+            self.fields['datos_usuario'].queryset = Persona.objects.filter(
+                models.Q(perfilusuario__isnull=True) | models.Q(pk=self.instance.datos_usuario.pk)
+            )
+        else:
+            self.fields['datos_usuario'].queryset = Persona.objects.filter(perfilusuario__isnull=True)
+            
+    
+    def clean(self):
+        super().clean()  # devuelve un diccionario con los datos limpios
 
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+        datos_usuario = self.cleaned_data.get('datos_usuario')
 
+        # Validación de username
+        if username:
+            if len(username) < 3:
+                self.add_error('username', 'El nombre de usuario es demasiado corto')
+            elif len(username) > 50:
+                self.add_error('username', 'El nombre de usuario es demasiado largo')
+            
+            miUsername = PerfilUsuario.objects.filter(username=username).first()
+            if miUsername and (not self.instance or miUsername.id != self.instance.id):
+                self.add_error('username', 'Este nombre de usuario no está disponible')
 
+        # Validación de password
+        if password and len(password) < 6:
+            self.add_error('password', 'La contraseña es demasiado corta')
 
+        # Validación de datos_usuario
+        disponibles_qs = Persona.objects.filter(perfilusuario__isnull=True)
+        if self.instance and self.instance.pk and self.instance.datos_usuario:
+            disponibles_qs = disponibles_qs | Persona.objects.filter(pk=self.instance.datos_usuario.pk)
 
+        if not disponibles_qs.exists():
+            self.add_error('datos_usuario', 'No hay personas disponibles para asignar un perfil de usuario.')
+        elif datos_usuario:
+            if datos_usuario not in disponibles_qs:
+                self.add_error('datos_usuario', 'La persona seleccionada ya tiene un perfil de usuario.')
+        else:
+            self.add_error('datos_usuario', 'Debe seleccionar una persona para asignar el perfil de usuario.')
 
-
-
-
-
-
-
-
-
-
+        return self.cleaned_data
 
 
 
