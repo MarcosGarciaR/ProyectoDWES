@@ -3,18 +3,18 @@
     <p>DNI: {{ persona.dni }}</p>
     <p>E-mail: {{ persona.email }} </p>
 </div>
-{% load bootstrap_icons %}
 <div class="row btn-group">
     <div class="mb-2">
         <button type="button" 
                 class="btn btn-outline-primary"> 
-                <a href="{% url 'editar_persona' persona.id %}" ><span>{% bs_icon 'pencil' %}</span></a>
+                <a href="{% url 'editar_persona' persona.id %}" ><span>Editar</span></a>
         </button>
-
-
-            <button class="btn btn-danger" type="button" onclick="return eliminarPersona()">
-                <a href="{% url "eliminar_persona" persona.id %}"><span>{% bs_icon 'trash' %}</span></a>
+        <form action = "{% url 'eliminar_persona' persona.id %}" method = "post"> 
+            {% csrf_token %}
+            <button class="btn btn-danger" type="submit" onclick="return eliminarPersona()">
+                <span>Eliminar</span>
             </button> 
+        </form>
     </div>
     
 </div>

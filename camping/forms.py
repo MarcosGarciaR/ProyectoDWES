@@ -52,10 +52,14 @@ class PersonaModelForm(ModelForm):
         
         if len(nombre) < 3:
             self.add_error('nombre', 'El nombre es muy corto')
-        
+        if len(nombre) > 100:
+            self.add_error('nombre', 'El nombre es muy largo')
+
         if len(apellido) < 3:
             self.add_error('apellido', 'El apellido es muy corto')
-        
+        if len(apellido) > 100:
+            self.add_error('apellido', 'El apellido es muy largo')
+            
         if len(dni) != 9:
             self.add_error('dni',"El formato del DNI no es correcto")
         
@@ -81,9 +85,11 @@ class PersonaModelForm(ModelForm):
         """
         
         miTelefono = Persona.objects.filter(telefono = telefono).first()
-        if len(telefono) < 9 or telefono.strip("0") == "" or not (miTelefono is None or (not self.instance is None and miTelefono.id == self.instance.id ) ):
+        if len(telefono) < 9 or len(telefono) > 20 or telefono.strip("0") == "" or not (miTelefono is None or (not self.instance is None and miTelefono.id == self.instance.id ) ):
             self.add_error('telefono', 'El telefono es incorrecto')
-            
+        
+        
+        
         return self.cleaned_data
     
 
