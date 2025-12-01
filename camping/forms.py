@@ -33,6 +33,8 @@ class PersonaModelForm(ModelForm):
         """WIDGETS => dar formato especial al campo"""
         widgets = {
             "fecha_nacimiento":forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+            "email":forms.EmailInput(attrs={"class": "form-control","placeholder":"ejemplo@correo.com"}),
+            
         }
         
         """ 
@@ -91,7 +93,7 @@ class PersonaModelForm(ModelForm):
         
         
         return self.cleaned_data
-    
+
 
 class BusquedaPersonasForm(forms.Form):
     nombreBusqueda = forms.CharField(required=False, label="Nombre")

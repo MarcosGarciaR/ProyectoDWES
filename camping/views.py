@@ -282,7 +282,6 @@ def persona_editar(request, persona_id):
 
 
 ## DELETE
-
 def persona_eliminar(request, persona_id):
     persona = Persona.objects.get(id = persona_id)
     try:
