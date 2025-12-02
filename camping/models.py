@@ -32,10 +32,10 @@ class PerfilUsuario(models.Model):
     foto_perfil = models.ImageField(upload_to='perfiles/', blank=True, null=True)
     
     es_staff = models.BooleanField(default=False)
-    rol = models.CharField(max_length=20, choices=OPCIONES_ROL, default='cliente')
+    rol = models.CharField(max_length=20, choices=OPCIONES_ROL, blank=True, null=True)
 
-    fecha_registro = models.DateTimeField(default=timezone.now)
-
+    fecha_registro = models.DateTimeField(auto_now_add=True)
+    
 # RECEPCIONISTA
 class Recepcionista(models.Model):
     OPCIONES_TURNO = [

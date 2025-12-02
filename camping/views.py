@@ -292,29 +292,41 @@ def persona_eliminar(request, persona_id):
     return redirect('ver_personas')
 
 
-# PERFILES DE USUARIO
+"""=================================================================================PERFILES DE USUARIO========================================================================================================================="""
 def ver_perfiles(request):
     perfiles = PerfilUsuario.objects.select_related('datos_usuario').all()
     
     return render(request, 'URLs/perfilesUsuario/lista_perfiles.html', {'mostrar_perfiles':perfiles})
 
 ## CREATE
-def crear_perfilUsuario(request):
+def crear_perfil_usuario(request):
+    
+    """
+    En caso de no haber ninguna persona sin perfil de usuario (y por ello, no se podrán hacer OneToOne), redirige a personas para que no se quede
+    una la pantalla colgada y muestra el error existente. 
+    """
+    
+    personas_disponibles = Persona.objects.filter(perfilusuario__isnull=True)
+    if not personas_disponibles.exists():
+        messages.error(request, "No hay personas disponibles. Primero debe crear una persona sin perfil de usuario.")
+        return redirect("ver_personas")  # o la URL que prefiera
+    
     datosFormulario = None
     if(request.method == 'POST'):
         datosFormulario = request.POST
     formulario = PerfilUsuarioModelForm(datosFormulario)
     
     if(request.method == "POST"):
-        perfil_creado = crear_perfil_modelo(formulario)
+        perfil_creado = crear_perfil_usuario_modelo(formulario)
         if(perfil_creado):
-            messages.success(request, "Se ha creado el usuario con userName "+formulario.cleaned_data.get('username')+ " correctamente")
+            messages.success(request, "Se ha creado el perfil de usuario "+formulario.cleaned_data.get('username')+ " correctamente")
             return redirect("ver_perfiles")
-                
-    return render(request, 'URLs/perfilesUsuario/create.html', {'formulario':formulario})
+            
+    return render(request, 'URLs/perfilesUsuario/create.html', {'formulario': formulario})
 
-def crear_perfil_modelo(formulario):
-    perfil_creado =False
+
+def crear_perfil_usuario_modelo(formulario):
+    perfil_creado=False
     if formulario.is_valid():
         try:
             formulario.save()
@@ -325,46 +337,80 @@ def crear_perfil_modelo(formulario):
     return perfil_creado
 
 
-def buscar_perfilUsuario(request):
-    formulario = BusquedaPerfilesUsuarioForm(request.GET)
+## READ
+def buscar_perfiles_usuarios(request):
+    formulario = BusquedaPerfilesUsuariosForm(request.GET)
     
     if(len(request.GET) > 0):
-        formulario = BusquedaPerfilesUsuarioForm(request.GET)
+        formulario = BusquedaPerfilesUsuariosForm(request.GET)
         
         if formulario.is_valid():
             mensaje_busqueda = "Se ha buscado por los siguientes valores:\n"
             
-            # QUERY SETS AQUI
             QSperfiles = PerfilUsuario.objects
             
-            username = formulario.cleaned_data.get('username')
-            es_staff = formulario.cleaned_data.get('es_staff')
-            rol = formulario.cleaned_data.get('rol')
-            fecha_registro = formulario.cleaned_data.get('fecha_registro')
+            usernameBusqueda = formulario.cleaned_data.get('usernameBusqueda')
+            rolesBusqueda = formulario.cleaned_data.get('rolBusqueda')
+            esStaffBusqueda = formulario.cleaned_data.get('esStaffBusqueda')
             
-            if(username != ""):
-                QSperfiles = QSperfiles.filter(nombre__contains=username)
-                mensaje_busqueda += "Nombre con contenido: "+username  + "\n"
+            if(usernameBusqueda != ""):
+                QSperfiles = QSperfiles.filter(username__contains=usernameBusqueda)
+                mensaje_busqueda += "Username con contenido: "+usernameBusqueda + "\n"
             
-            if(es_staff != ""):
-                QSperfiles = QSperfiles.filter(apellido__contains=es_staff)
-                mensaje_busqueda += "Apellido con contenido: "+es_staff + "\n"
+            if len(rolesBusqueda )> 0:
+                mensaje_busqueda += "Rol "+rolesBusqueda[0]
+                queryOR = Q(rol = rolesBusqueda[0])
+                
+                for rol in rolesBusqueda[1:]:
+                    mensaje_busqueda += " o " + rol
+                    queryOR |= Q(rol = rol)
+                mensaje_busqueda += "\n"
+                QSperfiles = QSperfiles.filter(queryOR)
+                
+            if(esStaffBusqueda is not None):
+                QSperfiles = QSperfiles.filter(es_staff=esStaffBusqueda)
+                mensaje_busqueda += "Es staff: "+ ("si" if esStaffBusqueda else "no") + "\n"
             
-            if(rol != ""):
-                QSperfiles = QSperfiles.filter(dni__contains=rol)
-                mensaje_busqueda += "Con DNI: "+rol + "\n"
-            
-            if(fecha_registro != None ):
-                QSperfiles = QSperfiles.filter(fecha_nacimiento__year= fecha_registro)
-                mensaje_busqueda += "Con año de nacimiento: "+fecha_registro
-            
-            personas = QSperfiles.all()
-            return render(request, 'URLs/personas/lista_personas.html', {'mostrar_personas':personas, "texto_busqueda":mensaje_busqueda})
+            perfiles = QSperfiles.all()
+            return render(request, 'URLs/perfilesUsuario/lista_perfiles.html', {
+                'mostrar_perfiles': perfiles, 
+                "texto_busqueda": mensaje_busqueda
+            })
 
     else:
-        formulario = BusquedaPerfilesUsuarioForm(None)
+        formulario = BusquedaPerfilesUsuariosForm(None)
     
-    return render(request, 'URLs/personas/busqueda_avanzada.html', {'formulario':formulario})
+    return render(request, 'URLs/perfilesUsuario/busqueda_avanzada.html', {'formulario':formulario})
+
+
+## UPDATE
+def perfil_usuario_editar(request, perfil_id):
+    perfil = PerfilUsuario.objects.get(id = perfil_id)
+    datosFormulario = None
+    
+    if(request.method == 'POST'):
+        datosFormulario = request.POST
+    formulario = PerfilUsuarioUpdateForm(datosFormulario, instance = perfil)
+    
+    if(request.method == "POST"):
+        if formulario.is_valid():
+            try:
+                formulario.save()
+                messages.success(request, 'Se ha editado el perfil de usuario '+formulario.cleaned_data.get('username')+" correctamente")
+                return redirect('ver_perfiles')
+            except Exception as e:
+                print(e)
+    
+    return render(request, 'URLs/perfilesUsuario/actualizar.html', {'formulario':formulario, 'perfil':perfil})
 
 
 
+## DELETE
+def perfil_usuario_eliminar(request, perfil_id):
+    perfil = PerfilUsuario.objects.get(id = perfil_id)
+    try:
+        perfil.delete()
+    except Exception as e:
+        print(e)
+    
+    return redirect('ver_perfiles')

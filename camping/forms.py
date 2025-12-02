@@ -142,109 +142,121 @@ class BusquedaPersonasForm(forms.Form):
 
 
 ## PERFILUSUARIO CON FOTO DE PERFIL
-
+# FORMS PERFIL USUARIO
 class PerfilUsuarioModelForm(ModelForm):
     class Meta:
         model = PerfilUsuario
-        fields = '__all__'
+        fields = ['datos_usuario', 'username', 'password', 'foto_perfil', 'es_staff', 'rol']
         labels = {
-            "username": "Nombre de usuario",
-            "password": "Contraseña",
-            'foto_perfil': "Foto de Perfil"
+            "username": ("Nombre de usuario"),
+            "password": ("Contraseña"),
+            "rol": ("Rol del usuario"),
+            "es_staff": ("¿Es staff?")
         }
         widgets = {
-            'password': forms.PasswordInput(),
-            'es_staff': forms.CheckboxInput(),
-            'fecha_registro': forms.HiddenInput(),
-            'foto_perfil': forms.FileInput(attrs={'accept': 'image/*'}),
-        }
-        localized_fields = ["fecha_registro"]
-        
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # Filtrar personas que aún no tienen perfil
-        # Si estamos editando, incluir la persona asociada actual
-        if self.instance and self.instance.pk:
-            self.fields['datos_usuario'].queryset = Persona.objects.filter(
-                models.Q(perfilusuario__isnull=True) | models.Q(pk=self.instance.datos_usuario.pk)
-            )
-        else:
-            self.fields['datos_usuario'].queryset = Persona.objects.filter(perfilusuario__isnull=True)
+            "password": forms.PasswordInput(attrs={"class": "form-control"}),
+            "username": forms.TextInput(attrs={"class": "form-control"}),
+            "rol": forms.Select(attrs={"class": "form-control"}),
+            "es_staff": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+            "foto_perfil": forms.ClearableFileInput(attrs={"class": "form-control"}),
             
+        }
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            # ✅ SOLO personas sin perfil de usuario
+            self.fields['datos_usuario'].queryset = Persona.objects.filter(perfilusuario__isnull=True).order_by('nombre', 'apellido')
+            
+            # ✅ SOLO en EDICIÓN (UPDATE) incluir la persona actual
+            if self.instance and self.instance.pk:  # Verificar que existe instancia
+                self.fields['datos_usuario'].queryset |= Persona.objects.filter(id=self.instance.datos_usuario.id)
+                
     def clean(self):
         super().clean()
-
+        
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
-        datos_usuario = self.cleaned_data.get('datos_usuario')
-
-        if username:
-            if len(username) < 3:
-                self.add_error('username', 'El nombre de usuario es demasiado corto')
-            elif len(username) > 50:
-                self.add_error('username', 'El nombre de usuario es demasiado largo')
-
-            miUsername = PerfilUsuario.objects.filter(username=username).first()
-            if miUsername and (not self.instance or miUsername.id != self.instance.id):
-                self.add_error('username', 'Este nombre de usuario no está disponible')
-
-        # --- Validación de password ---
-        if password:
-            if len(password) < 6:
-                self.add_error('password', 'La contraseña es demasiado corta')
-        else:
-            self.add_error('password', 'Debe ingresar una contraseña')
-
-        # --- Validación de datos_usuario ---
-        disponibles_qs = Persona.objects.filter(perfilusuario__isnull=True)
-
-        if self.instance and self.instance.pk and self.instance.datos_usuario:
-            disponibles_qs = disponibles_qs | Persona.objects.filter(pk=self.instance.datos_usuario.pk)
-
-        if not disponibles_qs.exists():
-            self.add_error('datos_usuario', 'No hay personas disponibles para asignar un perfil de usuario.')
-        elif datos_usuario:
-            if datos_usuario not in disponibles_qs:
-                self.add_error('datos_usuario', 'La persona seleccionada ya tiene un perfil de usuario.')
-        else:
-            self.add_error('datos_usuario', 'Debe seleccionar una persona para asignar el perfil de usuario.')
-
+        
+        if len(username) < 3:
+            self.add_error('username', 'El username debe tener al menos 3 caracteres')
+        if len(username) > 50:
+            self.add_error('username', 'El username no puede exceder 50 caracteres')
+            
+        if len(password) < 8:
+            self.add_error('password', 'La contraseña debe tener al menos 8 caracteres')
+            
+        # Username único
+        usuario_username = PerfilUsuario.objects.filter(username=username).exclude(id=self.instance.id if self.instance else None).first()
+        if usuario_username:
+            self.add_error('username', 'Este username ya está en uso')
+            
         return self.cleaned_data
 
 
-class BusquedaPerfilesUsuarioForm(forms.Form):
-    username = forms.CharField(required=False, label="Nombre de usuario")
-    es_staff = forms.CheckboxInput()
-    rol = forms.ChoiceField(choices=['recepcionista', 'cuidador', 'cliente'], required=False, label="ROL")
-    fecha_registro = forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"})
+""" PARA EL UPDATE
+    En el update, no se debe poder cambiar la persona de la relacion OneToOne, para ello
+    lo más sencillo es crear otro formulario quitando este campo y listo.
+"""
     
+class PerfilUsuarioUpdateForm(ModelForm): 
+    class Meta:
+        model = PerfilUsuario
+        fields = ['username', 'password', 'foto_perfil', 'es_staff', 'rol']  
+        labels = {
+            "username": ("Nombre de usuario"),
+            "password": ("Contraseña"),
+            "rol": ("Rol del usuario"),
+            "es_staff": ("¿Es staff?")
+        }
+        widgets = {
+            "username": forms.TextInput(attrs={"class": "form-control"}),
+            "password": forms.PasswordInput(attrs={"class": "form-control"}),
+            "es_staff": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+            "rol": forms.Select(attrs={"class": "form-control"}),
+            "foto_perfil": forms.ClearableFileInput(attrs={"class": "form-control"}),
+        }
+        
     def clean(self):
         super().clean()
         
         username = self.cleaned_data.get('username')
-        es_staff = self.cleaned_data.get('es_staff')
-        rol = self.cleaned_data.get('rol')
-        fecha_registro = self.cleaned_data.get('fecha_registro')
+        password = self.cleaned_data.get('password')
         
-        if(username == "" 
-            and es_staff == "" 
-            and rol == "" 
-            and fecha_registro 
-            ):
-            self.add_error('username', 'Debe introducir al menos un campo de busqueda')
-            self.add_error('es_staff', 'Debe introducir al menos un campo de busqueda')
-            self.add_error('rol', 'Debe introducir al menos un campo de busqueda')
-            self.add_error('fecha_registro', 'Debe introducir al menos un campo de busqueda')
+        if len(username) < 3:
+            self.add_error('username', 'El username debe tener al menos 3 caracteres')
+        if len(username) > 50:
+            self.add_error('username', 'El username no puede exceder 50 caracteres')
             
-        else:
+        if len(password) < 8:
+            self.add_error('password', 'La contraseña debe tener al menos 8 caracteres')
+            
+        # Username único
+        usuario_username = PerfilUsuario.objects.filter(username=username).exclude(id=self.instance.id if self.instance else None).first()
+        if usuario_username:
+            self.add_error('username', 'Este username ya está en uso')
+            
+        return self.cleaned_data
+        
+        
+class BusquedaPerfilesUsuariosForm(forms.Form):
     
-            if(username != "" and len(username) < 3):
-                self.add_error('nombreBusqueda', 'El nombre es demasiado corto')
-                
-            if fecha_registro > date.today():
-                self.add_error('fecha_registro', 'La fecha de registro no puede ser posterior a la fecha de hoy')
+    usernameBusqueda = forms.CharField(required=False, label="Username")
+    rolBusqueda = forms.MultipleChoiceField(required=False, label="Rol", choices=PerfilUsuario.OPCIONES_ROL, widget = forms.CheckboxSelectMultiple())
+    esStaffBusqueda = forms.BooleanField(required=False, label="Es Staff", widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}))
+
+    def clean(self):
+        super().clean()
+        
+        usernameBusqueda = self.cleaned_data.get('usernameBusqueda')
+        rolBusqueda = self.cleaned_data.get('rolBusqueda')
+        esStaffBusqueda = self.cleaned_data.get('esStaffBusqueda')
+        
+        if(usernameBusqueda == "" and rolBusqueda == "" and esStaffBusqueda is None):
+            self.add_error('usernameBusqueda', 'Debe introducir al menos un campo de búsqueda')
+        
+        else:
+            if(usernameBusqueda != "" and len(usernameBusqueda) < 3):
+                self.add_error('usernameBusqueda', 'El username es demasiado corto')
                 
         return self.cleaned_data
-
-
 

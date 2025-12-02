@@ -27,8 +27,10 @@ urlpatterns = [
     path('persona/editar/<int:persona_id>', views.persona_editar, name='editar_persona'),
     path('persona/eliminar/<int:persona_id>', views.persona_eliminar, name='eliminar_persona'),
     
-    path('formulario_perfilUsuario/', views.crear_perfilUsuario, name="crear_perfilUsuario"),
-    path('buscarPerfiles/', views.buscar_perfilUsuario, name="buscar_perfilUsuario"),
+    path('formulario_perfilUsuario/', views.crear_perfil_usuario, name="crear_perfilUsuario"),
+    path('buscarPerfiles/', views.buscar_perfiles_usuarios, name="buscar_perfilUsuario"),
+    path('perfil/editar/<int:perfil_id>', views.perfil_usuario_editar, name='editar_perfilUsuario'),
+    path('perfil/eliminar/<int:perfil_id>', views.perfil_usuario_eliminar, name='eliminar_perfilUsuario'),
     
     
     
