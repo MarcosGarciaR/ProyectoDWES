@@ -170,31 +170,34 @@ class PerfilUsuarioModelForm(ModelForm):
         else:
             self.fields['datos_usuario'].queryset = Persona.objects.filter(perfilusuario__isnull=True)
             
-    
     def clean(self):
-        super().clean()  # devuelve un diccionario con los datos limpios
+        super().clean()
 
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
         datos_usuario = self.cleaned_data.get('datos_usuario')
 
-        # Validación de username
+        # --- Validación de username ---
         if username:
             if len(username) < 3:
                 self.add_error('username', 'El nombre de usuario es demasiado corto')
             elif len(username) > 50:
                 self.add_error('username', 'El nombre de usuario es demasiado largo')
-            
+
             miUsername = PerfilUsuario.objects.filter(username=username).first()
             if miUsername and (not self.instance or miUsername.id != self.instance.id):
                 self.add_error('username', 'Este nombre de usuario no está disponible')
 
-        # Validación de password
-        if password and len(password) < 6:
-            self.add_error('password', 'La contraseña es demasiado corta')
+        # --- Validación de password ---
+        if password:
+            if len(password) < 6:
+                self.add_error('password', 'La contraseña es demasiado corta')
+        else:
+            self.add_error('password', 'Debe ingresar una contraseña')
 
-        # Validación de datos_usuario
+        # --- Validación de datos_usuario ---
         disponibles_qs = Persona.objects.filter(perfilusuario__isnull=True)
+
         if self.instance and self.instance.pk and self.instance.datos_usuario:
             disponibles_qs = disponibles_qs | Persona.objects.filter(pk=self.instance.datos_usuario.pk)
 

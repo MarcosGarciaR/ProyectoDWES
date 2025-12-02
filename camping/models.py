@@ -13,6 +13,9 @@ class Persona(models.Model):
     fecha_nacimiento = models.DateField()
     email = models.EmailField(unique=True, default="")
     telefono = models.CharField(max_length=20, default="")
+    
+    def __str__(self):
+        return f"{self.nombre} {self.apellido} - {self.dni}"
 
 # PERFIL DE USUARIO
 class PerfilUsuario(models.Model):
