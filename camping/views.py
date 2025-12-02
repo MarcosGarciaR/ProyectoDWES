@@ -303,7 +303,7 @@ def crear_perfilUsuario(request):
     datosFormulario = None
     if(request.method == 'POST'):
         datosFormulario = request.POST
-    formulario = PerfilUsuarioModelForm(datosFormulario, request.FILES)
+    formulario = PerfilUsuarioModelForm(datosFormulario)
     
     if(request.method == "POST"):
         perfil_creado = crear_perfil_modelo(formulario)
@@ -325,6 +325,46 @@ def crear_perfil_modelo(formulario):
     return perfil_creado
 
 
+def buscar_perfilUsuario(request):
+    formulario = BusquedaPerfilesUsuarioForm(request.GET)
+    
+    if(len(request.GET) > 0):
+        formulario = BusquedaPerfilesUsuarioForm(request.GET)
+        
+        if formulario.is_valid():
+            mensaje_busqueda = "Se ha buscado por los siguientes valores:\n"
+            
+            # QUERY SETS AQUI
+            QSperfiles = PerfilUsuario.objects
+            
+            username = formulario.cleaned_data.get('username')
+            es_staff = formulario.cleaned_data.get('es_staff')
+            rol = formulario.cleaned_data.get('rol')
+            fecha_registro = formulario.cleaned_data.get('fecha_registro')
+            
+            if(username != ""):
+                QSperfiles = QSperfiles.filter(nombre__contains=username)
+                mensaje_busqueda += "Nombre con contenido: "+username  + "\n"
+            
+            if(es_staff != ""):
+                QSperfiles = QSperfiles.filter(apellido__contains=es_staff)
+                mensaje_busqueda += "Apellido con contenido: "+es_staff + "\n"
+            
+            if(rol != ""):
+                QSperfiles = QSperfiles.filter(dni__contains=rol)
+                mensaje_busqueda += "Con DNI: "+rol + "\n"
+            
+            if(fecha_registro != None ):
+                QSperfiles = QSperfiles.filter(fecha_nacimiento__year= fecha_registro)
+                mensaje_busqueda += "Con año de nacimiento: "+fecha_registro
+            
+            personas = QSperfiles.all()
+            return render(request, 'URLs/personas/lista_personas.html', {'mostrar_personas':personas, "texto_busqueda":mensaje_busqueda})
+
+    else:
+        formulario = BusquedaPerfilesUsuarioForm(None)
+    
+    return render(request, 'URLs/personas/busqueda_avanzada.html', {'formulario':formulario})
 
 
 

@@ -29,7 +29,7 @@ class PerfilUsuario(models.Model):
     username = models.CharField(max_length=50, unique=True, default="")
     password = models.CharField(max_length=128)
     # default=defaults/... llama a settings en el Media_root, que en este caso es /media, --> /media/defaults/...
-    foto_perfil = models.ImageField(upload_to='perfiles/', blank=True, null=True, default='defaults/foto_perfil_base.png')
+    foto_perfil = models.ImageField(upload_to='perfiles/', blank=True, null=True)
     
     es_staff = models.BooleanField(default=False)
     rol = models.CharField(max_length=20, choices=OPCIONES_ROL, default='cliente')

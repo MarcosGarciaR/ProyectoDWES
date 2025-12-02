@@ -28,6 +28,7 @@ urlpatterns = [
     path('persona/eliminar/<int:persona_id>', views.persona_eliminar, name='eliminar_persona'),
     
     path('formulario_perfilUsuario/', views.crear_perfilUsuario, name="crear_perfilUsuario"),
+    path('buscarPerfiles/', views.buscar_perfilUsuario, name="buscar_perfilUsuario"),
     
     
     
@@ -35,10 +36,5 @@ urlpatterns = [
 ]
 
 
-## PARA LAS IMAGENES DE PERFIL DE LOS USUARIOS
-from django.conf import settings
-from django.conf.urls.static import static
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

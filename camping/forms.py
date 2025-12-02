@@ -150,6 +150,7 @@ class PerfilUsuarioModelForm(ModelForm):
         labels = {
             "username": "Nombre de usuario",
             "password": "Contraseña",
+            'foto_perfil': "Foto de Perfil"
         }
         widgets = {
             'password': forms.PasswordInput(),
@@ -177,7 +178,6 @@ class PerfilUsuarioModelForm(ModelForm):
         password = self.cleaned_data.get('password')
         datos_usuario = self.cleaned_data.get('datos_usuario')
 
-        # --- Validación de username ---
         if username:
             if len(username) < 3:
                 self.add_error('username', 'El nombre de usuario es demasiado corto')
@@ -212,7 +212,39 @@ class PerfilUsuarioModelForm(ModelForm):
         return self.cleaned_data
 
 
-
+class BusquedaPerfilesUsuarioForm(forms.Form):
+    username = forms.CharField(required=False, label="Nombre de usuario")
+    es_staff = forms.CheckboxInput()
+    rol = forms.ChoiceField(choices=['recepcionista', 'cuidador', 'cliente'], required=False, label="ROL")
+    fecha_registro = forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"})
+    
+    def clean(self):
+        super().clean()
+        
+        username = self.cleaned_data.get('username')
+        es_staff = self.cleaned_data.get('es_staff')
+        rol = self.cleaned_data.get('rol')
+        fecha_registro = self.cleaned_data.get('fecha_registro')
+        
+        if(username == "" 
+            and es_staff == "" 
+            and rol == "" 
+            and fecha_registro 
+            ):
+            self.add_error('username', 'Debe introducir al menos un campo de busqueda')
+            self.add_error('es_staff', 'Debe introducir al menos un campo de busqueda')
+            self.add_error('rol', 'Debe introducir al menos un campo de busqueda')
+            self.add_error('fecha_registro', 'Debe introducir al menos un campo de busqueda')
+            
+        else:
+    
+            if(username != "" and len(username) < 3):
+                self.add_error('nombreBusqueda', 'El nombre es demasiado corto')
+                
+            if fecha_registro > date.today():
+                self.add_error('fecha_registro', 'La fecha de registro no puede ser posterior a la fecha de hoy')
+                
+        return self.cleaned_data
 
 
 

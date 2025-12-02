@@ -8,10 +8,9 @@
     </div>
 
     <div class="foto">
-        {% if user.foto_perfil %}
-            <img src="{{ user.foto_perfil.url }}" alt="Foto de perfil">
-        {% else %}
-            <img src="{% static 'imagenes/foto_perfil_base.png' %}" alt="Foto de perfil">
+        {% if perfil.foto_perfil %}
+            <img src="{{ perfil.foto_perfil.url }}" alt="Foto de perfil">
         {% endif %}
+        
     </div>
 </div>
