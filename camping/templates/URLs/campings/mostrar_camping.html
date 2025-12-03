@@ -3,4 +3,21 @@
         <h4>Ubicación: {{ camping.ubicacion }}</h4>
         <p>Estrellas: {{ camping.estrellas }}</p>
         <p>Sitio Web: {{ camping.sitio_web|urlize }}</p>
+        <div class="row btn-group">
+        <div class="mb-2">
+        <button type="button" class="btn btn-outline-primary">
+                <a href="{% url 'editar_camping' camping.id %}"><span>Editar</span></a>
+        </button>
+        <form action="{% url 'eliminar_camping' camping.id %}" method="post">
+                {% csrf_token %}
+                <button
+                class="btn btn-danger"
+                type="submit"
+                onclick="return eliminarCamping()"
+                >
+                <span>Eliminar</span>
+                </button>
+        </form>
+        </div>
+        </div>
 </div>

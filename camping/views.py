@@ -11,16 +11,6 @@ from datetime import datetime
 def index(request):
     return render(request, 'index.html') 
 
-#   Ver la lista de campings
-def ver_campings(request):
-    campings = Camping.objects.all()
-    
-    """
-    campings = (Camping.objects.raw(" SELECT * FROM camping_camping c"))
-    """
-    
-    return render(request, 'URLs/campings/lista_campings.html', {"mostrar_campings":campings})
-
 #   Ordenar las reservas por fecha de inicio
 def ver_reservas_por_fecha(request):
     reservas = Reserva.objects.select_related('cliente__datos_cliente','parcela__camping').order_by('fecha_inicio').all()
@@ -163,6 +153,9 @@ def mi_error_500(request, exception=None):
     return render(request, 'Errores/500.html',None,None,500)
 
 
+
+
+"""=================================================================================FORMULARIOS========================================================================================================================="""
 #   Ver la lista de personas
 def ver_personas(request):
     personas = Persona.objects.all()
@@ -172,8 +165,6 @@ def ver_personas(request):
     """
     
     return render(request, 'URLs/personas/lista_personas.html', {"mostrar_personas":personas})
-
-"""=================================================================================FORMULARIOS========================================================================================================================="""
 
 # PERSONA
 ## CREATE
@@ -297,7 +288,7 @@ def crear_perfil_usuario(request):
     personas_disponibles = Persona.objects.filter(perfilusuario__isnull=True)
     if not personas_disponibles.exists():
         messages.error(request, "No hay personas disponibles. Primero debe crear una persona sin perfil de usuario.")
-        return redirect("ver_personas")  # o la URL que prefiera
+        return redirect("ver_personas")
     
     datosFormulario = None
     if(request.method == 'POST'):
@@ -431,8 +422,8 @@ def crear_recepcionista(request):
     
     formulario = RecepcionistaModelForm(datosFormulario)
     if(request.method == "POST"):
-        persona_creado = crear_recepcionista_modelo(formulario)
-        if(persona_creado):
+        recepcionista_creado = crear_recepcionista_modelo(formulario)
+        if(recepcionista_creado):
             messages.success(request, "Se ha creado al recepcionista con salario "+str(formulario.cleaned_data.get('salario'))+ " correctamente")
             return redirect("ver_recepcionistas")
         
@@ -538,3 +529,115 @@ def recepcionista_eliminar(request, recepcionista_id):
 
 
 
+"""=================================================================================CAMPINGS========================================================================================================================="""
+#   Ver la lista de campings
+def ver_campings(request):
+    campings = Camping.objects.all()
+    
+    """
+    campings = (Camping.objects.raw(" SELECT * FROM camping_camping c"))
+    """
+    
+    return render(request, 'URLs/campings/lista_campings.html', {"mostrar_campings":campings})
+
+
+## CREATE
+def crear_camping(request):
+    datosFormulario = None
+    if(request.method == 'POST'):
+        datosFormulario = request.POST
+    
+    formulario = CampingModelForm(datosFormulario)
+    if(request.method == "POST"):
+        camping_creado = crear_camping_modelo(formulario)
+        if(camping_creado):
+            messages.success(request, "Se ha creado al camping con nombre " + formulario.cleaned_data.get('nombre') + " correctamente")
+            return redirect("ver_campings")
+        
+    return render(request, 'URLs/campings/create.html', {'formulario':formulario})
+    
+def crear_camping_modelo(formulario):
+    camping_creado=False
+    if formulario.is_valid():
+        try:
+            formulario.save()
+            camping_creado = True
+        except Exception as error:
+            print(error)
+    return camping_creado
+
+
+def buscar_campings(request):
+    formulario = BusquedaCampingsForm(request.GET)
+    
+    if(len(request.GET) > 0):
+        formulario = BusquedaCampingsForm(request.GET)
+        
+        if formulario.is_valid():
+            mensaje_busqueda = "Se ha buscado por los siguientes valores:\n"
+            
+            # QUERY SETS AQUI
+            QScampings = Camping.objects
+            
+            nombre = formulario.cleaned_data.get('nombre')
+            ubicacion = formulario.cleaned_data.get('ubicacion')
+            estrellas = formulario.cleaned_data.get('estrellas')
+            sitio_web = formulario.cleaned_data.get('sitio_web')            
+            
+            
+            if(nombre != ""):
+                QScampings = QScampings.filter(nombre__contains=nombre)
+                mensaje_busqueda += "Su nombre contenga "+nombre
+                
+            if(ubicacion != ""):
+                QScampings = QScampings.filter(ubicacion__contains=ubicacion)
+                mensaje_busqueda += "Su ubicación contenga "+ubicacion
+                
+            if( estrellas != None):
+                QScampings = QScampings.filter(estrellas__gte=estrellas)
+                mensaje_busqueda += "Con una puntuación igual o superior a "+ str(estrellas) + " estrellas"
+            
+            if(sitio_web != ""):
+                QScampings = QScampings.filter(sitio_web__contains=sitio_web)
+                mensaje_busqueda += "El nombre de su sitio web contenga "+sitio_web
+            
+            campings = QScampings.all()
+            return render(request, 'URLs/campings/lista_campings.html', {'mostrar_campings':campings, "texto_busqueda":mensaje_busqueda})
+
+    else:
+        formulario = BusquedaCampingsForm(None)
+    
+    return render(request, 'URLs/campings/busqueda_avanzada.html', {'formulario':formulario})
+
+
+
+
+## UPDATE
+def camping_editar(request, camping_id):
+    camping = Camping.objects.get(id = camping_id)
+    datosFormulario = None
+
+    if(request.method == "POST"):
+        datosFormulario = request.POST
+    formulario = CampingModelForm(datosFormulario, instance = camping)
+
+    if(request.method == "POST"):
+        if formulario.is_valid():
+            try:
+                formulario.save()
+                messages.success(request, 'Se ha editado el camping con nombre '+formulario.cleaned_data.get('nombre')+" correctamente")
+                return redirect('ver_campings')
+            except Exception as e:
+                print(e)
+    
+    return render(request, 'URLs/campings/actualizar.html', {'formulario':formulario, 'camping':camping})
+
+
+## DELETE
+def camping_eliminar(request, camping_id):
+    camping = Camping.objects.get(id = camping_id)
+    try:
+        camping.delete()
+    except Exception as e:
+        print(e)
+    return redirect('ver_campings')

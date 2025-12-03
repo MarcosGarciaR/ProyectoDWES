@@ -29,7 +29,7 @@
             Forms
         </button>
         <ul class="dropdown-menu">
-            <li class="tiene-submenu">
+                <li class="tiene-submenu">
                     <a class="dropdown-item" href="{% url "ver_personas" %}">Personas</a>
                     <ul>
                         <li><a class="dropdown-item" href="{% url 'crear_persona' %}">Crear Persona</a></li>
@@ -52,9 +52,14 @@
                         <li><a class="dropdown-item" href="{% url "buscar_recepcionistas" %}" >Buscar recepcionistas</a></li>
                     </ul>
                 </li>
-            </li>
             
-            
+                <li class="tiene-submenu">
+                    <a class="dropdown-item" href="{% url "ver_campings" %}">Campings</a>
+                    <ul>
+                        <li><a class="dropdown-item" href="{% url "crear_camping" %}">Crear camping</a></li>
+                        <li><a class="dropdown-item" href="{% url "buscar_campings" %}" >Buscar campings</a></li>
+                    </ul>
+                </li>
         </ul>
     </div>
     

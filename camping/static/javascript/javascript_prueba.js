@@ -21,3 +21,11 @@ function eliminarRecepcionista(salario){
     else
         return false;
 }
+
+function eliminarCamping(nombre){
+    var x = confirm("¿Eliminar el camping con nombre " + nombre + " ?");
+    if(x)
+        return true;
+    else
+        return false;
+}

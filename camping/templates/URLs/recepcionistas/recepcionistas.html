@@ -5,10 +5,16 @@
     <script type="text/javascript" src="{% static 'javascript/javascript_prueba.js' %}" ></script>
 {% endblock %}
 
+{% block titulo %}
+    <title>Recepcionistas</title>
+{% endblock %}
+
 {% block contenido %}
-{% if texto_busqueda %}
-    <p>{{texto_busqueda}}</p>
+    {% if texto_busqueda %}
+        <p>{{texto_busqueda}}</p>
     {% endif %}
+
+
     <ul>
         {% for recepcionista in recepcionistas %}
         <li>

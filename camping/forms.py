@@ -4,24 +4,7 @@ from .models import *
 from .forms import *
 from datetime import date
 
-
-
-"""
-class PersonaForm(forms.Form):
-    nombre = forms.CharField(label="Nombre", required=True, max_length=200, help_text="Máximo de 200 carácteres")
-    
-    apellido = forms.CharField(label="Apellidos", required=True, max_length=400, help_text="Máximo 400 carácteres")
-    
-    dni = forms.CharField(label="DNI", required=True, max_length=9, help_text="Máximo 9 carácteres")
-    
-    fecha_nacimiento = forms.DateField(label="Fecha de Nacimiento", )
-    
-    email = 
-    
-    telefono = 
-    
-"""
-## PERSONA
+## FORMS PERSONA
 class PersonaModelForm(ModelForm):
     class Meta:
         model = Persona
@@ -327,7 +310,6 @@ class BusquedaRecepcionistasForm(forms.Form):
         fecha_hasta = self.cleaned_data.get('fecha_hasta')
         turno = self.cleaned_data.get('turno')
 
-        # --- Validación: debe rellenar al menos un campo
         if (salario is None and fecha_desde is None and fecha_hasta is None and not turno):
             msg = "Debe introducir al menos un campo de búsqueda"
             self.add_error('salario', msg)
@@ -347,7 +329,94 @@ class BusquedaRecepcionistasForm(forms.Form):
                 self.add_error("fecha_desde", "La fecha de registro no puede ser superior a la fecha actual")
 
         return self.cleaned_data
+
+# FORMS CAMPING
+## CREATE
+class CampingModelForm(ModelForm):
+    class Meta:
+        model = Camping
+        fields = '__all__'
+        labels = {
+            "nombre": ("Nombre del camping"),
+            "ubicacion": ("Ubicación"),
+            "estrellas": ("Número de estrellas"),
+            "sitio_web": ("Sitio web oficial"),
+        }
+        widgets = {
+            "estrellas": forms.NumberInput(attrs={"class": "form-control","min": 1,"max": 5}),
+            "sitio_web": forms.URLInput(attrs={"class": "form-control","placeholder": "https://ejemplo.com"}),
+            }
+        
+        
+    def clean(self):
+        super().clean()
+        
+        nombre = self.cleaned_data.get('nombre')
+        ubicacion = self.cleaned_data.get('ubicacion')
+        estrellas = self.cleaned_data.get('estrellas')
+        sitio_web = self.cleaned_data.get('sitio_web')
+
+        if len(nombre) < 3:
+            self.add_error('nombre', 'El nombre es demasiado corto')
+        if len(nombre) > 150:
+            self.add_error('nombre', 'El nombre es demasiado largo')
+
+        if len(ubicacion) < 10:
+            self.add_error('ubicacion', 'La ubicación es demasiado corta')
+        if len(ubicacion) > 200:
+            self.add_error('ubicacion', 'La ubicación es demasiado larga')
+
+        if estrellas is not None and estrellas < 1 or estrellas > 5:
+                self.add_error('estrellas', 'El número de estrellas debe estar entre 1 y 5')
+
+        if sitio_web:
+            if not sitio_web.startswith("http"):
+                self.add_error('sitio_web', 'La URL debe comenzar por http:// o https://')
+
+        return self.cleaned_data
+
+
+## READ
+class BusquedaCampingsForm(forms.Form):
+    nombre = forms.CharField(required=False, label="Nombre")
+    ubicacion = forms.CharField(required=False, label="Ubicación")
+    estrellas = forms.DecimalField(required=False, label="Mínimo de estrellas (puntuación) 1-5")
+    sitio_web = forms.CharField(required=False, label="URL de la web del camping")
     
+    def clean(self):
+        super().clean()
+        
+        nombre = self.cleaned_data.get('nombre')
+        ubicacion = self.cleaned_data.get('ubicacion')
+        estrellas = self.cleaned_data.get('estrellas')
+        sitio_web = self.cleaned_data.get('sitio_web')
 
+        if(nombre == "" and ubicacion == "" and estrellas is None and sitio_web == ""):
+            msg = "Debe introducir al menos un campo de búsqueda"
+            self.add_error('nombre', msg)
+            self.add_error('ubicacion', msg)
+            self.add_error('estrellas', msg)
+            self.add_error('sitio_web', msg)
+            
+        else:
+            if( nombre != "" and len(nombre) < 5):
+                self.add_error('nombre', 'El nombre del camping es demasiado corto')
+            elif nombre != "" and len(nombre)> 150:
+                self.add_error('nombre', 'El nombre del camping es demasiado largo')
+            
+            if( ubicacion != "" and len(ubicacion) < 5):
+                self.add_error('ubicacion', 'El nombre del camping es demasiado corto')
+            elif ubicacion != ""and len(ubicacion) > 200:
+                self.add_error('ubicacion', 'El nombre del camping es demasiado largo')
+            
+            if(estrellas is not None and (estrellas > 5 or estrellas < 1)):
+                self.add_error('estrellas', 'Número de estrellas no válido' )
+    
+            if sitio_web != "" and len(sitio_web) < 4:
+                self.add_error('sitio_web', 'La descripción proporcionada para el sitio web es demasiado corta')
+    
+        return self.cleaned_data
 
-# POR HACER recepcionistas camping parcela  reserva 
+    
+    
+# POR HACER  camping parcela  reserva 

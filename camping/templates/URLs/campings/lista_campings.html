@@ -1,8 +1,19 @@
 {% extends "principal.html" %}
+
+{% block cabecera_extra %}
+    {% load static %}
+    <script type="text/javascript" src="{% static 'javascript/javascript_prueba.js' %}" ></script>
+{% endblock %}
+
 {% block titulo %}
     <title>Campings</title>
 {% endblock %}
+
 {% block contenido %}
+    {% if texto_busqueda %}
+        <p>{{texto_busqueda}}</p>
+    {% endif %}
+
 <ul>
     {% for camping in mostrar_campings %}
     <li>

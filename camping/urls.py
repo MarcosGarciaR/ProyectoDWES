@@ -3,7 +3,6 @@ from .import views
 
 urlpatterns = [
     path('', views.index , name='index'),
-    path('campings/', views.ver_campings , name='ver_campings'),
     path('reservas/', views.ver_reservas_por_fecha , name='ver_reservas'),
     path('reservaid/<int:id_reserva>/', views.ver_reserva_por_id , name='ver_reserva_por_id'),
     path('factura-coste/<int:precio>/<int:capacidadParcela>/', views.ver_factura_precio_capacidad , name='ver_facturas'),
@@ -36,6 +35,15 @@ urlpatterns = [
     path('busqueda_recepcionistas', views.buscar_recepcionistas, name="buscar_recepcionistas"),
     path('recepcionista/editar/<int:recepcionista_id>', views.recepcionista_editar, name='editar_recepcionista'),
     path('recepcionista/eliminar/<int:recepcionista_id>', views.recepcionista_eliminar, name='eliminar_recepcionista'),
+    
+    
+    path('campings/', views.ver_campings , name='ver_campings'),
+    path('formulario_camping/', views.crear_camping , name='crear_camping'),
+    path('busqueda_campings', views.buscar_campings, name="buscar_campings"),
+    path('camping/editar/<int:camping_id>', views.camping_editar, name='editar_camping'),
+    path('camping/eliminar/<int:camping_id>', views.camping_eliminar, name='eliminar_camping'),
+    
+    
     
     
 ]
