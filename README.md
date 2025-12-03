@@ -338,6 +338,10 @@ En las facturas, para indicar si una parcela tiene sombra (True), o no (False).
 
 
 
+
+
+### La rama 4 (CRUD-4) la he creado, pero no me he dado cuenta y no me he cambiado a ella. He hecho el crud completo y cuando he ido a hacer el commit me he dado cuenta que estaba en el main. Las otras sí están bien hechas (auqnue hay algunos cambios entre ellas)
+
 ## WIDGETS
 - `EmailField()`: En el modelo Persona, para el campo del email.
 - ``: 
