@@ -338,23 +338,29 @@ En las facturas, para indicar si una parcela tiene sombra (True), o no (False).
 
 
 
-
-
 ### La rama 4 (CRUD-4) la he creado, pero no me he dado cuenta y no me he cambiado a ella. He hecho el crud completo y cuando he ido a hacer el commit me he dado cuenta que estaba en el main. Las otras sí están bien hechas (auqnue hay algunos cambios entre ellas)
 
 ## WIDGETS
 - `EmailField()`: En el modelo Persona, para el campo del email.
-- ``: 
-- ``: 
-- ``: 
-- ``: 
-- ``: 
+- `DateInput`: En PersonaModelForm (fecha_nacimiento), RecepcionistaModelForm (fecha_alta), FacturaModelForm (emitida_en) y formularios de búsqueda. Renderiza el tipo date con formato "%Y-%m-%d.
+- `PasswordInput`: En PerfilUsuarioModelForm y PerfilUsuarioUpdateForm para password, oculta los caracteres introducidos por seguridad.
+- `CheckboxInput`: En múltiples formularios (es_staff, tiene_sombra, pagado), genera checkboxes para campos booleanos con clases Bootstrap.
+- `Select`: En PerfilUsuarioModelForm (rol), RecepcionistaModelForm (turno), ParcelaModelForm (camping), FacturaModelForm (reserva_extra), muestra opciones desplegables.
+- `NumberInput`: En RecepcionistaModelForm (salario), CampingModelForm (estrellas), ParcelaModelForm (numero, capacidad), FacturaModelForm (total), inputs numéricos con min/max.​
+- `URLInput`: En CampingModelForm para sitio_web, valida automáticamente formato URL con placeholder HTTPS.​
+- `CheckboxSelectMultiple`: En formularios de búsqueda (rolBusqueda, turno), permite selección múltiple de opciones como checkboxes.​
+- `MultipleChoiceField`: En BusquedaPerfilesUsuariosForm (rolBusqueda) y BusquedaRecepcionistasForm (turno), selección múltiple de opciones predefinidas con CheckboxSelectMultiple.
+- `NullBooleanField`: En BusquedaParcelasForm (tiene_sombra) y BusquedaFacturasForm (pagado), maneja valores booleanos que pueden ser nulos (True/False/None).
 
-## FormsFields
+- También está integrado el ClearableFileInput, que estaba en proceso para la imagen de foto de perfil, pero no he conseguido ponerlo bien.
 
-###
 
-###
+
+
+- `def init`: Lo he utilizado en el form modelo perfilUsuario, porque quería que no saliesen todas las personas, sino solo las que no tengan ya perfil de usuario creado (las disponibles). 
+Para los otros modelos no lo he vuelto a incluir, ya que he estado bastante peleandome con chatgpt en ese apartado específico porque no lo entendía del todo bien, cuando vaya sin prisa me pondré a probar cosas con él ya que según he entendido, es para setear valores al principio del formulario.
+
+
 
 ## DIAGRAMA DE CLASES
 ![Diagrama del modelo Entidad-Relacion](diagrama/ModeloE_R_Camping.png)
