@@ -53,7 +53,7 @@ def ver_factura_precio_capacidad(request, precio, capacidadParcela):
                                     + "WHERE cf.total > %s AND cp.capacidad > %s", [int(precio),int(capacidadParcela)])
     """
     
-    return render(request, 'URLs/facturas/factura_precio_capacidad.html',{'mostrar_facturas':facturas})
+    return render(request, 'URLs/facturas/lista_facturas.html',{'mostrar_facturas':facturas})
 
 
 #   URL con la media de precios de los servicios
@@ -215,19 +215,19 @@ def buscar_personas(request):
             
             if(nombreBusqueda != ""):
                 QSpersonas = QSpersonas.filter(nombre__contains=nombreBusqueda)
-                mensaje_busqueda += "Nombre con contenido: "+nombreBusqueda + "\n"
+                mensaje_busqueda += f"Nombre con contenido: {nombreBusqueda}" + "\n"
             
             if(apellidosBusqueda != ""):
                 QSpersonas = QSpersonas.filter(apellido__contains=apellidosBusqueda)
-                mensaje_busqueda += "Apellido con contenido: "+apellidosBusqueda + "\n"
+                mensaje_busqueda += f"Apellido con contenido: {apellidosBusqueda}" + "\n"
             
             if(dni != ""):
                 QSpersonas = QSpersonas.filter(dni__contains=dni)
-                mensaje_busqueda += "Con DNI: "+dni + "\n"
+                mensaje_busqueda += "Con DNI: {dni}"+ "\n"
             
             if(annio_nacimiento != None ):
                 QSpersonas = QSpersonas.filter(fecha_nacimiento__year= annio_nacimiento)
-                mensaje_busqueda += "Con año de nacimiento: "+annio_nacimiento
+                mensaje_busqueda += f"Con año de nacimiento: {annio_nacimiento}"
             
             personas = QSpersonas.all()
             return render(request, 'URLs/personas/lista_personas.html', {'mostrar_personas':personas, "texto_busqueda":mensaje_busqueda})
@@ -336,7 +336,7 @@ def buscar_perfiles_usuarios(request):
             
             if(usernameBusqueda != ""):
                 QSperfiles = QSperfiles.filter(username__contains=usernameBusqueda)
-                mensaje_busqueda += "Username con contenido: "+usernameBusqueda + "\n"
+                mensaje_busqueda += f"Username con contenido: {usernameBusqueda}" + "\n"
             
             if len(rolesBusqueda )> 0:
                 mensaje_busqueda += "Rol "+rolesBusqueda[0]
@@ -354,11 +354,11 @@ def buscar_perfiles_usuarios(request):
             
             if(not fechaDesde is None):
                 QSperfiles = QSperfiles.filter(fecha_registro__gte=fechaDesde)
-                mensaje_busqueda +="La fecha de registro sea mayor a "+datetime.strftime(fechaDesde,'%d-%m-%Y')+ "\n"
+                mensaje_busqueda += f"La fecha de registro sea mayor a {datetime.strftime(fechaDesde,'%d-%m-%Y')}" + "\n"
             
             if(not fechaHasta is None):
                 QSperfiles = QSperfiles.filter(fecha_registro__lte=fechaHasta)
-                mensaje_busqueda +="La fecha de registro sea menor a "+datetime.strftime(fechaHasta,'%d-%m-%Y')+ "\n"
+                mensaje_busqueda +="La fecha de registro sea menor a {datetime.strftime(fechaHasta,'%d-%m-%Y')}" + "\n"
                 
                 
             perfiles = QSperfiles.all()
@@ -460,17 +460,17 @@ def buscar_recepcionistas(request):
 
             if salario is not None:
                 QSrecepcionistas = QSrecepcionistas.filter(salario__gte=salario)
-                mensaje_busqueda += f"Salario mayor o igual a: {salario}\n"
+                mensaje_busqueda += f"Salario mayor o igual a: {salario} \n"
 
 
             if fecha_desde is not None:
                 QSrecepcionistas = QSrecepcionistas.filter(fecha_alta__gte=fecha_desde)
-                mensaje_busqueda += f"Fecha de alta desde: {fecha_desde}\n"
+                mensaje_busqueda += f"Fecha de alta desde: {fecha_desde} \n"
 
 
             if fecha_hasta is not None:
                 QSrecepcionistas = QSrecepcionistas.filter(fecha_alta__lte=fecha_hasta)
-                mensaje_busqueda += f"Fecha de alta hasta: {fecha_hasta}\n"
+                mensaje_busqueda += f"Fecha de alta hasta: {fecha_hasta} \n"
             
             if len(turno )> 0:
                 mensaje_busqueda += "Turno "+turno[0]
@@ -656,7 +656,7 @@ def crear_parcela(request):
     if(request.method == "POST"):
         parcela_creado = crear_parcela_modelo(formulario)
         if(parcela_creado):
-            messages.success(request, "Se ha creado la parcela con numero " + str(formulario.cleaned_data.get('numero')) + " correctamente")
+            messages.success(request,  f"Se ha creado la parcela con número {formulario.cleaned_data.get('numero')} correctamente")
             return redirect("ver_parcelas")
         
     return render(request, 'URLs/parcelas/create.html', {'formulario':formulario})
@@ -691,11 +691,11 @@ def buscar_parcelas(request):
             
             if(numero is not None):
                 QSparcelas  = QSparcelas .filter(numero = numero)
-                mensaje_busqueda += "Numero de parcela: "+str(numero)
+                mensaje_busqueda += f"Numero de parcela: {numero}"
                 
             if(capacidad is not None ):
                 QSparcelas  = QSparcelas .filter(capacidad__lte=capacidad)
-                mensaje_busqueda += "Capacidad máxima:  "+str(capacidad)
+                mensaje_busqueda += f"Capacidad máxima: {capacidad}"
                 
             if( tiene_sombra is not None):
                 QSparcelas  = QSparcelas .filter(tiene_sombra=tiene_sombra)
@@ -726,7 +726,7 @@ def parcela_editar(request, parcela_id):
         if formulario.is_valid():
             try:
                 formulario.save()
-                messages.success(request, 'Se ha editado la parcela con numero '+formulario.cleaned_data.get('numero')+" correctamente")
+                messages.success(request, f"Se ha editado la parcela con numero {formulario.cleaned_data.get('numero')} correctamente")
                 return redirect('ver_parcelas')
             except Exception as e:
                 print(e)
@@ -741,4 +741,113 @@ def parcela_eliminar(request, parcela_id):
     except Exception as e:
         print(e)
     return redirect('ver_parcelas')
+
+
+"""=================================================================================FACTURAS========================================================================================================================="""
+
+def ver_facturas(request):
+    facturas = Factura.objects.all()
+    
+    """
+    campings = (Camping.objects.raw(" SELECT * FROM camping_camping c"))
+    """
+    
+    return render(request, 'URLs/facturas/lista_facturas.html', {"mostrar_facturas":facturas})
+
+
+## CREATE
+def crear_factura(request):
+    datosFormulario = None
+    if(request.method == 'POST'):
+        datosFormulario = request.POST
+    
+    formulario = FacturaModelForm(datosFormulario)
+    if(request.method == "POST"):
+        factura_creado = crear_factura_modelo(formulario)
+        if(factura_creado):
+            messages.success(request, f"Se ha creado la factura con fecha de emisión: {formulario.cleaned_data.get('emitida_en')} correctamente")
+            return redirect("ver_facturas")
+        
+    return render(request, 'URLs/facturas/create.html', {'formulario':formulario})
+    
+def crear_factura_modelo(formulario):
+    factura_creado=False
+    if formulario.is_valid():
+        try:
+            formulario.save()
+            factura_creado = True
+        except Exception as error:
+            print(error)
+    return factura_creado
+
+
+def buscar_facturas(request):
+    formulario = BusquedaFacturasForm(request.GET)
+    
+    if(len(request.GET) > 0):
+        formulario = BusquedaFacturasForm(request.GET)
+        
+        if formulario.is_valid():
+            mensaje_busqueda = "Se ha buscado por los siguientes valores:\n"
+            
+            # QUERY SETS AQUI
+            QSfacturas = Factura.objects
+            
+            reserva_extra = formulario.cleaned_data.get('reserva_extra')
+            pagado = formulario.cleaned_data.get('pagado')
+            fecha_inicio = formulario.cleaned_data.get('fecha_inicio')
+            fecha_fin = formulario.cleaned_data.get('fecha_fin')
+            
+            if(reserva_extra is not None):
+                QSfacturas = QSfacturas.filter(reserva_extra__id = reserva_extra)
+                mensaje_busqueda += f"ID de reserva {reserva_extra}"
+            
+            if (pagado is not None):
+                QSfacturas = QSfacturas.filter(pagado = pagado)
+                mensaje_busqueda += f"Estado del pago: {"Pagado" if pagado else "A la espera"}"
+            
+            if fecha_inicio:
+                QSfacturas = QSfacturas.filter(emitida_en__date__gte=fecha_inicio)
+                mensaje_busqueda += f"Emitida desde: {fecha_inicio}"
+
+            if fecha_fin:
+                QSfacturas = QSfacturas.filter(emitida_en__date__lte=fecha_fin)
+                mensaje_busqueda += f"Emitida hasta: {fecha_fin}"
+            
+            facturas = QSfacturas.all()
+            return render(request, 'URLs/facturas/lista_facturas.html', {'mostrar_facturas':facturas, "texto_busqueda":mensaje_busqueda})
+
+    else:
+        formulario = BusquedaFacturasForm(None)
+    
+    return render(request, 'URLs/facturas/busqueda_avanzada.html', {'formulario':formulario})
+
+## UPDATE
+def factura_editar(request, factura_id):
+    factura = Factura.objects.get(id = factura_id)
+    datosFormulario = None
+
+    if(request.method == "POST"):
+        datosFormulario = request.POST
+    formulario = FacturaModelForm(datosFormulario, instance = factura)
+
+    if(request.method == "POST"):
+        if formulario.is_valid():
+            try:
+                formulario.save()
+                messages.success(request, f"Se ha editado la factura con fecha de emisión: {formulario.cleaned_data.get('emitida_en')} correctamente")
+                return redirect('ver_facturas')
+            except Exception as e:
+                print(e)
+    
+    return render(request, 'URLs/facturas/actualizar.html', {'formulario':formulario, 'factura':factura})
+
+## DELETE
+def factura_eliminar(request, factura_id):
+    factura = Factura.objects.get(id = factura_id)
+    try:
+        factura.delete()
+    except Exception as e:
+        print(e)
+    return redirect('ver_facturas')
 

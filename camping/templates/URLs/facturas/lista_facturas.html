@@ -1,0 +1,29 @@
+{% extends "principal.html" %} 
+{% block titulo %}
+    <title>Facturas</title>
+{% endblock %}
+
+{% block cabecera_extra %}
+    {% load static %}
+    
+        <link rel="stylesheet" href="{% static 'css/perfiles.css' %}"/>
+    <script type="text/javascript" src="{% static 'javascript/javascript_prueba.js' %}" ></script>
+{% endblock %}
+
+{% block contenido %}
+    {% if texto_busqueda %}
+    <p>{{texto_busqueda}}</p>
+    {% endif %}
+    
+<ul>
+  {% for fact in mostrar_facturas %} 
+  <li>
+    {% include 'URLs/facturas/facturas.html' %}
+    <hr>
+  </li>
+  <br>
+  {% empty %}
+  <p>No hay reservas que cumplan los requisitos</p>
+  {% endfor %}
+</ul>
+{% endblock %}

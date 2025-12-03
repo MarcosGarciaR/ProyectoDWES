@@ -1,7 +1,8 @@
+{% load static %}
 <div>   
     <p>Nº Parcela: {{ fact.reserva_extra.reserva_asociada.parcela.numero }}&nbsp;&nbsp;&nbsp;
         Capacidad parcela: {{ fact.reserva_extra.reserva_asociada.parcela.capacidad }}&nbsp;&nbsp;&nbsp;
-        {{ fact.reserva_extra.reserva_asociada.parcela.tiene_sombra|yesno:"Con Sombre, Sin sombra" }}
+        {{ fact.reserva_extra.reserva_asociada.parcela.tiene_sombra|yesno:"Con Sombra, Sin sombra" }}
     </p>
     <p><b>Precio de la reserva: <i>{{ fact.total }}€</b></i> 
         {% if fact.total <= 350 %}
@@ -22,4 +23,19 @@
         Sin información del pago.
         {% endif %}
     </p>
+    <p>ID de factura: {{fact.id}}</p>
+    <div class="row btn-group">
+            <div class="mb-2">
+                <button type="button" 
+                        class="btn btn-outline-primary"> 
+                        <a href="{% url 'editar_factura' fact.id %}" ><span>Editar</span></a>
+                </button>
+                <form action = "{% url 'eliminar_factura' fact.id %}" method = "post"> 
+                    {% csrf_token %}
+                    <button class="btn btn-danger" type="submit" onclick="return eliminarFactura()">
+                        <span>Eliminar</span>
+                    </button> 
+                </form>
+            </div>
+        </div>
 </div>

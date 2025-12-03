@@ -37,3 +37,11 @@ function eliminarParcela(numero){
     else
         return false;
 }
+
+function eliminarFactura(numero){
+    var x = confirm("¿Eliminar la factura emitida en " + emitida_en + " ?");
+    if(x)
+        return true;
+    else
+        return false;
+}

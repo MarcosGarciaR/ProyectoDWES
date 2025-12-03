@@ -14,7 +14,7 @@
                         <li><a class="dropdown-item" href="{% url 'ver_campings' %}">Campings</a></li>
                         <li><a class="dropdown-item" href="{% url 'ver_reservas' %}">Reservas Ordenadas por fecha</a></li>
                         <li><a class="dropdown-item" href="{% url 'ver_reserva_por_id' 4 %}">Reserva con ID</a></li>
-                        <li><a class="dropdown-item" href="{% url 'ver_facturas' 200 3 %}">Factura &gt; 200 y capacidad ≥ 3</a></li>
+                        <li><a class="dropdown-item" href="{% url 'ver_facturas_especial' 200 3 %}">Factura &gt; 200 y capacidad ≥ 3</a></li>
                         <li><a class="dropdown-item" href="{% url 'precio_medio_servicios' %}">Precio medio de los servicios</a></li>
                         <li><a class="dropdown-item" href="{% url 'cuidadores_puntuacion_disponibilidad' 7 %}">Puntuación/Disponibilidad cuidadores</a></li>
                         <li><a class="dropdown-item" href="{% url 'descripcion_serviciosextra' 'causa' %}">ServiciosExtra con "causa"</a></li>
@@ -66,6 +66,13 @@
                     <ul>
                         <li><a class="dropdown-item" href="{% url "crear_parcela" %}">Crear parcela</a></li>
                         <li><a class="dropdown-item" href="{% url "buscar_parcelas" %}" >Buscar parcelas</a></li>
+                    </ul>
+                </li>
+                <li class="tiene-submenu">
+                    <a class="dropdown-item" href="{% url "ver_facturas" %}">Facturas</a>
+                    <ul>
+                        <li><a class="dropdown-item" href="{% url "crear_factura" %}">Crear factura</a></li>
+                        <li><a class="dropdown-item" href="{% url "buscar_facturas" %}" >Buscar factura</a></li>
                     </ul>
                 </li>
         </ul>

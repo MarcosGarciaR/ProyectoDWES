@@ -425,7 +425,8 @@ class ParcelaModelForm(ModelForm):
             "numero": ("Número de parcela"),
             "capacidad": ("Capacidad de personas"),
             "tiene_sombra": ("¿Tiene sombra?"),       
-        } 
+        }
+        
         widgets = {
             "camping": forms.Select(attrs={"class": "form-control"}),
             "numero": forms.NumberInput(attrs={"class": "form-control", "min": 1}),
@@ -453,8 +454,10 @@ class ParcelaModelForm(ModelForm):
             self.add_error('capacidad', 'Debe introducir alguna capacidad')
             # En el camping ya puede haber una parcela que tenga el numero indicado, en ese caso debería saltar error también.
         if camping and numero:
-            if Parcela.objects.filter(camping=camping, numero=numero).exists():
-                self.add_error('numero', 'Ya existe una parcela con ese número en este camping')
+            parcela_existente = Parcela.objects.filter(camping=camping, numero=numero).first()
+            if parcela_existente and (self.instance is None or parcela_existente.id != self.instance.id):
+                        self.add_error('numero', 'Ya existe una parcela con ese número en este camping')
+
 
         return self.cleaned_data
 
@@ -495,4 +498,73 @@ class BusquedaParcelasForm(forms.Form):
         return self.cleaned_data
     
     
-# POR HACER   reserva 
+# FORMS FACTURA
+class FacturaModelForm(ModelForm):
+    class Meta:
+        model = Factura
+        fields = '__all__'
+        labels = {
+            "reserva_extra": ("Reserva Extra"),
+            "total": ("Total (€)"),
+            "emitida_en": ("Emitida en"),
+            "pagado": ("Pagado"),
+        }
+        widgets = {
+            "reserva_extra": forms.Select(attrs={"class": "form-control"}),
+            "total": forms.NumberInput(attrs={"class": "form-control", "min": 0}),
+            "emitida_en":forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+            "pagado": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+        }
+        localized_fields = ["emitida_en"]
+        
+    def clean(self):
+        super().clean()
+
+        emitida_en = self.cleaned_data.get('emitida_en')
+        total = self.cleaned_data.get('total')
+        reserva_extra = self.cleaned_data.get('reserva_extra')
+
+        # Validación de total
+        if total is None:
+            self.add_error('total', 'Debe indicar un total')
+        elif total < 0:
+            self.add_error('total', 'El total no puede ser negativo')
+
+        if emitida_en.date() > date.today():
+            self.add_error('emitida_en', 'La fecha de emisión no puede ser posterior a la fecha de hoy')
+        
+        if reserva_extra:
+            qs = Factura.objects.filter(reserva_extra=reserva_extra)
+            if self.instance and self.instance.pk:
+                qs = qs.exclude(pk=self.instance.pk)
+            if qs.exists():
+                self.add_error('reserva_extra', 'Ya existe una factura para esta reserva extra')
+
+        return self.cleaned_data
+
+
+class BusquedaFacturasForm(forms.Form):
+    reserva_extra = forms.IntegerField(required=False, label="ID de Reserva Extra")
+    pagado = forms.NullBooleanField(required=False, label="¿Pagado?")
+    fecha_inicio = forms.DateField(required=False, label="Emitida desde", widget=forms.DateInput(attrs={"type": "date"}))
+    fecha_fin = forms.DateField(required=False, label="Emitida hasta", widget=forms.DateInput(attrs={"type": "date"}))
+
+    def clean(self):
+        super().clean()
+        
+        reserva_extra = self.cleaned_data.get('reserva_extra')
+        pagado = self.cleaned_data.get('pagado')
+        fecha_inicio = self.cleaned_data.get('fecha_inicio')
+        fecha_fin = self.cleaned_data.get('fecha_fin')
+
+        if reserva_extra is None and pagado is None and not fecha_inicio and not fecha_fin:
+            msg = "Debe introducir al menos un campo de búsqueda"
+            self.add_error('reserva_extra', msg)
+            self.add_error('pagado', msg)
+            self.add_error('fecha_inicio', msg)
+            self.add_error('fecha_fin', msg)
+
+        if fecha_inicio and fecha_fin and fecha_inicio > fecha_fin:
+            self.add_error('fecha_fin', 'La fecha fin debe ser mayor o igual que la fecha de inicio')
+
+        return self.cleaned_data

@@ -5,7 +5,7 @@ urlpatterns = [
     path('', views.index , name='index'),
     path('reservas/', views.ver_reservas_por_fecha , name='ver_reservas'),
     path('reservaid/<int:id_reserva>/', views.ver_reserva_por_id , name='ver_reserva_por_id'),
-    path('factura-coste/<int:precio>/<int:capacidadParcela>/', views.ver_factura_precio_capacidad , name='ver_facturas'),
+    path('factura-coste/<int:precio>/<int:capacidadParcela>/', views.ver_factura_precio_capacidad , name='ver_facturas_especial'),
     path('servicios/', views.precio_medio_servicios , name='precio_medio_servicios'),
     path('cuidadores/<int:puntuacionPedida>/', views.puntuacionydisponibilidad_cuidadores , name='cuidadores_puntuacion_disponibilidad'),
     path('serviciosextra/<str:texto>/', views.busqueda_descripcion_serviciosextra , name='descripcion_serviciosextra'),
@@ -49,6 +49,11 @@ urlpatterns = [
     path('parcela/editar/<int:parcela_id>', views.parcela_editar, name='editar_parcela'),
     path('parcela/eliminar/<int:parcela_id>', views.parcela_eliminar, name='eliminar_parcela'),
     
+    path('facturas/', views.ver_facturas, name="ver_facturas"),
+    path('formulario_factura/', views.crear_factura , name='crear_factura'),
+    path('busqueda_facturas', views.buscar_facturas, name="buscar_facturas"),
+    path('factura/editar/<int:factura_id>', views.factura_editar, name='editar_factura'),
+    path('factura/eliminar/<int:factura_id>', views.factura_eliminar, name='eliminar_factura'),
     
 ]
 
