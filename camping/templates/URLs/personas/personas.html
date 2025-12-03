@@ -11,7 +11,7 @@
         </button>
         <form action = "{% url 'eliminar_persona' persona.id %}" method = "post"> 
             {% csrf_token %}
-            <button class="btn btn-danger" type="submit" onclick="return eliminarPersona()">
+            <button class="btn btn-danger" type="submit" onclick='return eliminarPersona()'>
                 <span>Eliminar</span>
             </button> 
         </form>

@@ -1,82 +1,56 @@
-/* CONTENEDOR DEL MENÚ */
 #lista_urls {
-    background-color: #2c3e50;
-    font-family: Arial, sans-serif;
-}
-
-/* UL PRINCIPAL (BARRA) */
-#lista_urls > ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     display: flex;
     justify-content: center;
-    flex-wrap: nowrap;
+    gap: 20px;
+    background-color: rgb(44, 62, 80); /* Fondo cabecera */
+    padding: 15px;
 }
 
-/* ITEMS DE LA BARRA */
-#lista_urls > ul > li {
-    position: relative;         /* importante para posicionar submenús */
-}
-
-/* ENLACES PRINCIPALES */
-#lista_urls > ul > li > a {
-    display: block;
+/* Botones del menú */
+#lista_urls .btn {
+    background-color: rgb(44, 62, 80);
+    border-color: rgb(44, 62, 80);
     color: white;
-    text-decoration: none;
-    padding: 14px 20px;
-    transition: background 0.3s;
-    white-space: nowrap;
 }
 
-#lista_urls > ul > li > a:hover {
-    background-color: #34495e;
-}
-
-/* SUBMENÚS (1er nivel) */
-#lista_urls ul ul {
-    position: absolute;
-    top: 100%;          /* justo debajo del elemento padre */
-    left: 0;
-    background-color: #2c3e50;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    min-width: 220px;
-    display: none;      /* oculto por defecto */
-    z-index: 1000;
-}
-
-/* Ítems del submenú */
-#lista_urls ul ul li a {
-    display: block;
-    padding: 10px 16px;
+#lista_urls .btn:hover, #lista_urls .btn:focus {
+    background-color: rgb(38, 53, 69);
+    border-color: rgb(38, 53, 69);
     color: white;
-    text-decoration: none;
-    transition: background 0.3s;
-    white-space: nowrap;
 }
 
-#lista_urls ul ul li a:hover {
-    background-color: #34495e;
+/* Menú desplegable */
+.dropdown-menu {
+    background-color: rgb(44, 62, 80);
+    color: white;
+    border: none;
 }
 
-/* Mostrar submenú al hacer hover en el padre */
-#lista_urls ul li:hover > ul {
-    display: block;
+/* Items del submenu */
+.dropdown-item {
+    color: white;
 }
 
-/* SUBMENÚ DE SEGUNDO NIVEL (para Persona dentro de CRUDS) */
-#lista_urls ul ul ul {
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: rgb(38, 53, 69);
+    color: white;
+}
+
+/* Submenús laterales */
+.dropdown-menu .dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-menu .dropdown-submenu .dropdown-menu {
     top: 0;
-    left: 100%;       /* a la derecha del submenú padre */
+    left: 100%;
+    background-color: rgb(44, 62, 80);
+    margin-left: .1rem;
+    margin-right: .1rem;
 }
 
-/* Opcional: pequeña flecha en elementos que tienen submenú */
-#lista_urls li.tiene-submenu > a::after {
-    content: " ▾";
-    font-size: 10px;
-}
-#lista_urls li.tiene-submenu ul li.tiene-submenu > a::after {
-    content: " ▸";
+/* Flecha de submenú (si la agregas con dropdown-toggle) */
+.dropdown-toggle::after {
+    color: white;
 }

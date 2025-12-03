@@ -5,6 +5,7 @@ from .forms import *
 from datetime import date
 
 
+
 """
 class PersonaForm(forms.Form):
     nombre = forms.CharField(label="Nombre", required=True, max_length=200, help_text="Máximo de 200 carácteres")
@@ -159,7 +160,6 @@ class PerfilUsuarioModelForm(ModelForm):
             "rol": forms.Select(attrs={"class": "form-control"}),
             "es_staff": forms.CheckboxInput(attrs={"class": "form-check-input"}),
             "foto_perfil": forms.ClearableFileInput(attrs={"class": "form-control"}),
-            
         }
 
         def __init__(self, *args, **kwargs):
@@ -230,7 +230,6 @@ class PerfilUsuarioUpdateForm(ModelForm):
         if len(password) < 8:
             self.add_error('password', 'La contraseña debe tener al menos 8 caracteres')
             
-        # Username único
         usuario_username = PerfilUsuario.objects.filter(username=username).exclude(id=self.instance.id if self.instance else None).first()
         if usuario_username:
             self.add_error('username', 'Este username ya está en uso')
@@ -244,19 +243,111 @@ class BusquedaPerfilesUsuariosForm(forms.Form):
     rolBusqueda = forms.MultipleChoiceField(required=False, label="Rol", choices=PerfilUsuario.OPCIONES_ROL, widget = forms.CheckboxSelectMultiple())
     esStaffBusqueda = forms.BooleanField(required=False, label="Es Staff", widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}))
 
+    fecha_desde = forms.DateField(label="Registro Desde",required=False,widget= forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}))        
+    fecha_hasta = forms.DateField(label="Registro Hasta",required=False,widget= forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}))
+    
     def clean(self):
         super().clean()
         
         usernameBusqueda = self.cleaned_data.get('usernameBusqueda')
         rolBusqueda = self.cleaned_data.get('rolBusqueda')
         esStaffBusqueda = self.cleaned_data.get('esStaffBusqueda')
-        
-        if(usernameBusqueda == "" and rolBusqueda == "" and esStaffBusqueda is None):
+        fecha_desde = self.cleaned_data.get('fecha_desde')
+        fecha_hasta = self.cleaned_data.get('fecha_hasta')
+
+
+        if(usernameBusqueda == "" and rolBusqueda == "" and esStaffBusqueda is None and fecha_desde is None and fecha_hasta is None):
             self.add_error('usernameBusqueda', 'Debe introducir al menos un campo de búsqueda')
-        
+            self.add_error('fecha_desde','Debe introducir al menos un campo de búsqueda')
+            self.add_error('fecha_hasta','Debe introducir al menos un campo de búsqueda')
         else:
             if(usernameBusqueda != "" and len(usernameBusqueda) < 3):
                 self.add_error('usernameBusqueda', 'El username es demasiado corto')
+            
+            if(not fecha_desde is None  and not fecha_hasta is None and fecha_hasta < fecha_desde):
+                self.add_error('fecha_desde','La fecha hasta no puede ser menor que la fecha desde')
+                self.add_error('fecha_hasta','La fecha hasta no puede ser menor que la fecha desde')
+                
+            if (not fecha_desde is  None and fecha_desde > date.today()):
+                self.add_error("fecha_desde", "La fecha de registro no puede ser superior a la fecha actual")
                 
         return self.cleaned_data
 
+
+
+
+## RECEPCIONISTA
+class RecepcionistaModelForm(ModelForm):
+    class Meta:
+        model = Recepcionista
+        # Iba a poner que la fecha de alta sea automática, pero se puede dar de alta a usuarios que ya están en plantilla (Entra hoy pero se le dan permisos al dia siguiente por ej)
+        fields = '__all__'
+        widgets = {
+            "salario": forms.NumberInput(attrs={'type': 'number'}),
+            "fecha_alta": forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+            "turno": forms.Select(attrs={"class": "form-control"}),
+        }
+        localized_fields = ["fecha_alta"]
+
+    def clean(self):
+        super().clean()
+
+        salario = self.cleaned_data.get('salario')
+        fecha_alta = self.cleaned_data.get('fecha_alta')
+        turno = self.cleaned_data.get('turno')
+
+        # --- Validación salario ---
+        if salario is not None and salario < 0:
+            self.add_error("salario", "El salario no puede ser negativo")
+
+        # --- Validación fecha ---
+        if fecha_alta is not None and fecha_alta > date.today():
+            self.add_error("fecha_alta", "La fecha de alta no puede ser futura")
+
+        # --- Validación turno ---
+        if turno not in ('ma', 'ta'):
+            self.add_error("turno", "Por favor, seleccione un turno válido")
+
+        return self.cleaned_data
+
+
+class BusquedaRecepcionistasForm(forms.Form):
+
+    salario = forms.DecimalField(required=False, label="Salario")
+    fecha_desde = forms.DateField(label="Alta Desde",required=False,widget= forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}))        
+    fecha_hasta = forms.DateField(label="Alta Hasta",required=False,widget= forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}))
+    
+    turno = forms.MultipleChoiceField(choices=Recepcionista.OPCIONES_TURNO ,required=False,widget=forms.CheckboxSelectMultiple())
+
+    def clean(self):
+        super().clean()
+
+        salario = self.cleaned_data.get('salario')
+        fecha_desde = self.cleaned_data.get('fecha_desde')
+        fecha_hasta = self.cleaned_data.get('fecha_hasta')
+        turno = self.cleaned_data.get('turno')
+
+        # --- Validación: debe rellenar al menos un campo
+        if (salario is None and fecha_desde is None and fecha_hasta is None and not turno):
+            msg = "Debe introducir al menos un campo de búsqueda"
+            self.add_error('salario', msg)
+            self.add_error('fecha_desde', msg)
+            self.add_error('fecha_hasta', msg)
+            self.add_error('turno', msg)
+        
+        else:
+            if (salario is not None and salario < 0):
+                self.add_error("salario", "El salario no puede ser negativo")
+
+            if(not fecha_desde is None  and not fecha_hasta is None and fecha_hasta < fecha_desde):
+                self.add_error('fecha_desde','La fecha hasta no puede ser menor que la fecha desde')
+                self.add_error('fecha_hasta','La fecha hasta no puede ser menor que la fecha desde')
+                
+            if (not fecha_desde is None and fecha_desde > date.today()):
+                self.add_error("fecha_desde", "La fecha de registro no puede ser superior a la fecha actual")
+
+        return self.cleaned_data
+    
+
+
+# POR HACER recepcionistas camping parcela  reserva 

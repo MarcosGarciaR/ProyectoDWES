@@ -1,5 +1,25 @@
+{% load static %}
 <div>
     <h1>{{ recepcionista.usuario.datos_usuario.nombre }} {{ recepcionista.usuario.datos_usuario.apellido }}</h1>
     <h4>Turno: <b>{{ recepcionista.get_turno_display }}</b></h4>
+    <h6>Salario: {{ recepcionista.salario }}€ </h6>
     <p>Alta: {{ recepcionista.fecha_alta|date:"d-M/Y" }}</p>
+    
+
+
+    <div class="row btn-group">
+        <div class="mb-2">
+            <button type="button" 
+                    class="btn btn-outline-primary"> 
+                    <a href="{% url 'editar_recepcionista' recepcionista.id %}" ><span>Editar</span></a>
+            </button>
+            <form action = "{% url 'eliminar_recepcionista' recepcionista.id %}" method = "post"> 
+                {% csrf_token %}
+                <button class="btn btn-danger" type="submit" onclick='return eliminarRecepcionista()'>
+                    <span>Eliminar</span>
+                </button> 
+            </form>
+        </div>
+    </div>
+
 </div>

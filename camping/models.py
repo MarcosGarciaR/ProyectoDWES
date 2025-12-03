@@ -36,6 +36,10 @@ class PerfilUsuario(models.Model):
 
     fecha_registro = models.DateTimeField(auto_now_add=True)
     
+    def __str__(self):
+        return f"{self.datos_usuario.nombre} {self.datos_usuario.apellido} – {self.username}"
+    
+    
 # RECEPCIONISTA
 class Recepcionista(models.Model):
     OPCIONES_TURNO = [
@@ -46,7 +50,7 @@ class Recepcionista(models.Model):
     usuario = models.OneToOneField(PerfilUsuario, on_delete=models.CASCADE)
     salario = models.DecimalField(max_digits=8, decimal_places=2)
     fecha_alta = models.DateField()
-    turno = models.CharField(max_length=20, choices=OPCIONES_TURNO)
+    turno = models.CharField(max_length=20, choices=OPCIONES_TURNO, blank=True, null=True)
 
 # CUIDADOR
 class Cuidador(models.Model):

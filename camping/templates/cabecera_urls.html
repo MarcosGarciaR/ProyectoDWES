@@ -1,52 +1,61 @@
 {% load static %}
 <head>
-        <link rel="stylesheet" href="{% static 'css/urls_cabecera.css' %}" />
+        <link rel="stylesheet" class="dropdown-item" href="{% static 'css/urls_cabecera.css' %}" />
 </head>
 
-<div id="lista_urls">
-    <ul>
 
-        <!-- URLs 1 con submenú -->
-        <li class="tiene-submenu">
-            <a href="#">URLs 1</a>
-            <ul>
-                <li><a href="{% url 'ver_campings' %}">Campings</a></li>
-                <li><a href="{% url 'ver_reservas' %}">Reservas Ordenadas por fecha</a></li>
-                <li><a href="{% url 'ver_reserva_por_id' 4 %}">Reserva con ID</a></li>
-                <li><a href="{% url 'ver_facturas' 200 3 %}">Factura &gt; 200 y capacidad ≥ 3</a></li>
-                <li><a href="{% url 'precio_medio_servicios' %}">Precio medio de los servicios</a></li>
-                <li><a href="{% url 'cuidadores_puntuacion_disponibilidad' 7 %}">Puntuación/Disponibilidad cuidadores</a></li>
-                <li><a href="{% url 'descripcion_serviciosextra' 'causa' %}">ServiciosExtra con "causa"</a></li>
-                <li><a href="{% url 'clientes_sin_vehiculo' %}">Clientes sin vehículos</a></li>
-                <li><a href="{% url 'reservas_sin_actividades' %}">Reservas sin actividades</a></li>
-                <li><a href="{% url 'reservas_de_cliente_por_id' cliente_id=6 %}">Reservas de un cliente</a></li>
-                <li><a href="{% url 'prueba_clase' %}">URL hecha en Clase</a></li>
-                <li><a href="{% url 'ver_personas' %}">Personas</a></li>
-                <li><a href="{% url 'ver_perfiles' %}">Perfiles</a></li>
-            </ul>
-        </li>
-        <!-- CRUDS con submenú -->
-        <li class="tiene-submenu">
-            <a href="#">CRUDS</a>
-            <ul>
-                <li class="tiene-submenu">
-                    <a href="#">Persona</a>
+
+<div id="lista_urls">
+    <div class="btn-group">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+            URLs 1
+        </button>
+        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'ver_campings' %}">Campings</a></li>
+                        <li><a class="dropdown-item" href="{% url 'ver_reservas' %}">Reservas Ordenadas por fecha</a></li>
+                        <li><a class="dropdown-item" href="{% url 'ver_reserva_por_id' 4 %}">Reserva con ID</a></li>
+                        <li><a class="dropdown-item" href="{% url 'ver_facturas' 200 3 %}">Factura &gt; 200 y capacidad ≥ 3</a></li>
+                        <li><a class="dropdown-item" href="{% url 'precio_medio_servicios' %}">Precio medio de los servicios</a></li>
+                        <li><a class="dropdown-item" href="{% url 'cuidadores_puntuacion_disponibilidad' 7 %}">Puntuación/Disponibilidad cuidadores</a></li>
+                        <li><a class="dropdown-item" href="{% url 'descripcion_serviciosextra' 'causa' %}">ServiciosExtra con "causa"</a></li>
+                        <li><a class="dropdown-item" href="{% url 'clientes_sin_vehiculo' %}">Clientes sin vehículos</a></li>
+                        <li><a class="dropdown-item" href="{% url 'reservas_sin_actividades' %}">Reservas sin actividades</a></li>
+                        <li><a class="dropdown-item" href="{% url 'reservas_de_cliente_por_id' cliente_id=6 %}">Reservas de un cliente</a></li>
+        </ul>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+            Forms
+        </button>
+        <ul class="dropdown-menu">
+            <li class="tiene-submenu">
+                    <a class="dropdown-item" href="{% url "ver_personas" %}">Personas</a>
                     <ul>
-                        <li><a href="{% url 'crear_persona' %}">Crear Persona</a></li>
-                        <li><a href="{% url 'buscar_personas' %}">Buscar Personas</a></li>
+                        <li><a class="dropdown-item" href="{% url 'crear_persona' %}">Crear Persona</a></li>
+                        <li><a class="dropdown-item" href="{% url 'buscar_personas' %}">Buscar Personas</a></li>
                     </ul>
                 </li>
                 
                 <li class="tiene-submenu">
-                    <a href="#">Perfiles de usuario</a>
+                    <a class="dropdown-item" href="{% url "ver_perfiles" %}">Perfiles de usuario</a>
                     <ul>
-                        <li><a href="{% url "crear_perfilUsuario" %}">Crear perfil de usuario</a></li>
-                        <li><a href="{% url "buscar_perfilUsuario" %}" >Buscar perfil de usuario</a></li>
+                        <li><a class="dropdown-item" href="{% url "crear_perfilUsuario" %}">Crear perfil de usuario</a></li>
+                        <li><a class="dropdown-item" href="{% url "buscar_perfilUsuario" %}" >Buscar perfil de usuario</a></li>
                     </ul>
-
                 </li>
-            </ul>
-        </li>
-
-    </ul>
+                
+                <li class="tiene-submenu">
+                    <a class="dropdown-item" href="{% url "ver_recepcionistas" %}">Recepcionistas</a>
+                    <ul>
+                        <li><a class="dropdown-item" href="{% url "crear_recepcionista" %}">Crear recepcionista</a></li>
+                        <li><a class="dropdown-item" href="{% url "buscar_recepcionistas" %}" >Buscar recepcionistas</a></li>
+                    </ul>
+                </li>
+            </li>
+            
+            
+        </ul>
+    </div>
+    
 </div>

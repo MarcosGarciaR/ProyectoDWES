@@ -6,20 +6,21 @@
         <p>Pwd: {{ perfil.password }}</p>
         <p>Registro: {{ perfil.fecha_registro|date:"l j/n/Y"|capfirst }}</p>
     
-    <div class="row btn-group">
-    <div class="mb-2">
-        <button type="button" 
-                class="btn btn-outline-primary"> 
-                <a href="{% url 'editar_perfilUsuario' perfil.id %}" ><span>Editar</span></a>
-        </button>
-        <form action = "{% url 'eliminar_perfilUsuario' perfil.id %}" method = "post"> 
-            {% csrf_token %}
-            <button class="btn btn-danger" type="submit" onclick="return eliminarPerfil()">
-                <span>Eliminar</span>
-            </button> 
-        </form>
-    </div>
-</div></div>
+        <div class="row btn-group">
+            <div class="mb-2">
+                <button type="button" 
+                        class="btn btn-outline-primary"> 
+                        <a href="{% url 'editar_perfilUsuario' perfil.id %}" ><span>Editar</span></a>
+                </button>
+                <form action = "{% url 'eliminar_perfilUsuario' perfil.id %}" method = "post"> 
+                    {% csrf_token %}
+                    <button class="btn btn-danger" type="submit" onclick="return eliminarPerfil()">
+                        <span>Eliminar</span>
+                    </button> 
+                </form>
+            </div>
+        </div>
+</div>
     <div class="foto">
         {% if perfil.foto_perfil %}
             <img src="{{ perfil.foto_perfil.url }}" alt="Foto de perfil">

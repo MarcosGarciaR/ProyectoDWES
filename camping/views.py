@@ -5,7 +5,7 @@ from django.db.models import Avg, Max, Min, Q, Prefetch
 from django.views.defaults import page_not_found
 from django.contrib import messages
 
-
+from datetime import datetime
 # Create your views here.
 
 def index(request):
@@ -163,19 +163,6 @@ def mi_error_500(request, exception=None):
     return render(request, 'Errores/500.html',None,None,500)
 
 
-
-# PRUEBA DE CLASE
-
-def prueba_clase(request):
-    #recepcionistas = Persona.objects.all().filter(salario = 1968.15 ).filter( turno = 'ma' )
-    
-    #recepcionistas = Persona.objects.select_related('usuario_id').all()
-    recepcionistas = Recepcionista.objects.raw(" SELECT * FROM camping_recepcionista cr "
-    #                                            + "WHERE cr.salario = 1968.15 AND cr.turno = 'ma' "
-                                                + "JOIN camping_perfilusuario cpu ON cr.usuario_id = cpu.id ")
-    return render(request, 'URLs/recepcionistas/recepcionistas.html', {'recepcionistas':recepcionistas})
-
-
 #   Ver la lista de personas
 def ver_personas(request):
     personas = Persona.objects.all()
@@ -233,6 +220,7 @@ def buscar_personas(request):
             apellidosBusqueda = formulario.cleaned_data.get('apellidosBusqueda')
             dni = formulario.cleaned_data.get('dni')
             annio_nacimiento = formulario.cleaned_data.get('annio_nacimiento')
+            
             
             if(nombreBusqueda != ""):
                 QSpersonas = QSpersonas.filter(nombre__contains=nombreBusqueda)
@@ -352,6 +340,8 @@ def buscar_perfiles_usuarios(request):
             usernameBusqueda = formulario.cleaned_data.get('usernameBusqueda')
             rolesBusqueda = formulario.cleaned_data.get('rolBusqueda')
             esStaffBusqueda = formulario.cleaned_data.get('esStaffBusqueda')
+            fechaDesde = formulario.cleaned_data.get('fecha_desde')
+            fechaHasta = formulario.cleaned_data.get('fecha_hasta')
             
             if(usernameBusqueda != ""):
                 QSperfiles = QSperfiles.filter(username__contains=usernameBusqueda)
@@ -371,6 +361,15 @@ def buscar_perfiles_usuarios(request):
                 QSperfiles = QSperfiles.filter(es_staff=esStaffBusqueda)
                 mensaje_busqueda += "Es staff: "+ ("si" if esStaffBusqueda else "no") + "\n"
             
+            if(not fechaDesde is None):
+                QSperfiles = QSperfiles.filter(fecha_registro__gte=fechaDesde)
+                mensaje_busqueda +="La fecha de registro sea mayor a "+datetime.strftime(fechaDesde,'%d-%m-%Y')+ "\n"
+            
+            if(not fechaHasta is None):
+                QSperfiles = QSperfiles.filter(fecha_registro__lte=fechaHasta)
+                mensaje_busqueda +="La fecha de registro sea menor a "+datetime.strftime(fechaHasta,'%d-%m-%Y')+ "\n"
+                
+                
             perfiles = QSperfiles.all()
             return render(request, 'URLs/perfilesUsuario/lista_perfiles.html', {
                 'mostrar_perfiles': perfiles, 
@@ -414,3 +413,128 @@ def perfil_usuario_eliminar(request, perfil_id):
         print(e)
     
     return redirect('ver_perfiles')
+
+
+"""=================================================================================RECEPCIONISTAS========================================================================================================================="""
+def ver_recepcionistas(request):
+    
+    recepcionistas = Recepcionista.objects.raw(" SELECT * FROM camping_recepcionista cr "
+                                                + "JOIN camping_perfilusuario cpu ON cr.usuario_id = cpu.id ")
+    return render(request, 'URLs/recepcionistas/recepcionistas.html', {'recepcionistas':recepcionistas})
+
+
+## CREATE
+def crear_recepcionista(request):
+    datosFormulario = None
+    if(request.method == 'POST'):
+        datosFormulario = request.POST
+    
+    formulario = RecepcionistaModelForm(datosFormulario)
+    if(request.method == "POST"):
+        persona_creado = crear_recepcionista_modelo(formulario)
+        if(persona_creado):
+            messages.success(request, "Se ha creado al recepcionista con salario "+str(formulario.cleaned_data.get('salario'))+ " correctamente")
+            return redirect("ver_recepcionistas")
+        
+    return render(request, 'URLs/recepcionistas/create.html', {'formulario':formulario})
+    
+def crear_recepcionista_modelo(formulario):
+    recepcionista_creado=False
+    if formulario.is_valid():
+        try:
+            formulario.save()
+            recepcionista_creado = True
+        except Exception as error:
+            print(error)
+    return recepcionista_creado
+
+
+## READ
+def buscar_recepcionistas(request):
+    formulario = BusquedaRecepcionistasForm(request.GET)
+
+    if len(request.GET) > 0:
+        formulario = BusquedaRecepcionistasForm(request.GET)
+
+        if formulario.is_valid():
+            mensaje_busqueda = "Se ha buscado por los siguientes valores:\n"
+
+            QSrecepcionistas = Recepcionista.objects
+
+            salario = formulario.cleaned_data.get('salario')
+            fecha_desde = formulario.cleaned_data.get('fecha_desde')
+            fecha_hasta = formulario.cleaned_data.get('fecha_hasta')
+            turno = formulario.cleaned_data.get('turno') 
+
+
+            if salario is not None:
+                QSrecepcionistas = QSrecepcionistas.filter(salario__gte=salario)
+                mensaje_busqueda += f"Salario mayor o igual a: {salario}\n"
+
+
+            if fecha_desde is not None:
+                QSrecepcionistas = QSrecepcionistas.filter(fecha_alta__gte=fecha_desde)
+                mensaje_busqueda += f"Fecha de alta desde: {fecha_desde}\n"
+
+
+            if fecha_hasta is not None:
+                QSrecepcionistas = QSrecepcionistas.filter(fecha_alta__lte=fecha_hasta)
+                mensaje_busqueda += f"Fecha de alta hasta: {fecha_hasta}\n"
+            
+            if len(turno )> 0:
+                mensaje_busqueda += "Turno "+turno[0]
+                queryOR = Q(turno = turno[0])
+                
+                for turno in turno[1:]:
+                    mensaje_busqueda += " o " + turno
+                    queryOR |= Q(turno = turno)
+                mensaje_busqueda += "\n"
+                QSrecepcionistas = QSrecepcionistas.filter(queryOR)
+                
+            recepcionistas = QSrecepcionistas.all()
+
+            return render(request,'URLs/recepcionistas/recepcionistas.html',{'recepcionistas': recepcionistas,'texto_busqueda': mensaje_busqueda})
+
+    else:
+        formulario = BusquedaRecepcionistasForm(None)
+
+    return render(
+        request,
+        'URLs/recepcionistas/busqueda_avanzada.html',
+        {'formulario': formulario}
+    )
+
+
+## UPDATE
+def recepcionista_editar(request, recepcionista_id):
+    recepcionista = Recepcionista.objects.get(id = recepcionista_id)
+    datosFormulario = None
+
+    if(request.method == "POST"):
+        datosFormulario = request.POST
+    formulario = RecepcionistaModelForm(datosFormulario, instance = recepcionista)
+
+    if(request.method == "POST"):
+        if formulario.is_valid():
+            try:
+                formulario.save()
+                messages.success(request, 'Se ha editado al recepcionista con salario '+formulario.cleaned_data.get('salario')+" correctamente")
+                return redirect('ver_recepcionistas')
+            except Exception as e:
+                print(e)
+    
+    return render(request, 'URLs/recepcionistas/actualizar.html', {'formulario':formulario, 'recepcionista':recepcionista})
+
+
+## DELETE
+def recepcionista_eliminar(request, recepcionista_id):
+    recepcionista = Recepcionista.objects.get(id = recepcionista_id)
+    try:
+        recepcionista.delete()
+    except Exception as e:
+        print(e)
+    return redirect('ver_recepcionistas')
+
+
+
+

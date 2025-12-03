@@ -14,25 +14,28 @@ urlpatterns = [
     re_path(r"^reserva[0-9]$", views.reservas_sin_actividades , name='reservas_sin_actividades'),
     path('cliente/<int:cliente_id>/reservas/', views.reservas_de_cliente_por_id , name='reservas_de_cliente_por_id'),
     
-    path('recepcionistas/', views.prueba_clase , name='prueba_clase'),
+    
+    # FORMS
     
     path('personas/', views.ver_personas, name='ver_personas'),
-    path('perfiles', views.ver_perfiles, name="ver_perfiles"),
-    
-    
-    
-    
     path('formulario_persona/', views.crear_persona , name='crear_persona'),
     path('busqueda_personas/', views.buscar_personas, name='buscar_personas'),
     path('persona/editar/<int:persona_id>', views.persona_editar, name='editar_persona'),
     path('persona/eliminar/<int:persona_id>', views.persona_eliminar, name='eliminar_persona'),
     
+    
+    path('perfiles', views.ver_perfiles, name="ver_perfiles"),
     path('formulario_perfilUsuario/', views.crear_perfil_usuario, name="crear_perfilUsuario"),
     path('buscarPerfiles/', views.buscar_perfiles_usuarios, name="buscar_perfilUsuario"),
     path('perfil/editar/<int:perfil_id>', views.perfil_usuario_editar, name='editar_perfilUsuario'),
     path('perfil/eliminar/<int:perfil_id>', views.perfil_usuario_eliminar, name='eliminar_perfilUsuario'),
     
     
+    path('recepcionistas/', views.ver_recepcionistas , name='ver_recepcionistas'),
+    path('formulario_recepcionista', views.crear_recepcionista, name="crear_recepcionista"),
+    path('busqueda_recepcionistas', views.buscar_recepcionistas, name="buscar_recepcionistas"),
+    path('recepcionista/editar/<int:recepcionista_id>', views.recepcionista_editar, name='editar_recepcionista'),
+    path('recepcionista/eliminar/<int:recepcionista_id>', views.recepcionista_eliminar, name='eliminar_recepcionista'),
     
     
 ]
