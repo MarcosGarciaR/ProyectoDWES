@@ -1,0 +1,27 @@
+<div>
+    <h2>{{ parcela.camping.nombre }}</h2>
+    <p>Nº: {{ parcela.numero }}</p>
+    <p>Capacidad: {{ parcela.capacidad}} </p>
+    <p>{% if parcela.tiene_sombra is True %}        
+        Con sombra.
+        {% else %}
+        Sin sombra.
+        {% endif %}
+    </p>
+    <div class="row btn-group">
+        <div class="mb-2">
+            <button type="button" 
+                    class="btn btn-outline-primary"> 
+                    <a href="{% url 'editar_parcela' parcela.id %}" ><span>Editar</span></a>
+            </button>
+            <form action = "{% url 'eliminar_parcela' parcela.id %}" method = "post"> 
+                {% csrf_token %}
+                <button class="btn btn-danger" type="submit" onclick='return eliminarParcela()'>
+                    <span>Eliminar</span>
+                </button> 
+            </form>
+        </div>
+    </div>
+
+</div>
+

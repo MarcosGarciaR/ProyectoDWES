@@ -279,15 +279,12 @@ class RecepcionistaModelForm(ModelForm):
         fecha_alta = self.cleaned_data.get('fecha_alta')
         turno = self.cleaned_data.get('turno')
 
-        # --- Validación salario ---
         if salario is not None and salario < 0:
             self.add_error("salario", "El salario no puede ser negativo")
 
-        # --- Validación fecha ---
         if fecha_alta is not None and fecha_alta > date.today():
             self.add_error("fecha_alta", "La fecha de alta no puede ser futura")
 
-        # --- Validación turno ---
         if turno not in ('ma', 'ta'):
             self.add_error("turno", "Por favor, seleccione un turno válido")
 
@@ -417,6 +414,85 @@ class BusquedaCampingsForm(forms.Form):
     
         return self.cleaned_data
 
+
+# FORMS PARCELA
+class ParcelaModelForm(ModelForm):
+    class Meta:
+        model = Parcela
+        fields = '__all__'
+        labels = {
+            "camping": ("Camping"),
+            "numero": ("Número de parcela"),
+            "capacidad": ("Capacidad de personas"),
+            "tiene_sombra": ("¿Tiene sombra?"),       
+        } 
+        widgets = {
+            "camping": forms.Select(attrs={"class": "form-control"}),
+            "numero": forms.NumberInput(attrs={"class": "form-control", "min": 1}),
+            "capacidad": forms.NumberInput(attrs={"class": "form-control", "min": 1, "max": 25}),
+            "tiene_sombra": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+        }
+
+    def clean(self):
+        super().clean()
+
+        numero = self.cleaned_data.get('numero')
+        capacidad = self.cleaned_data.get('capacidad')
+        camping = self.cleaned_data.get('camping')
+
+        if numero is None or numero < 1:
+                self.add_error('numero', 'El número de parcela debe ser mayor que 0')
+    
+        if capacidad is not None and capacidad < 1:
+            self.add_error('capacidad', 'La capacidad debe ser al menos 1 persona')
+            
+        if capacidad is not None and capacidad > 25:
+            self.add_error('capacidad', 'La capacidad máxima es de 25 personas')
+            
+        if capacidad is None:
+            self.add_error('capacidad', 'Debe introducir alguna capacidad')
+            # En el camping ya puede haber una parcela que tenga el numero indicado, en ese caso debería saltar error también.
+        if camping and numero:
+            if Parcela.objects.filter(camping=camping, numero=numero).exists():
+                self.add_error('numero', 'Ya existe una parcela con ese número en este camping')
+
+        return self.cleaned_data
+
+
+class BusquedaParcelasForm(forms.Form):
+    numero = forms.IntegerField(required=False, label="Número de parcela")
+    capacidad = forms.IntegerField(required=False, label="Capacidad máxima de personas")
+    tiene_sombra = forms.NullBooleanField(required=False, label="¿Tiene sombra?")
+    nombre_camping = forms.CharField(required=False, label="Nombre del camping")
+    
+    def clean(self):
+        super().clean()
+        
+        numero = self.cleaned_data.get('numero')
+        capacidad = self.cleaned_data.get('capacidad')
+        tiene_sombra = self.cleaned_data.get('tiene_sombra')
+        nombre_camping = self.cleaned_data.get('nombre_camping')
+
+        if numero is None and capacidad is None and tiene_sombra is None and nombre_camping == "":
+            msg = "Debe introducir al menos un campo de búsqueda"
+            self.add_error('numero', msg)
+            self.add_error('capacidad', msg)
+            self.add_error('tiene_sombra', msg)
+            self.add_error('nombre_camping', msg)
+        else:
+            
+            if numero is not None and numero < 1:
+                self.add_error('numero', 'El número de parcela debe ser mayor que 0')
+            
+            if capacidad is not None and capacidad < 1:
+                self.add_error('capacidad', 'La capacidad mínima debe ser al menos 1 persona')
+            
+            if nombre_camping != "" and len(nombre_camping) < 3:
+                self.add_error('nombre_camping', 'El nombre del camping es demasiado corto')
+            elif nombre_camping != "" and len(nombre_camping) > 150:
+                self.add_error('nombre_camping', 'El nombre del camping es demasiado largo')
+        
+        return self.cleaned_data
     
     
-# POR HACER  camping parcela  reserva 
+# POR HACER   reserva 

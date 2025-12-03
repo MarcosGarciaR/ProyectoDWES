@@ -29,3 +29,11 @@ function eliminarCamping(nombre){
     else
         return false;
 }
+
+function eliminarParcela(numero){
+    var x = confirm("¿Eliminar el camping con numero " + numero + " ?");
+    if(x)
+        return true;
+    else
+        return false;
+}

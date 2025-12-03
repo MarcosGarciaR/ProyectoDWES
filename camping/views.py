@@ -609,9 +609,6 @@ def buscar_campings(request):
     
     return render(request, 'URLs/campings/busqueda_avanzada.html', {'formulario':formulario})
 
-
-
-
 ## UPDATE
 def camping_editar(request, camping_id):
     camping = Camping.objects.get(id = camping_id)
@@ -632,7 +629,6 @@ def camping_editar(request, camping_id):
     
     return render(request, 'URLs/campings/actualizar.html', {'formulario':formulario, 'camping':camping})
 
-
 ## DELETE
 def camping_eliminar(request, camping_id):
     camping = Camping.objects.get(id = camping_id)
@@ -641,3 +637,108 @@ def camping_eliminar(request, camping_id):
     except Exception as e:
         print(e)
     return redirect('ver_campings')
+
+
+"""=================================================================================PARCELAS========================================================================================================================="""
+
+def ver_parcelas(request):
+    parcelas = Parcela.objects.select_related('camping').all().order_by('camping__nombre', 'numero')
+    
+    return render(request, 'URLs/parcelas/lista_parcelas.html', {'mostrar_parcelas':parcelas})
+
+## CREATE
+def crear_parcela(request):
+    datosFormulario = None
+    if(request.method == 'POST'):
+        datosFormulario = request.POST
+    
+    formulario = ParcelaModelForm(datosFormulario)
+    if(request.method == "POST"):
+        parcela_creado = crear_parcela_modelo(formulario)
+        if(parcela_creado):
+            messages.success(request, "Se ha creado la parcela con numero " + str(formulario.cleaned_data.get('numero')) + " correctamente")
+            return redirect("ver_parcelas")
+        
+    return render(request, 'URLs/parcelas/create.html', {'formulario':formulario})
+    
+def crear_parcela_modelo(formulario):
+    parcela_creado=False
+    if formulario.is_valid():
+        try:
+            formulario.save()
+            parcela_creado = True
+        except Exception as error:
+            print(error)
+    return parcela_creado
+
+
+def buscar_parcelas(request):
+    formulario = BusquedaParcelasForm(request.GET)
+    
+    if(len(request.GET) > 0):
+        formulario = BusquedaParcelasForm(request.GET)
+        
+        if formulario.is_valid():
+            mensaje_busqueda = "Se ha buscado por los siguientes valores:\n"
+            
+            QSparcelas = Parcela.objects
+            
+            numero = formulario.cleaned_data.get('numero')
+            capacidad = formulario.cleaned_data.get('capacidad')
+            tiene_sombra = formulario.cleaned_data.get('tiene_sombra')
+            nombre_camping = formulario.cleaned_data.get('nombre_camping')
+                        
+            
+            if(numero is not None):
+                QSparcelas  = QSparcelas .filter(numero = numero)
+                mensaje_busqueda += "Numero de parcela: "+str(numero)
+                
+            if(capacidad is not None ):
+                QSparcelas  = QSparcelas .filter(capacidad__lte=capacidad)
+                mensaje_busqueda += "Capacidad máxima:  "+str(capacidad)
+                
+            if( tiene_sombra is not None):
+                QSparcelas  = QSparcelas .filter(tiene_sombra=tiene_sombra)
+                mensaje_busqueda += f"Con sombra: {tiene_sombra}"
+            
+            if(nombre_camping  != ""):
+                QSparcelas = QSparcelas.filter(camping__nombre__icontains=nombre_camping)
+                mensaje_busqueda += f"El nombre del camping contenga {nombre_camping}"
+            
+            parcelas = QSparcelas .all()
+            return render(request, 'URLs/parcelas/lista_parcelas.html', {'mostrar_parcelas':parcelas, "texto_busqueda":mensaje_busqueda})
+
+    else:
+        formulario = BusquedaParcelasForm(None)
+    
+    return render(request, 'URLs/parcelas/busqueda_avanzada.html', {'formulario':formulario})
+
+## UPDATE
+def parcela_editar(request, parcela_id):
+    parcela = Parcela.objects.get(id = parcela_id)
+    datosFormulario = None
+
+    if(request.method == "POST"):
+        datosFormulario = request.POST
+    formulario = ParcelaModelForm(datosFormulario, instance = parcela)
+
+    if(request.method == "POST"):
+        if formulario.is_valid():
+            try:
+                formulario.save()
+                messages.success(request, 'Se ha editado la parcela con numero '+formulario.cleaned_data.get('numero')+" correctamente")
+                return redirect('ver_parcelas')
+            except Exception as e:
+                print(e)
+    
+    return render(request, 'URLs/parcelas/actualizar.html', {'formulario':formulario, 'parcela':parcela})
+
+## DELETE
+def parcela_eliminar(request, parcela_id):
+    parcela = Parcela.objects.get(id = parcela_id)
+    try:
+        parcela.delete()
+    except Exception as e:
+        print(e)
+    return redirect('ver_parcelas')
+

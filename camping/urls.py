@@ -43,7 +43,11 @@ urlpatterns = [
     path('camping/editar/<int:camping_id>', views.camping_editar, name='editar_camping'),
     path('camping/eliminar/<int:camping_id>', views.camping_eliminar, name='eliminar_camping'),
     
-    
+    path('parcelas/', views.ver_parcelas, name="ver_parcelas"),
+    path('formulario_parcela/', views.crear_parcela , name='crear_parcela'),
+    path('busqueda_parcelas', views.buscar_parcelas, name="buscar_parcelas"),
+    path('parcela/editar/<int:parcela_id>', views.parcela_editar, name='editar_parcela'),
+    path('parcela/eliminar/<int:parcela_id>', views.parcela_eliminar, name='eliminar_parcela'),
     
     
 ]
