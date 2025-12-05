@@ -5,7 +5,7 @@
 
 
 
-<div id="lista_urls">
+<div id="lista_urls" class="sticky-top">
     <div class="btn-group">
         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
             URLs 1
@@ -31,49 +31,26 @@
         <ul class="dropdown-menu">
                 <li class="tiene-submenu">
                     <a class="dropdown-item" href="{% url "ver_personas" %}">Personas</a>
-                    <ul>
-                        <li><a class="dropdown-item" href="{% url 'crear_persona' %}">Crear Persona</a></li>
-                        <li><a class="dropdown-item" href="{% url 'buscar_personas' %}">Buscar Personas</a></li>
-                    </ul>
                 </li>
                 
                 <li class="tiene-submenu">
                     <a class="dropdown-item" href="{% url "ver_perfiles" %}">Perfiles de usuario</a>
-                    <ul>
-                        <li><a class="dropdown-item" href="{% url "crear_perfilUsuario" %}">Crear perfil de usuario</a></li>
-                        <li><a class="dropdown-item" href="{% url "buscar_perfilUsuario" %}" >Buscar perfil de usuario</a></li>
-                    </ul>
                 </li>
                 
                 <li class="tiene-submenu">
                     <a class="dropdown-item" href="{% url "ver_recepcionistas" %}">Recepcionistas</a>
-                    <ul>
-                        <li><a class="dropdown-item" href="{% url "crear_recepcionista" %}">Crear recepcionista</a></li>
-                        <li><a class="dropdown-item" href="{% url "buscar_recepcionistas" %}" >Buscar recepcionistas</a></li>
-                    </ul>
-                </li>
-            
-                <li class="tiene-submenu">
-                    <a class="dropdown-item" href="{% url "ver_campings" %}">Campings</a>
-                    <ul>
-                        <li><a class="dropdown-item" href="{% url "crear_camping" %}">Crear camping</a></li>
-                        <li><a class="dropdown-item" href="{% url "buscar_campings" %}" >Buscar campings</a></li>
-                    </ul>
                 </li>
                 
                 <li class="tiene-submenu">
-                    <a class="dropdown-item" href="{% url "ver_parcelas" %}">Parcelas</a>
-                    <ul>
-                        <li><a class="dropdown-item" href="{% url "crear_parcela" %}">Crear parcela</a></li>
-                        <li><a class="dropdown-item" href="{% url "buscar_parcelas" %}" >Buscar parcelas</a></li>
-                    </ul>
+                    <a class="dropdown-item" href="{% url "ver_campings" %}">Campings</a>
                 </li>
+
+                <li class="tiene-submenu">
+                    <a class="dropdown-item" href="{% url "ver_parcelas" %}">Parcelas</a>
+                </li>
+                
                 <li class="tiene-submenu">
                     <a class="dropdown-item" href="{% url "ver_facturas" %}">Facturas</a>
-                    <ul>
-                        <li><a class="dropdown-item" href="{% url "crear_factura" %}">Crear factura</a></li>
-                        <li><a class="dropdown-item" href="{% url "buscar_facturas" %}" >Buscar factura</a></li>
-                    </ul>
                 </li>
         </ul>
     </div>

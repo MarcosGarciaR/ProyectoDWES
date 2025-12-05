@@ -9,6 +9,9 @@
 {% endblock %}
 
 {% block contenido %}
+    <button><a href="{% url "crear_parcela" %}">Crear parcela</a></button>
+    <button><a href="{% url "buscar_parcelas" %}" >Buscar parcelas</a></button>
+    
     {% if texto_busqueda %}
     <p>{{texto_busqueda}}</p>
     {% endif %}

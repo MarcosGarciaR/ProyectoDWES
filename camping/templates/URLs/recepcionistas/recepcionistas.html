@@ -10,6 +10,13 @@
 {% endblock %}
 
 {% block contenido %}
+
+<div class="bg-body-secondary" id="botones_cabecera" >
+    <button><a href="{% url "crear_recepcionista" %}">Crear recepcionista</a></button>
+    <button><a href="{% url "buscar_recepcionistas" %}" >Buscar recepcionistas</a></button>
+</div>
+    <br>
+
     {% if texto_busqueda %}
         <p>{{texto_busqueda}}</p>
     {% endif %}

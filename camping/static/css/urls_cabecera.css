@@ -31,8 +31,7 @@
     color: white;
 }
 
-.dropdown-item:hover,
-.dropdown-item:focus {
+.dropdown-item:hover, .dropdown-item:focus {
     background-color: rgb(38, 53, 69);
     color: white;
 }
@@ -53,4 +52,8 @@
 /* Flecha de submenú (si la agregas con dropdown-toggle) */
 .dropdown-toggle::after {
     color: white;
+}
+#botones_cabecera {
+    text-align: center;
+    padding: 10px;
 }

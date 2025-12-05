@@ -55,6 +55,8 @@ urlpatterns = [
     path('factura/editar/<int:factura_id>', views.factura_editar, name='editar_factura'),
     path('factura/eliminar/<int:factura_id>', views.factura_eliminar, name='eliminar_factura'),
     
+    
+    path()
 ]
 
 

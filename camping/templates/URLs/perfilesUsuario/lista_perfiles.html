@@ -11,6 +11,9 @@
 {% endblock %}
 
 {% block contenido %}
+    <button><a href="{% url "crear_perfilUsuario" %}">Crear perfil de usuario</a></button>
+    <button><a href="{% url "buscar_perfilUsuario" %}" >Buscar perfil de usuario</a></button>
+    
     {% if texto_busqueda %}
     <p>{{texto_busqueda}}</p>
     {% endif %}

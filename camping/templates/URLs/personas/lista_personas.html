@@ -9,9 +9,13 @@
 {% endblock %}
 
 {% block contenido %}
+    <button><a href="{% url 'crear_persona' %}">Crear nueva Persona</a></button>
+    <button><a href="{% url 'buscar_personas' %}">Buscar Personas</a></button>
+    
     {% if texto_busqueda %}
     <p>{{texto_busqueda}}</p>
     {% endif %}
+
     
 <ul>
     {% for persona in mostrar_personas %}

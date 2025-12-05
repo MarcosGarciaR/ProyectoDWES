@@ -2,9 +2,30 @@ from django.db import models
 from django.utils import timezone
 
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.models import AbstractUser 
+
 
 # Create your models here.
 
+# USUARIO
+class Usuario(AbstractUser):
+    ADMINISTRADOR = 1
+    RECEPCIONISTA = 2  
+    CUIDADOR = 3
+    CLIENTE = 4
+    ROLES = (
+        (ADMINISTRADOR , 'administrador'),
+    (RECEPCIONISTA, 'recepcionista'),
+    (CUIDADOR , 'cuidador'),
+    (CLIENTE , 'cliente'),
+    )
+
+    rol = models.PositiveSmallIntegerField(
+        choices = ROLES, default=1
+    )
+    
+    
+    
 # PERSONA
 class Persona(models.Model):
     nombre = models.CharField(max_length=100)
@@ -46,14 +67,17 @@ class Recepcionista(models.Model):
         ('ma', 'Mañana'),
         ('ta', 'Tarde')
     ]
+    usuario = models.OneToOneField(Usuario, on_delete= models.CASCADE, null=True)
     
     usuario = models.OneToOneField(PerfilUsuario, on_delete=models.CASCADE)
     salario = models.DecimalField(max_digits=8, decimal_places=2)
     fecha_alta = models.DateField()
     turno = models.CharField(max_length=20, choices=OPCIONES_TURNO, blank=True, null=True)
-
+    
 # CUIDADOR
 class Cuidador(models.Model):
+    usuario = models.OneToOneField(Usuario, on_delete= models.CASCADE, null=True)
+    
     usuario = models.OneToOneField(PerfilUsuario, on_delete=models.CASCADE)
     especialidad = models.CharField(max_length=50)
     disponible_de_noche = models.BooleanField(default=False)
@@ -61,6 +85,8 @@ class Cuidador(models.Model):
 
 # CLIENTE
 class Cliente(models.Model):
+    usuario = models.OneToOneField(Usuario, on_delete= models.CASCADE, null=True)
+    
     datos_cliente = models.OneToOneField(Persona, on_delete=models.CASCADE, default="")
     numero_cuenta = models.CharField(max_length=30, blank=True, null=True)
     nacionalidad = models.CharField(max_length=50)

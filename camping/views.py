@@ -9,6 +9,8 @@ from datetime import datetime
 # Create your views here.
 
 def index(request):
+    if(not 'fecha_inicio' in request.session):
+        request.session['fecha_inicio'] = datetime.now().strftime('%d/%m/%Y %H:%M')
     return render(request, 'index.html') 
 
 #   Ordenar las reservas por fecha de inicio

@@ -1,11 +1,4 @@
 {% extends "principal.html" %} {% block contenido %}
 <form action = "{% url 'buscar_perfilUsuario' %}" method = "GET">
-
-    {% load django_bootstrap5 %}
-    {% csrf_token %}
-    {% bootstrap_form formulario %}
-    <button type="submit">Enviar</button>
-
-</form>
-
+    {% include "URLs/plantilla_form.html" %}</form>
 {% endblock %}

@@ -11,6 +11,13 @@
 {% endblock %}
 
 {% block contenido %}
+<div class="bg-body-secondary" id="botones_cabecera" >
+  <button><a href="{% url "crear_factura" %}">Crear factura</a></button>
+  <button><a href="{% url "buscar_facturas" %}" >Buscar factura</a></button>
+</div>
+    <br>
+
+
     {% if texto_busqueda %}
     <p>{{texto_busqueda}}</p>
     {% endif %}
