@@ -22,9 +22,7 @@ class Usuario(AbstractUser):
 
     rol = models.PositiveSmallIntegerField(
         choices = ROLES, default=1
-    )
-    
-    
+    )    
     
 # PERSONA
 class Persona(models.Model):

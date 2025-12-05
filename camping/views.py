@@ -11,7 +11,59 @@ from datetime import datetime
 def index(request):
     if(not 'fecha_inicio' in request.session):
         request.session['fecha_inicio'] = datetime.now().strftime('%d/%m/%Y %H:%M')
-    return render(request, 'index.html') 
+    return render(request, 'index.html')
+
+
+def registrar_usuario(request):
+    if request.method == 'POST':
+        form = RegistroForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            rol = int(form.cleaned_data.get('rol'))
+            if(rol == Usuario.RECEPCIONISTA):
+                recepcionista = Recepcionista.objects.create(usuario=user)
+                recepcionista.save()
+            elif(rol == Usuario.CUIDADOR):
+                cuidador = Cuidador.objects.create(usuario=user)
+                cuidador.save()
+            elif(rol == Usuario.CLIENTE):
+                cliente = Cliente.objects.create(usuario=user)
+                cliente.save()
+
+            messages.success(request, 'Usuario registrado correctamente.')
+            return redirect('index')
+    else:
+        form = RegistroForm()
+        return render(request, 'registration/signup.html', {'form': form})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #   Ordenar las reservas por fecha de inicio
 def ver_reservas_por_fecha(request):
