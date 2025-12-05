@@ -804,7 +804,7 @@ def buscar_facturas(request):
             
             if (pagado is not None):
                 QSfacturas = QSfacturas.filter(pagado = pagado)
-                mensaje_busqueda += f"Estado del pago: {"Pagado" if pagado else "A la espera"}"
+                mensaje_busqueda += f"Estado del pago: {'Pagado' if pagado else 'A la espera'}"
             
             if fecha_inicio:
                 QSfacturas = QSfacturas.filter(emitida_en__date__gte=fecha_inicio)
