@@ -1,6 +1,6 @@
 <div>
-    <h2>Cliente: {{ cliente.datos_cliente.nombre|upper }} {{ cliente.datos_cliente.apellido|upper }}</h2>
-    <p>Fecha de nacimiento: {{ cliente.datos_cliente.fecha_nacimiento|date:"l j/n/Y"|capfirst }}</p>
-    <p>Teléfono de contacto: {{ cliente.datos_cliente.telefono }}</p>      
+    <h2>Cliente: {{ cliente.datos_persona.nombre|upper }} {{ cliente.datos_persona.apellido|upper }}</h2>
+    <p>Fecha de nacimiento: {{ cliente.datos_persona.fecha_nacimiento|date:"l j/n/Y"|capfirst }}</p>
+    <p>Teléfono de contacto: {{ cliente.datos_persona.telefono }}</p>      
     <p>Nacionalidad: {{ cliente.nacionalidad|default:"Desconocida" }}</p>
 </div>

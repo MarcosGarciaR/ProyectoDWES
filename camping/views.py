@@ -6,6 +6,9 @@ from django.views.defaults import page_not_found
 from django.contrib import messages
 
 from datetime import datetime
+from django.contrib.auth import login
+from django.contrib.auth.decorators import permission_required
+
 # Create your views here.
 
 def index(request):
@@ -13,13 +16,16 @@ def index(request):
         request.session['fecha_inicio'] = datetime.now().strftime('%d/%m/%Y %H:%M')
     return render(request, 'index.html')
 
+def borrar_session(request):
+    del request.session['fecha_inicio']
+    return render(request, 'index.html')
 
 def registrar_usuario(request):
     if request.method == 'POST':
-        form = RegistroForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            rol = int(form.cleaned_data.get('rol'))
+        formulario = RegistroForm(request.POST)
+        if formulario.is_valid():
+            user = formulario.save()
+            rol = int(formulario.cleaned_data.get('rol'))
             if(rol == Usuario.RECEPCIONISTA):
                 recepcionista = Recepcionista.objects.create(usuario=user)
                 recepcionista.save()
@@ -29,12 +35,12 @@ def registrar_usuario(request):
             elif(rol == Usuario.CLIENTE):
                 cliente = Cliente.objects.create(usuario=user)
                 cliente.save()
-
-            messages.success(request, 'Usuario registrado correctamente.')
+            
+            login(request, user)
             return redirect('index')
     else:
-        form = RegistroForm()
-        return render(request, 'registration/signup.html', {'form': form})
+        formulario = RegistroForm()
+    return render(request, 'registration/signup.html', {'formulario': formulario})
 
 
 
@@ -67,7 +73,7 @@ def registrar_usuario(request):
 
 #   Ordenar las reservas por fecha de inicio
 def ver_reservas_por_fecha(request):
-    reservas = Reserva.objects.select_related('cliente__datos_cliente','parcela__camping').order_by('fecha_inicio').all()
+    reservas = Reserva.objects.select_related('cliente__datos_persona','parcela__camping').order_by('fecha_inicio').all()
 
     """
     reservas = (Reserva.objects.raw("SELECT cr.id AS id, cp.nombre, cp.apellido, cr.fecha_inicio, cr.fecha_fin  FROM camping_reserva cr "
@@ -81,7 +87,7 @@ def ver_reservas_por_fecha(request):
 
 #   Ver la reserva cuyo ID se pasa por la URL
 def ver_reserva_por_id(request, id_reserva):
-    reserva = Reserva.objects.select_related('cliente__datos_cliente').prefetch_related("actividades").get(id=id_reserva)
+    reserva = Reserva.objects.select_related('cliente__datos_persona').prefetch_related("actividades").get(id=id_reserva)
     
     """
     reserva = Reserva.objects.raw("SELECT cr.id, cr.fecha_inicio, cr.fecha_fin, cp.nombre, cact.* from camping_reserva cr"
@@ -130,7 +136,7 @@ def precio_medio_servicios(request):
 
 #   Mostrar los cuidadores mediante un filtro OR con las puntuaciones de los cuidadores, > X o esté disponible de noche
 def puntuacionydisponibilidad_cuidadores(request, puntuacionPedida):
-    cuidadores = Cuidador.objects.select_related('usuario__datos_usuario').filter(Q(puntuacion__gt=puntuacionPedida) | Q(disponible_de_noche=True)).all()
+    cuidadores = Cuidador.objects.select_related('datos_persona').filter(Q(puntuacion__gt=puntuacionPedida) | Q(disponible_de_noche=True)).all()
     
     """
     cuidadores = Cuidador.objects.raw("Select * FROM camping_cuidador cc"
@@ -157,7 +163,7 @@ def busqueda_descripcion_serviciosextra(request, texto):
 
 #   URL con filtro none CLIENTES que no aparecen en la tabla intermedia VEHICULO_CLIENTE
 def clientes_sin_vehiculo(request):
-    clientes = Cliente.objects.select_related('datos_cliente').filter(vehiculos=None).all()
+    clientes = Cliente.objects.select_related('datos_persona').filter(vehiculos=None).all()
     
     """
     clientes = Cliente.objects.raw("SELECT * FROM camping_cliente cc"
@@ -169,7 +175,7 @@ def clientes_sin_vehiculo(request):
 
 #   Mostrar las reservas que no tienen actividades asociadas
 def reservas_sin_actividades(request):
-    reservas = Reserva.objects.select_related("cliente__datos_cliente").prefetch_related(Prefetch("actividades")).filter(actividades=None).order_by('id')[:10].all()
+    reservas = Reserva.objects.select_related("cliente__datos_persona").prefetch_related(Prefetch("actividades")).filter(actividades=None).order_by('id')[:10].all()
     
     """
     reservas = Reserva.objects.raw("SELECT * FROM camping_reserva cr"
@@ -181,11 +187,11 @@ def reservas_sin_actividades(request):
 
 #   Ver las reservas que ha realizado un cliente.
 def reservas_de_cliente_por_id(request, cliente_id):
-    cliente = Cliente.objects.select_related('datos_cliente') .prefetch_related("reservas").get(id=cliente_id)
+    cliente = Cliente.objects.select_related('datos_persona') .prefetch_related("reservas").get(id=cliente_id)
     
     """
     cliente = Cliente.objects.raw("SELECT * FROM camping_cliente cc"
-                                    + "JOIN camping_datos_cliente cdc ON c.datos_cliente_id = cdc.id"
+                                    + "JOIN camping_datos_persona cdc ON c.datos_persona_id = cdc.id"
                                     + "JOIN camping_reserva cr ON cr.cliente_id = cc.id"
                                     + "WHERE c.id = %s", [cliente_id])
     """
@@ -324,147 +330,13 @@ def persona_eliminar(request, persona_id):
     
     return redirect('ver_personas')
 
-
-"""=================================================================================PERFILES DE USUARIO========================================================================================================================="""
-def ver_perfiles(request):
-    perfiles = PerfilUsuario.objects.select_related('datos_usuario').all()
-    
-    return render(request, 'URLs/perfilesUsuario/lista_perfiles.html', {'mostrar_perfiles':perfiles})
-
-## CREATE
-def crear_perfil_usuario(request):
-    
-    """
-    En caso de no haber ninguna persona sin perfil de usuario (y por ello, no se podrán hacer OneToOne), redirige a personas para que no se quede
-    una la pantalla colgada y muestra el error existente. 
-    """
-    
-    personas_disponibles = Persona.objects.filter(perfilusuario__isnull=True)
-    if not personas_disponibles.exists():
-        messages.error(request, "No hay personas disponibles. Primero debe crear una persona sin perfil de usuario.")
-        return redirect("ver_personas")
-    
-    datosFormulario = None
-    if(request.method == 'POST'):
-        datosFormulario = request.POST
-    formulario = PerfilUsuarioModelForm(datosFormulario)
-    
-    if(request.method == "POST"):
-        perfil_creado = crear_perfil_usuario_modelo(formulario)
-        if(perfil_creado):
-            messages.success(request, "Se ha creado el perfil de usuario "+formulario.cleaned_data.get('username')+ " correctamente")
-            return redirect("ver_perfiles")
-            
-    return render(request, 'URLs/perfilesUsuario/create.html', {'formulario': formulario})
-
-
-def crear_perfil_usuario_modelo(formulario):
-    perfil_creado=False
-    if formulario.is_valid():
-        try:
-            formulario.save()
-            perfil_creado = True
-        except Exception as error:
-            print(error)
-    
-    return perfil_creado
-
-
-## READ
-def buscar_perfiles_usuarios(request):
-    formulario = BusquedaPerfilesUsuariosForm(request.GET)
-    
-    if(len(request.GET) > 0):
-        formulario = BusquedaPerfilesUsuariosForm(request.GET)
-        
-        if formulario.is_valid():
-            mensaje_busqueda = "Se ha buscado por los siguientes valores:\n"
-            
-            QSperfiles = PerfilUsuario.objects
-            
-            usernameBusqueda = formulario.cleaned_data.get('usernameBusqueda')
-            rolesBusqueda = formulario.cleaned_data.get('rolBusqueda')
-            esStaffBusqueda = formulario.cleaned_data.get('esStaffBusqueda')
-            fechaDesde = formulario.cleaned_data.get('fecha_desde')
-            fechaHasta = formulario.cleaned_data.get('fecha_hasta')
-            
-            if(usernameBusqueda != ""):
-                QSperfiles = QSperfiles.filter(username__contains=usernameBusqueda)
-                mensaje_busqueda += f"Username con contenido: {usernameBusqueda}" + "\n"
-            
-            if len(rolesBusqueda )> 0:
-                mensaje_busqueda += "Rol "+rolesBusqueda[0]
-                queryOR = Q(rol = rolesBusqueda[0])
-                
-                for rol in rolesBusqueda[1:]:
-                    mensaje_busqueda += " o " + rol
-                    queryOR |= Q(rol = rol)
-                mensaje_busqueda += "\n"
-                QSperfiles = QSperfiles.filter(queryOR)
-                
-            if(esStaffBusqueda is not None):
-                QSperfiles = QSperfiles.filter(es_staff=esStaffBusqueda)
-                mensaje_busqueda += "Es staff: "+ ("si" if esStaffBusqueda else "no") + "\n"
-            
-            if(not fechaDesde is None):
-                QSperfiles = QSperfiles.filter(fecha_registro__gte=fechaDesde)
-                mensaje_busqueda += f"La fecha de registro sea mayor a {datetime.strftime(fechaDesde,'%d-%m-%Y')}" + "\n"
-            
-            if(not fechaHasta is None):
-                QSperfiles = QSperfiles.filter(fecha_registro__lte=fechaHasta)
-                mensaje_busqueda +="La fecha de registro sea menor a {datetime.strftime(fechaHasta,'%d-%m-%Y')}" + "\n"
-                
-                
-            perfiles = QSperfiles.all()
-            return render(request, 'URLs/perfilesUsuario/lista_perfiles.html', {
-                'mostrar_perfiles': perfiles, 
-                "texto_busqueda": mensaje_busqueda
-            })
-
-    else:
-        formulario = BusquedaPerfilesUsuariosForm(None)
-    
-    return render(request, 'URLs/perfilesUsuario/busqueda_avanzada.html', {'formulario':formulario})
-
-
-## UPDATE
-def perfil_usuario_editar(request, perfil_id):
-    perfil = PerfilUsuario.objects.get(id = perfil_id)
-    datosFormulario = None
-    
-    if(request.method == 'POST'):
-        datosFormulario = request.POST
-    formulario = PerfilUsuarioUpdateForm(datosFormulario, instance = perfil)
-    
-    if(request.method == "POST"):
-        if formulario.is_valid():
-            try:
-                formulario.save()
-                messages.success(request, 'Se ha editado el perfil de usuario '+formulario.cleaned_data.get('username')+" correctamente")
-                return redirect('ver_perfiles')
-            except Exception as e:
-                print(e)
-    
-    return render(request, 'URLs/perfilesUsuario/actualizar.html', {'formulario':formulario, 'perfil':perfil})
-
-
-
-## DELETE
-def perfil_usuario_eliminar(request, perfil_id):
-    perfil = PerfilUsuario.objects.get(id = perfil_id)
-    try:
-        perfil.delete()
-    except Exception as e:
-        print(e)
-    
-    return redirect('ver_perfiles')
-
-
 """=================================================================================RECEPCIONISTAS========================================================================================================================="""
 def ver_recepcionistas(request):
-    
+    recepcionistas = Recepcionista.objects.all()
+    """
     recepcionistas = Recepcionista.objects.raw(" SELECT * FROM camping_recepcionista cr "
                                                 + "JOIN camping_perfilusuario cpu ON cr.usuario_id = cpu.id ")
+    """
     return render(request, 'URLs/recepcionistas/recepcionistas.html', {'recepcionistas':recepcionistas})
 
 

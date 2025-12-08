@@ -6,14 +6,6 @@ function eliminarPersona(dni){
         return false;
 }
 
-function eliminarPerfil(username){
-    var x = confirm("¿Eliminar el usuario " + username + " ?");
-    if(x)
-        return true;
-    else
-        return false;
-}
-
 function eliminarRecepcionista(salario){
     var x = confirm("¿Eliminar el usuario con salario " + salario + " ?");
     if(x)

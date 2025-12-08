@@ -26,6 +26,13 @@ class Usuario(AbstractUser):
     
 # PERSONA
 class Persona(models.Model):
+    OPCIONES_ROL = [
+        ('recepcionista', 'Recepcionista'),
+        ('cuidador', 'Cuidador'),
+        ('cliente', 'Cliente')
+    ]
+    
+    
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
     dni = models.CharField(max_length=20, unique=True)
@@ -33,31 +40,17 @@ class Persona(models.Model):
     email = models.EmailField(unique=True, default="")
     telefono = models.CharField(max_length=20, default="")
     
-    def __str__(self):
-        return f"{self.nombre} {self.apellido} - {self.dni}"
-
-# PERFIL DE USUARIO
-class PerfilUsuario(models.Model):
-    OPCIONES_ROL = [
-        ('recepcionista', 'Recepcionista'),
-        ('cuidador', 'Cuidador'),
-        ('cliente', 'Cliente')
-    ]
-    
-    datos_usuario = models.OneToOneField(Persona, on_delete=models.CASCADE, default="")
     username = models.CharField(max_length=50, unique=True, default="")
-    password = models.CharField(max_length=128)
+    password = models.CharField(max_length=128, blank=True, null=True)
     # default=defaults/... llama a settings en el Media_root, que en este caso es /media, --> /media/defaults/...
     foto_perfil = models.ImageField(upload_to='perfiles/', blank=True, null=True)
     
-    es_staff = models.BooleanField(default=False)
     rol = models.CharField(max_length=20, choices=OPCIONES_ROL, blank=True, null=True)
-
-    fecha_registro = models.DateTimeField(auto_now_add=True)
+    
+    fecha_registro = models.DateTimeField(auto_now_add=True, null=True)
     
     def __str__(self):
-        return f"{self.datos_usuario.nombre} {self.datos_usuario.apellido} – {self.username}"
-    
+        return f"{self.nombre} {self.apellido} - {self.dni} – {self.username}"    
     
 # RECEPCIONISTA
 class Recepcionista(models.Model):
@@ -67,7 +60,7 @@ class Recepcionista(models.Model):
     ]
     usuario = models.OneToOneField(Usuario, on_delete= models.CASCADE, null=True)
     
-    usuario = models.OneToOneField(PerfilUsuario, on_delete=models.CASCADE)
+    datos_persona = models.OneToOneField(Persona, on_delete=models.CASCADE)
     salario = models.DecimalField(max_digits=8, decimal_places=2)
     fecha_alta = models.DateField()
     turno = models.CharField(max_length=20, choices=OPCIONES_TURNO, blank=True, null=True)
@@ -76,7 +69,7 @@ class Recepcionista(models.Model):
 class Cuidador(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete= models.CASCADE, null=True)
     
-    usuario = models.OneToOneField(PerfilUsuario, on_delete=models.CASCADE)
+    datos_persona = models.OneToOneField(Persona, on_delete=models.CASCADE, blank=True, null=True)
     especialidad = models.CharField(max_length=50)
     disponible_de_noche = models.BooleanField(default=False)
     puntuacion = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
@@ -85,7 +78,7 @@ class Cuidador(models.Model):
 class Cliente(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete= models.CASCADE, null=True)
     
-    datos_cliente = models.OneToOneField(Persona, on_delete=models.CASCADE, default="")
+    datos_persona = models.OneToOneField(Persona, on_delete=models.CASCADE, default="")
     numero_cuenta = models.CharField(max_length=30, blank=True, null=True)
     nacionalidad = models.CharField(max_length=50)
     acepta_publicidad = models.BooleanField(default=False)

@@ -23,12 +23,6 @@ urlpatterns = [
     path('persona/eliminar/<int:persona_id>', views.persona_eliminar, name='eliminar_persona'),
     
     
-    path('perfiles', views.ver_perfiles, name="ver_perfiles"),
-    path('formulario_perfilUsuario/', views.crear_perfil_usuario, name="crear_perfilUsuario"),
-    path('buscarPerfiles/', views.buscar_perfiles_usuarios, name="buscar_perfilUsuario"),
-    path('perfil/editar/<int:perfil_id>', views.perfil_usuario_editar, name='editar_perfilUsuario'),
-    path('perfil/eliminar/<int:perfil_id>', views.perfil_usuario_eliminar, name='eliminar_perfilUsuario'),
-    
     
     path('recepcionistas/', views.ver_recepcionistas , name='ver_recepcionistas'),
     path('formulario_recepcionista', views.crear_recepcionista, name="crear_recepcionista"),
