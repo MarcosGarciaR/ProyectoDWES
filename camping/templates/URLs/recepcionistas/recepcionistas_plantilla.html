@@ -1,6 +1,6 @@
 {% load static %}
 <div>
-    <h1>{{ recepcionista.usuario.datos_usuario.nombre }} {{ recepcionista.usuario.datos_usuario.apellido }}</h1>
+    <h1>{{ recepcionista.datos_persona.nombre }} {{ recepcionista.datos_persona.apellido }}</h1>
     <h4>Turno: <b>{{ recepcionista.get_turno_display }}</b></h4>
     <h6>Salario: {{ recepcionista.salario }}€ </h6>
     <p>Alta: {{ recepcionista.fecha_alta|date:"d-M/Y" }}</p>

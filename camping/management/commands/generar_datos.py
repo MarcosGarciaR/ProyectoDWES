@@ -25,13 +25,9 @@ class Command(BaseCommand):
                 apellido=fake.last_name(),
                 dni=fake.unique.nif(),
                 fecha_nacimiento=fake.date_of_birth(minimum_age=18, maximum_age=90),
-                email=fake.unique.email(),
                 telefono=fake.phone_number(),
-                username=fake.unique.user_name(),
-                password=fake.password(),
             )
 
-            rol_usuario = random.choice([Usuario.RECEPCIONISTA, Usuario.CUIDADOR, Usuario.CLIENTE])
 
             usuario = Usuario.objects.create(
                 username=persona.username,

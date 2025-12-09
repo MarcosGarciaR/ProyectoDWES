@@ -50,6 +50,29 @@
                 </li>
         </ul>
     </div>
-    <button href="{% url "registrar_usuario" %}">Registro</button>
-    
+
+    <!-- REGISTRO Y LOGIN DEL USUARIO-->
+    <div class="btn-group">
+        {% if not requested.user.is_authenticated %}
+        <button class="btn btn-secondary" type="button"data-bs-auto-close="outside" aria-expanded="false">
+                <a class="dropdown-item" href="{% url "login" %}">Login</a>
+        </button>
+        {% endif %}
+
+        {% if not requested.user.is_authenticated %}
+        <button class="btn btn-secondary" type="button"data-bs-auto-close="outside" aria-expanded="false">
+                <a class="dropdown-item" href="{% url "registrar_usuario" %}">Registro</a>
+        </button>
+        {% endif %}
+
+        {% if requested.user.is_authenticated %}
+        <form action="{% url 'cerrar_sesion' %}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-secondary" type="submit" data-bs-auto-close="outside" aria-expanded="false">
+                Cerrar Sesión
+            </button>
+        </form>
+        {% endif %}
+
+    </div>    
 </div>

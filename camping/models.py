@@ -22,35 +22,20 @@ class Usuario(AbstractUser):
 
     rol = models.PositiveSmallIntegerField(
         choices = ROLES, default=1
-    )    
+    )
     
 # PERSONA
 class Persona(models.Model):
-    OPCIONES_ROL = [
-        ('recepcionista', 'Recepcionista'),
-        ('cuidador', 'Cuidador'),
-        ('cliente', 'Cliente')
-    ]
-    
     
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
     dni = models.CharField(max_length=20, unique=True)
     fecha_nacimiento = models.DateField()
-    email = models.EmailField(unique=True, default="")
     telefono = models.CharField(max_length=20, default="")
-    
-    username = models.CharField(max_length=50, unique=True, default="")
-    password = models.CharField(max_length=128, blank=True, null=True)
-    # default=defaults/... llama a settings en el Media_root, que en este caso es /media, --> /media/defaults/...
-    foto_perfil = models.ImageField(upload_to='perfiles/', blank=True, null=True)
-    
-    rol = models.CharField(max_length=20, choices=OPCIONES_ROL, blank=True, null=True)
-    
     fecha_registro = models.DateTimeField(auto_now_add=True, null=True)
     
     def __str__(self):
-        return f"{self.nombre} {self.apellido} - {self.dni} – {self.username}"    
+        return f"{self.nombre} {self.apellido} - {self.dni}"    
     
 # RECEPCIONISTA
 class Recepcionista(models.Model):
@@ -61,8 +46,7 @@ class Recepcionista(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete= models.CASCADE, null=True)
     
     datos_persona = models.OneToOneField(Persona, on_delete=models.CASCADE)
-    salario = models.DecimalField(max_digits=8, decimal_places=2)
-    fecha_alta = models.DateField()
+    salario = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     turno = models.CharField(max_length=20, choices=OPCIONES_TURNO, blank=True, null=True)
     
 # CUIDADOR

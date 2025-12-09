@@ -26,14 +26,24 @@ def registrar_usuario(request):
         if formulario.is_valid():
             user = formulario.save()
             rol = int(formulario.cleaned_data.get('rol'))
+            persona = Persona.objects.create
             if(rol == Usuario.RECEPCIONISTA):
-                recepcionista = Recepcionista.objects.create(usuario=user)
+                salario = formulario.cleaned_data.get('salario')
+                turno = formulario.cleaned_data.get('turno') 
+                            
+                recepcionista = Recepcionista.objects.create(usuario=user, salario=salario, turno=turno)
                 recepcionista.save()
+                
             elif(rol == Usuario.CUIDADOR):
-                cuidador = Cuidador.objects.create(usuario=user)
+                especialidad = formulario.cleaned_data.get('especialidad')
+                puntuacion = formulario.cleaned_data.get('puntuacion')
+                cuidador = Cuidador.objects.create(usuario=user, especialidad=especialidad, puntuacion = puntuacion)
                 cuidador.save()
+                
             elif(rol == Usuario.CLIENTE):
-                cliente = Cliente.objects.create(usuario=user)
+                numero_cuenta = formulario.cleaned_data.get('numero_cuenta')
+                nacionalidad = formulario.cleaned_data.get('nacionalidad')
+                cliente = Cliente.objects.create(usuario=user, numero_cuenta=numero_cuenta, nacionalidad=nacionalidad)
                 cliente.save()
             
             login(request, user)

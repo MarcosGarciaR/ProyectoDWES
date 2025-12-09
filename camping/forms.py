@@ -10,16 +10,52 @@ from django.contrib.auth.forms import UserCreationForm
 
 ## FORMS PERSONA
 class RegistroForm(UserCreationForm):
-    roles = (
-    (Usuario.RECEPCIONISTA, 'recepcionista'),
-    (Usuario.CUIDADOR , 'cuidador'),
-    (Usuario.CLIENTE , 'cliente'),
+    ROLES = (
+        (Usuario.RECEPCIONISTA, 'recepcionista'),
+        (Usuario.CUIDADOR , 'cuidador'),
+        (Usuario.CLIENTE , 'cliente'),
     )
+    
+    rol = forms.ChoiceField(choices=ROLES)
+    salario = forms.DecimalField(required=False)
+    
+    turno = forms.MultipleChoiceField(choices=Recepcionista.OPCIONES_TURNO ,required=False,widget=forms.CheckboxSelectMultiple())
+    
 
-    rol = forms.ChoiceField(choices=roles)
+    especialidad = forms.CharField(required=False)
+    puntuacion = forms.IntegerField(required=False)
+    numero_cuenta = forms.CharField(required=False)
+    nacionalidad = forms.CharField(required=False)
+
     class Meta:
         model = Usuario
         fields = ('username', 'email', 'password1', 'password2', 'rol')
+        widgets = {
+            "turno": forms.Select(attrs={"class": "form-control"}),
+        }
+            
+            
+    def clean(self):
+        cleaned_data = super().clean()
+        rol = int(cleaned_data.get("rol"))
+
+        if rol == Usuario.RECEPCIONISTA:
+            if not cleaned_data.get("salario"):
+                self.add_error("salario", "El salario es obligatorio para un recepcionista.")
+            if not cleaned_data.get("turno"):
+                self.add_error("turno", "El turno es obligatorio para un recepcionista.")
+        elif rol == Usuario.CUIDADOR:
+            if not cleaned_data.get("especialidad"):
+                self.add_error("especialidad", "La especialidad es obligatoria para un cuidador.")
+            if cleaned_data.get("puntuacion") is None:
+                self.add_error("puntuacion", "La puntuación es obligatoria para un cuidador.")
+        elif rol == Usuario.CLIENTE:
+            if not cleaned_data.get("numero_cuenta"):
+                self.add_error("numero_cuenta", "El número de cuenta es obligatorio para un cliente.")
+            if not cleaned_data.get("nacionalidad"):
+                self.add_error("nacionalidad", "La nacionalidad es obligatoria para un cliente.")
+
+        return cleaned_data
 
 
 
