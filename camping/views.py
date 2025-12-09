@@ -20,44 +20,93 @@ def borrar_session(request):
     del request.session['fecha_inicio']
     return render(request, 'index.html')
 
+
 def registrar_usuario(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         formulario = RegistroForm(request.POST)
-        if formulario.is_valid():
+        rol = request.POST.get('rol')
+        persona = PersonaModelForm(request.POST)
+        recepcionista = RegistroRecepcionistaForm(request.POST)
+        cuidador = RegistroCuidadorForm(request.POST)
+        cliente = RegistroClienteForm(request.POST)
+            
+        if formulario.is_valid() and persona.is_valid() and recepcionista.is_valid() and cuidador.is_valid() and cliente.is_valid():
             user = formulario.save()
             rol = int(formulario.cleaned_data.get('rol'))
-            persona = Persona.objects.create
+            
+            
             if(rol == Usuario.RECEPCIONISTA):
-                salario = formulario.cleaned_data.get('salario')
-                turno = formulario.cleaned_data.get('turno') 
+                salario = request.POST.get('salario')
+                turno = request.POST.get('turno') 
                             
                 recepcionista = Recepcionista.objects.create(usuario=user, salario=salario, turno=turno)
                 recepcionista.save()
+                messages.success(request, "Se ha creado el recepcionista correctamente")
+            
+            elif(rol == Usuario.CUIDADOR):
+                especialidad = request.POST.get('especialidad')
+                puntuacion = request.POST.get('puntuacion')
+                cuidador = Cuidador.objects.create(usuario=user, especialidad=especialidad, puntuacion = puntuacion)
+                cuidador.save()
+                messages.success(request, "Se ha creado el cuidador correctamente")
+            
+            elif(rol == Usuario.CLIENTE):
+                numero_cuenta = request.POST.get('numero_cuenta')
+                nacionalidad = request.POST.get('nacionalidad')
+                cliente = Cliente.objects.create(usuario=user, numero_cuenta=numero_cuenta, nacionalidad=nacionalidad)
+                cliente.save()
+                messages.success(request, "Se ha creado el cliente correctamente")
+                
+            login(request, user)
+            return redirect('index')
+    else:
+        formulario = RegistroForm(None)
+        persona = PersonaModelForm(None)
+        recepcionista = RegistroRecepcionistaForm(None)
+        cuidador = RegistroCuidadorForm(None)
+        cliente = RegistroClienteForm(None)
+        
+    return render(request, 'registration/signup.html', {'formUsuario': formulario,  "formPersona": persona, "formRecepcionista": recepcionista, 
+                                                        "formCuidador": cuidador, "formCliente": cliente}) 
+
+
+
+
+
+"""
+    if request.method == 'POST':
+        usuario = RegistroForm(request.POST)
+        persona = PersonaModelForm(request.POST)
+        if usuario.is_valid() and persona.is_valid():
+            user = usuario.save()
+            persona = persona.save()
+            
+            rol = int(usuario.cleaned_data.get('rol'))
+            
+            if(rol == Usuario.RECEPCIONISTA):
+                salario = usuario.cleaned_data.get('salario')
+                turno = usuario.cleaned_data.get('turno') 
+                            
+                recepcionista = Recepcionista.objects.create(usuario=user, datos_persona = persona, salario=salario, turno=turno)
+                recepcionista.save()
                 
             elif(rol == Usuario.CUIDADOR):
-                especialidad = formulario.cleaned_data.get('especialidad')
-                puntuacion = formulario.cleaned_data.get('puntuacion')
-                cuidador = Cuidador.objects.create(usuario=user, especialidad=especialidad, puntuacion = puntuacion)
+                especialidad = usuario.cleaned_data.get('especialidad')
+                puntuacion = usuario.cleaned_data.get('puntuacion')
+                cuidador = Cuidador.objects.create(usuario=user, datos_persona = persona, especialidad=especialidad, puntuacion = puntuacion)
                 cuidador.save()
                 
             elif(rol == Usuario.CLIENTE):
-                numero_cuenta = formulario.cleaned_data.get('numero_cuenta')
-                nacionalidad = formulario.cleaned_data.get('nacionalidad')
-                cliente = Cliente.objects.create(usuario=user, numero_cuenta=numero_cuenta, nacionalidad=nacionalidad)
+                numero_cuenta = usuario.cleaned_data.get('numero_cuenta')
+                nacionalidad = usuario.cleaned_data.get('nacionalidad')
+                cliente = Cliente.objects.create(usuario=user, datos_persona = persona, numero_cuenta=numero_cuenta, nacionalidad=nacionalidad)
                 cliente.save()
             
             login(request, user)
             return redirect('index')
     else:
         formulario = RegistroForm()
-    return render(request, 'registration/signup.html', {'formulario': formulario})
-
-
-
-
-
-
-
+"""
 
 
 

@@ -8,58 +8,87 @@ from datetime import date
 from django.contrib.auth.forms import UserCreationForm
 
 
-## FORMS PERSONA
+
 class RegistroForm(UserCreationForm):
     ROLES = (
-        (Usuario.RECEPCIONISTA, 'recepcionista'),
-        (Usuario.CUIDADOR , 'cuidador'),
-        (Usuario.CLIENTE , 'cliente'),
+        ("", "Seleccione un rol"),
+        (Usuario.RECEPCIONISTA, 'Recepcionista'),
+        (Usuario.CUIDADOR, 'Cuidador'),
+        (Usuario.CLIENTE, 'Cliente'),
     )
-    
-    rol = forms.ChoiceField(choices=ROLES)
-    salario = forms.DecimalField(required=False)
-    
-    turno = forms.MultipleChoiceField(choices=Recepcionista.OPCIONES_TURNO ,required=False,widget=forms.CheckboxSelectMultiple())
-    
-
-    especialidad = forms.CharField(required=False)
-    puntuacion = forms.IntegerField(required=False)
-    numero_cuenta = forms.CharField(required=False)
-    nacionalidad = forms.CharField(required=False)
-
+    rol = forms.ChoiceField(choices=ROLES)    
     class Meta:
         model = Usuario
-        fields = ('username', 'email', 'password1', 'password2', 'rol')
+        fields = ("username", "email" , "password1", "password2","rol")
+    
+    def clean(self):
+        super().clean()
+        
+        rol = self.cleaned_data.get('rol')
+        
+        if rol == "":
+            self.add_error('rol', 'Debe seleccionar un rol válido')
+        
+        return self.cleaned_data
+
+class RegistroRecepcionistaForm(ModelForm):
+    class Meta:
+        model = Recepcionista
+        fields = ['salario', 'turno']
         widgets = {
+            "salario": forms.NumberInput(attrs={'type': 'number'}),
             "turno": forms.Select(attrs={"class": "form-control"}),
         }
-            
-            
-    def clean(self):
-        cleaned_data = super().clean()
-        rol = int(cleaned_data.get("rol"))
 
-        if rol == Usuario.RECEPCIONISTA:
-            if not cleaned_data.get("salario"):
-                self.add_error("salario", "El salario es obligatorio para un recepcionista.")
-            if not cleaned_data.get("turno"):
-                self.add_error("turno", "El turno es obligatorio para un recepcionista.")
-        elif rol == Usuario.CUIDADOR:
-            if not cleaned_data.get("especialidad"):
-                self.add_error("especialidad", "La especialidad es obligatoria para un cuidador.")
-            if cleaned_data.get("puntuacion") is None:
-                self.add_error("puntuacion", "La puntuación es obligatoria para un cuidador.")
-        elif rol == Usuario.CLIENTE:
-            if not cleaned_data.get("numero_cuenta"):
-                self.add_error("numero_cuenta", "El número de cuenta es obligatorio para un cliente.")
-            if not cleaned_data.get("nacionalidad"):
-                self.add_error("nacionalidad", "La nacionalidad es obligatoria para un cliente.")
+class RegistroCuidadorForm(ModelForm):
+    class Meta:
+        model = Cuidador
+        fields = ['especialidad', 'disponible_de_noche', 'puntuacion']
+        widgets = {
+            "especialidad": forms.TextInput(attrs={"class": "form-control"}),
+            "disponible_de_noche": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+            "puntuacion": forms.NumberInput(attrs={'type': 'number', 'min': 1, 'max': 10}),
+        }
 
-        return cleaned_data
+class RegistroClienteForm(ModelForm):
+    class Meta:
+        model = Cliente
+        fields = ["numero_cuenta", "nacionalidad", "acepta_publicidad"]
+        widgets = {
+            "numero_cuenta": forms.TextInput(attrs={"class": "form-control"}),
+            "nacionalidad": forms.TextInput(attrs={"class": "form-control"}),
+            "acepta_publicidad": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+        }
 
 
-
-
+class RegistroRecepcionistaForm(ModelForm):
+    class Meta:
+        model = Recepcionista
+        fields = ['salario', 'turno']
+        widgets = {
+            "salario": forms.NumberInput(attrs={'type': 'number'}),
+            "turno": forms.Select(attrs={"class": "form-control"}),
+        }
+        
+class RegistroCuidadorForm(ModelForm):
+    class Meta:
+        model = Cuidador
+        fields = ['especialidad', 'disponible_de_noche', 'puntuacion']
+        widgets = {
+            "especialidad": forms.TextInput(attrs={"class": "form-control"}),
+            "disponible_de_noche": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+            "puntuacion": forms.NumberInput(attrs={'type': 'number', 'min': 1, 'max': 10}),
+        }
+        
+class RegistroClienteForm(ModelForm):
+    class Meta:
+        model = Cliente
+        fields = ["numero_cuenta", "nacionalidad", "acepta_publicidad"]
+        widgets = {
+            "numero_cuenta": forms.TextInput(attrs={"class": "form-control"}),
+            "nacionalidad": forms.TextInput(attrs={"class": "form-control"}),
+            "acepta_publicidad": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+        }
 
 class PersonaModelForm(ModelForm):
     class Meta:

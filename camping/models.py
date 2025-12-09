@@ -6,7 +6,6 @@ from django.contrib.auth.models import AbstractUser
 
 
 # Create your models here.
-
 # USUARIO
 class Usuario(AbstractUser):
     ADMINISTRADOR = 1
@@ -54,9 +53,9 @@ class Cuidador(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete= models.CASCADE, null=True)
     
     datos_persona = models.OneToOneField(Persona, on_delete=models.CASCADE, blank=True, null=True)
-    especialidad = models.CharField(max_length=50)
+    especialidad = models.CharField(max_length=50, blank=True, null=True)
     disponible_de_noche = models.BooleanField(default=False)
-    puntuacion = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
+    puntuacion = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)], default=5)
 
 # CLIENTE
 class Cliente(models.Model):
@@ -64,8 +63,8 @@ class Cliente(models.Model):
     
     datos_persona = models.OneToOneField(Persona, on_delete=models.CASCADE, default="")
     numero_cuenta = models.CharField(max_length=30, blank=True, null=True)
-    nacionalidad = models.CharField(max_length=50)
-    acepta_publicidad = models.BooleanField(default=False)
+    nacionalidad = models.CharField(max_length=50, blank=True, null=True)
+    acepta_publicidad = models.BooleanField(default=False, blank=True, null=True)
 
 
 
