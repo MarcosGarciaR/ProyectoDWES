@@ -53,26 +53,23 @@
 
     <!-- REGISTRO Y LOGIN DEL USUARIO-->
     <div class="btn-group">
-        {% if not requested.user.is_authenticated %}
-        <button class="btn btn-secondary" type="button"data-bs-auto-close="outside" aria-expanded="false">
+        {% if not request.user.is_authenticated %}
+            <button class="btn btn-secondary" type="button"data-bs-auto-close="outside" aria-expanded="false">
                 <a class="dropdown-item" href="{% url "login" %}">Login</a>
-        </button>
-        {% endif %}
-
-        {% if not requested.user.is_authenticated %}
-        <button class="btn btn-secondary" type="button"data-bs-auto-close="outside" aria-expanded="false">
-                <a class="dropdown-item" href="{% url "registrar_usuario" %}">Registro</a>
-        </button>
-        {% endif %}
-
-        {% if requested.user.is_authenticated %}
-        <form action="{% url 'cerrar_sesion' %}" method="post">
-            {% csrf_token %}
-            <button class="btn btn-secondary" type="submit" data-bs-auto-close="outside" aria-expanded="false">
-                Cerrar Sesión
             </button>
-        </form>
         {% endif %}
 
+        {% if not request.user.is_authenticated %}
+            <button class="btn btn-secondary" type="button"data-bs-auto-close="outside" aria-expanded="false">
+                <a class="dropdown-item" href="{% url "registrar_usuario" %}">Registro</a>
+            </button>
+        {% endif %}
+        
+        {% if request.user.is_authenticated %}
+            <form action="{% url 'logout' %}" class="d-flex m-3" role="search" method="POST">
+                {% csrf_token %} 
+                <button class="btn btn-light btn-outline-dark" type="submit">Cerrar Sesión</button>
+            </form>
+        {% endif %}
     </div>    
 </div>

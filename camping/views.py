@@ -88,68 +88,10 @@ def registrar_usuario(request):
         
     return render(request, 'registration/signup.html', {'formUsuario': formulario,  "formPersona": persona, "formRecepcionista": recepcionista, 
                                                         "formCuidador": cuidador, "formCliente": cliente}) 
-
-
-
-
-
-"""
-    if request.method == 'POST':
-        usuario = RegistroForm(request.POST)
-        persona = PersonaModelForm(request.POST)
-        if usuario.is_valid() and persona.is_valid():
-            user = usuario.save()
-            persona = persona.save()
-            
-            rol = int(usuario.cleaned_data.get('rol'))
-            
-            if(rol == Usuario.RECEPCIONISTA):
-                salario = usuario.cleaned_data.get('salario')
-                turno = usuario.cleaned_data.get('turno') 
-                            
-                recepcionista = Recepcionista.objects.create(usuario=user, datos_persona = persona, salario=salario, turno=turno)
-                recepcionista.save()
-                
-            elif(rol == Usuario.CUIDADOR):
-                especialidad = usuario.cleaned_data.get('especialidad')
-                puntuacion = usuario.cleaned_data.get('puntuacion')
-                cuidador = Cuidador.objects.create(usuario=user, datos_persona = persona, especialidad=especialidad, puntuacion = puntuacion)
-                cuidador.save()
-                
-            elif(rol == Usuario.CLIENTE):
-                numero_cuenta = usuario.cleaned_data.get('numero_cuenta')
-                nacionalidad = usuario.cleaned_data.get('nacionalidad')
-                cliente = Cliente.objects.create(usuario=user, datos_persona = persona, numero_cuenta=numero_cuenta, nacionalidad=nacionalidad)
-                cliente.save()
-            
-            login(request, user)
-            return redirect('index')
-    else:
-        formulario = RegistroForm()
-"""
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    
+    
+"""=================================================================================CONSULTAS========================================================================================================================="""
 #   Ordenar las reservas por fecha de inicio
 def ver_reservas_por_fecha(request):
     reservas = Reserva.objects.select_related('cliente__datos_persona','parcela__camping').order_by('fecha_inicio').all()

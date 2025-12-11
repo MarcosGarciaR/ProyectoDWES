@@ -10,7 +10,6 @@ class Command(BaseCommand):
     
     def handle(self, *args, **kwargs):
         fake = Faker('es_ES')
-        from django.contrib.auth.hashers import make_password
 
         recepcionistas = []
         cuidadores = []
@@ -20,6 +19,8 @@ class Command(BaseCommand):
         # 1. CREAR PERSONA + USUARIO
         # -----------------------------
         for _ in range(15):
+
+            # Crear persona
             persona = Persona.objects.create(
                 nombre=fake.first_name(),
                 apellido=fake.last_name(),
@@ -28,17 +29,19 @@ class Command(BaseCommand):
                 telefono=fake.phone_number(),
             )
 
+            # Crear usuario
+            username = f"{persona.nombre.lower()}{random.randint(100,999)}"
+            rol_usuario = random.choice([1, 2, 3, 4])
+            password = make_password("12345678")
 
             usuario = Usuario.objects.create(
-                username=persona.username,
-                password=make_password(persona.password),
-                email=persona.email,
+                username=username,
+                password=password,
+                email=fake.email(),
                 rol=rol_usuario
             )
 
-            persona.rol = usuario.get_rol_display()
-            persona.save()
-
+            # Asignar según rol
             if rol_usuario == Usuario.RECEPCIONISTA:
                 recepcionistas.append((persona, usuario))
             elif rol_usuario == Usuario.CUIDADOR:
@@ -56,7 +59,6 @@ class Command(BaseCommand):
                     usuario=usuario,
                     datos_persona=persona,
                     salario=round(random.uniform(1100, 2500), 2),
-                    fecha_alta=fake.date_this_year(),
                     turno=random.choice(['ma', 'ta'])
                 )
             )
@@ -86,7 +88,7 @@ class Command(BaseCommand):
                     usuario=usuario,
                     datos_persona=persona,
                     numero_cuenta=fake.iban(),
-                    nacionalidad=fake.current_country(),
+                    nacionalidad=fake.country(),
                     acepta_publicidad=fake.boolean()
                 )
             )
@@ -146,7 +148,7 @@ class Command(BaseCommand):
             Actividad.objects.create(
                 nombre=fake.word(),
                 descripcion=fake.text(),
-                cupo=fake.random_int(1, 30),
+                cupo=random.randint(1, 30),
                 precio=random.uniform(5, 50),
                 requiere_material=fake.boolean()
             ) for _ in range(10)

@@ -26,9 +26,40 @@ class RegistroForm(UserCreationForm):
         
         rol = self.cleaned_data.get('rol')
         
+        salario = self.cleaned_data.get('salario')
+        turno = self.cleaned_data.get('turno')
+        
+        especialidad = self.cleaned_data.get('especialidad')
+        puntuacion = self.cleaned_data.get('puntuacion')
+        
+        numero_cuenta = self.cleaned_data.get('numero_cuenta')
+        nacionalidad = self.cleaned_data.get('nacionalidad')
+        
         if rol == "":
             self.add_error('rol', 'Debe seleccionar un rol válido')
         
+        if rol == Usuario.RECEPCIONISTA:
+            if salario is None or salario <= 0:
+                self.add_error('salario', 'Debe introducir un salario válido para el recepcionista')
+            
+            if turno not in dict(Recepcionista.OPCIONES_TURNO):
+                self.add_error('turno', 'Debe seleccionar un turno válido para el recepcionista')
+        
+        if rol == Usuario.CUIDADOR:
+            if especialidad is None or especialidad.strip() == "":
+                self.add_error('especialidad', 'Debe introducir una especialidad válida para el cuidador')
+            
+            if puntuacion is None or puntuacion < 1 or puntuacion > 10:
+                self.add_error('puntuacion', 'La puntuación debe estar entre 1 y 10 para el cuidador')
+                
+        if rol == Usuario.CLIENTE:
+            if numero_cuenta is None or numero_cuenta.strip() == "" or len(numero_cuenta) < 6:
+                self.add_error('numero_cuenta', 'Debe introducir un número de cuenta válido para el cliente')
+            
+            if nacionalidad is None or nacionalidad.strip() == "":
+                self.add_error('nacionalidad', 'Debe introducir una nacionalidad válida para el cliente')
+                
+                
         return self.cleaned_data
 
 class RegistroRecepcionistaForm(ModelForm):
@@ -73,7 +104,6 @@ class PersonaModelForm(ModelForm):
         """WIDGETS => dar formato especial al campo"""
         widgets = {
             "fecha_nacimiento":forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
-            
         }
         
         """ 
@@ -198,7 +228,9 @@ class RecepcionistaModelForm(ModelForm):
 
         if salario is not None and salario < 0:
             self.add_error("salario", "El salario no puede ser negativo")
-
+        if salario == "":
+            self.add_error("salario", "Debe introducir un salario")
+        
         if fecha_alta is not None and fecha_alta > date.today():
             self.add_error("fecha_alta", "La fecha de alta no puede ser futura")
 
