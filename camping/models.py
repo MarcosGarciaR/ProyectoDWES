@@ -54,7 +54,7 @@ class Cuidador(models.Model):
     
     datos_persona = models.OneToOneField(Persona, on_delete=models.CASCADE, blank=True, null=True)
     especialidad = models.CharField(max_length=50, blank=True, null=True)
-    disponible_de_noche = models.BooleanField(default=False)
+    disponible_de_noche = models.BooleanField(default=False, blank=True, null=True)
     puntuacion = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)], default=5)
 
 # CLIENTE

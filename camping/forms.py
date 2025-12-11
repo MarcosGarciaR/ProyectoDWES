@@ -61,35 +61,6 @@ class RegistroClienteForm(ModelForm):
         }
 
 
-class RegistroRecepcionistaForm(ModelForm):
-    class Meta:
-        model = Recepcionista
-        fields = ['salario', 'turno']
-        widgets = {
-            "salario": forms.NumberInput(attrs={'type': 'number'}),
-            "turno": forms.Select(attrs={"class": "form-control"}),
-        }
-        
-class RegistroCuidadorForm(ModelForm):
-    class Meta:
-        model = Cuidador
-        fields = ['especialidad', 'disponible_de_noche', 'puntuacion']
-        widgets = {
-            "especialidad": forms.TextInput(attrs={"class": "form-control"}),
-            "disponible_de_noche": forms.CheckboxInput(attrs={"class": "form-check-input"}),
-            "puntuacion": forms.NumberInput(attrs={'type': 'number', 'min': 1, 'max': 10}),
-        }
-        
-class RegistroClienteForm(ModelForm):
-    class Meta:
-        model = Cliente
-        fields = ["numero_cuenta", "nacionalidad", "acepta_publicidad"]
-        widgets = {
-            "numero_cuenta": forms.TextInput(attrs={"class": "form-control"}),
-            "nacionalidad": forms.TextInput(attrs={"class": "form-control"}),
-            "acepta_publicidad": forms.CheckboxInput(attrs={"class": "form-check-input"}),
-        }
-
 class PersonaModelForm(ModelForm):
     class Meta:
         model = Persona
@@ -102,7 +73,6 @@ class PersonaModelForm(ModelForm):
         """WIDGETS => dar formato especial al campo"""
         widgets = {
             "fecha_nacimiento":forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
-            "email":forms.EmailInput(attrs={"class": "form-control","placeholder":"ejemplo@correo.com"}),
             
         }
         
@@ -118,7 +88,6 @@ class PersonaModelForm(ModelForm):
         apellido = self.cleaned_data.get('apellido')
         dni = self.cleaned_data.get('dni')
         fecha_nacimiento = self.cleaned_data.get('fecha_nacimiento')
-        email = self.cleaned_data.get('email')
         telefono = self.cleaned_data.get('telefono')
         
         if len(nombre) < 3:
@@ -143,11 +112,6 @@ class PersonaModelForm(ModelForm):
         if fecha_nacimiento > date.today():
             self.add_error('fecha_nacimiento', 'La fecha de nacimiento no puede ser posterior a la fecha de hoy')
         
-        miEmail = Persona.objects.filter(email=email).first()
-        if (not (miEmail is None or (not self.instance is None and miEmail.id == self.instance.id )
-                )
-        ):
-            self.add_error('email', "Este email no está disponible")
         
         """
         Telefono < 9 digitos (más si por +34 etc)

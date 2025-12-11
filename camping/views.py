@@ -29,31 +29,51 @@ def registrar_usuario(request):
         recepcionista = RegistroRecepcionistaForm(request.POST)
         cuidador = RegistroCuidadorForm(request.POST)
         cliente = RegistroClienteForm(request.POST)
+        
+        if (formulario.is_valid() 
+                and persona.is_valid() 
+                and recepcionista.is_valid() 
+                and cuidador.is_valid() 
+                and cliente.is_valid()):
             
-        if formulario.is_valid() and persona.is_valid() and recepcionista.is_valid() and cuidador.is_valid() and cliente.is_valid():
             user = formulario.save()
             rol = int(formulario.cleaned_data.get('rol'))
-            
+            modeloPersona = persona.save()
             
             if(rol == Usuario.RECEPCIONISTA):
                 salario = request.POST.get('salario')
                 turno = request.POST.get('turno') 
-                            
-                recepcionista = Recepcionista.objects.create(usuario=user, salario=salario, turno=turno)
+                
+                recepcionista = Recepcionista.objects.create(usuario=user, 
+                                                                datos_persona = modeloPersona, 
+                                                                salario=salario, 
+                                                                turno=turno)
                 recepcionista.save()
                 messages.success(request, "Se ha creado el recepcionista correctamente")
             
             elif(rol == Usuario.CUIDADOR):
                 especialidad = request.POST.get('especialidad')
                 puntuacion = request.POST.get('puntuacion')
-                cuidador = Cuidador.objects.create(usuario=user, especialidad=especialidad, puntuacion = puntuacion)
+                disponible_de_noche = request.POST.get('disponible_de_noche') == 'on'
+                
+                cuidador = Cuidador.objects.create(usuario=user, 
+                                                    datos_persona = modeloPersona, 
+                                                    especialidad=especialidad, 
+                                                    disponible_de_noche = disponible_de_noche,
+                                                    puntuacion = puntuacion)
                 cuidador.save()
                 messages.success(request, "Se ha creado el cuidador correctamente")
             
             elif(rol == Usuario.CLIENTE):
                 numero_cuenta = request.POST.get('numero_cuenta')
                 nacionalidad = request.POST.get('nacionalidad')
-                cliente = Cliente.objects.create(usuario=user, numero_cuenta=numero_cuenta, nacionalidad=nacionalidad)
+                acepta_publicidad = request.POST.get('acepta_publicidad') == 'on'
+                
+                cliente = Cliente.objects.create(usuario=user, 
+                                                    datos_persona = modeloPersona, 
+                                                    numero_cuenta=numero_cuenta, 
+                                                    nacionalidad=nacionalidad, 
+                                                    acepta_publicidad=acepta_publicidad)
                 cliente.save()
                 messages.success(request, "Se ha creado el cliente correctamente")
                 
