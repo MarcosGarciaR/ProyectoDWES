@@ -7,7 +7,8 @@ from django.contrib import messages
 
 from datetime import datetime
 from django.contrib.auth import login
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import permission_required, login_required
 
 # Create your views here.
 
@@ -26,15 +27,8 @@ def registrar_usuario(request):
         formulario = RegistroForm(request.POST)
         rol = request.POST.get('rol')
         persona = PersonaModelForm(request.POST)
-        recepcionista = RegistroRecepcionistaForm(request.POST)
-        cuidador = RegistroCuidadorForm(request.POST)
-        cliente = RegistroClienteForm(request.POST)
         
-        if (formulario.is_valid() 
-                and persona.is_valid() 
-                and recepcionista.is_valid() 
-                and cuidador.is_valid() 
-                and cliente.is_valid()):
+        if (formulario.is_valid() and persona.is_valid() ):
             
             user = formulario.save()
             rol = int(formulario.cleaned_data.get('rol'))
@@ -43,6 +37,9 @@ def registrar_usuario(request):
             if(rol == Usuario.RECEPCIONISTA):
                 salario = request.POST.get('salario')
                 turno = request.POST.get('turno') 
+                
+                grupo = Group.objects.get(name='Recepcionistas')
+                grupo.user_set.add(user)
                 
                 recepcionista = Recepcionista.objects.create(usuario=user, 
                                                                 datos_persona = modeloPersona, 
@@ -55,6 +52,9 @@ def registrar_usuario(request):
                 especialidad = request.POST.get('especialidad')
                 puntuacion = request.POST.get('puntuacion')
                 disponible_de_noche = request.POST.get('disponible_de_noche') == 'on'
+                
+                grupo = Group.objects.get(name='Cuidadores')
+                grupo.user_set.add(user)
                 
                 cuidador = Cuidador.objects.create(usuario=user, 
                                                     datos_persona = modeloPersona, 
@@ -69,6 +69,9 @@ def registrar_usuario(request):
                 nacionalidad = request.POST.get('nacionalidad')
                 acepta_publicidad = request.POST.get('acepta_publicidad') == 'on'
                 
+                grupo = Group.objects.get(name='Clientes')
+                grupo.user_set.add(user)
+                
                 cliente = Cliente.objects.create(usuario=user, 
                                                     datos_persona = modeloPersona, 
                                                     numero_cuenta=numero_cuenta, 
@@ -82,19 +85,19 @@ def registrar_usuario(request):
     else:
         formulario = RegistroForm(None)
         persona = PersonaModelForm(None)
-        recepcionista = RegistroRecepcionistaForm(None)
-        cuidador = RegistroCuidadorForm(None)
-        cliente = RegistroClienteForm(None)
         
-    return render(request, 'registration/signup.html', {'formUsuario': formulario,  "formPersona": persona, "formRecepcionista": recepcionista, 
-                                                        "formCuidador": cuidador, "formCliente": cliente}) 
-    
+    return render(request, 'registration/signup.html', {'formUsuario': formulario,  "formPersona": persona,}) 
     
     
 """=================================================================================CONSULTAS========================================================================================================================="""
 #   Ordenar las reservas por fecha de inicio
+@login_required
+@permission_required('camping.view_reserva', raise_exception=True)
 def ver_reservas_por_fecha(request):
-    reservas = Reserva.objects.select_related('cliente__datos_persona','parcela__camping').order_by('fecha_inicio').all()
+    if request.user.rol == Usuario.CLIENTE:
+        reservas = Reserva.objects.select_related('cliente__datos_persona','parcela__camping').filter(cliente__usuario=request.user).order_by('fecha_inicio').all()
+    else:
+        reservas = Reserva.objects.select_related('cliente__datos_persona','parcela__camping').order_by('fecha_inicio').all()
 
     """
     reservas = (Reserva.objects.raw("SELECT cr.id AS id, cp.nombre, cp.apellido, cr.fecha_inicio, cr.fecha_fin  FROM camping_reserva cr "
@@ -103,10 +106,40 @@ def ver_reservas_por_fecha(request):
                                     "   ORDER BY cr.fecha_inicio"))
     """
     
-    return render(request, 'URLs/reservas/reservas_fecha.html', {"mostrar_reservas":reservas})
+    return render(request, 'URLs/reservas/lista_reservas.html', {"mostrar_reservas":reservas})
+
+
+@login_required
+@permission_required('camping.add_reserva', raise_exception=True)
+def crear_reserva(request):
+    datosFormulario = None
+    if(request.method == 'POST'):
+        datosFormulario = request.POST
+    
+    formulario = ReservaModelForm(datosFormulario, user=request.user)
+    
+    if(request.method == "POST"):
+        if formulario.is_valid():
+            try:
+                # If client, ensure they are set as the client
+                reserva = formulario.save(commit=False)
+                if request.user.rol == Usuario.CLIENTE and hasattr(request.user, 'cliente'):
+                    reserva.cliente = request.user.cliente
+                reserva.save()
+                formulario.save_m2m() # For ManyToMany activities
+                
+                messages.success(request, f"Se ha creado la reserva correctamente")
+                return redirect("ver_reservas")
+            except Exception as error:
+                print(error)
+                messages.error(request, f"Error al crear reserva: {error}")
+        
+    return render(request, 'URLs/reservas/create.html', {'formulario':formulario})
 
 
 #   Ver la reserva cuyo ID se pasa por la URL
+@login_required
+@permission_required('camping.view_reserva', raise_exception=True)
 def ver_reserva_por_id(request, id_reserva):
     reserva = Reserva.objects.select_related('cliente__datos_persona').prefetch_related("actividades").get(id=id_reserva)
     
@@ -123,6 +156,8 @@ def ver_reserva_por_id(request, id_reserva):
 
 
 #   Mostrar las facturas mediante el uso de un filtro AND con precio de factura >= 'X' y capacidad de personas de la Parcela >= Y
+@login_required
+@permission_required('camping.view_factura', raise_exception=True)
 def ver_factura_precio_capacidad(request, precio, capacidadParcela):
     facturas = Factura.objects.select_related('reserva_extra__reserva_asociada__parcela').filter(total__gte=precio, reserva_extra__reserva_asociada__parcela__capacidad__gte=capacidadParcela).all()
     
@@ -138,6 +173,8 @@ def ver_factura_precio_capacidad(request, precio, capacidadParcela):
 
 
 #   URL con la media de precios de los servicios
+@login_required
+@permission_required('camping.view_serviciosextra', raise_exception=True)
 def precio_medio_servicios(request):
     servicios = ServiciosExtra.objects.aggregate(Avg("precio"),Max("precio"),Min("precio"))
     
@@ -156,6 +193,8 @@ def precio_medio_servicios(request):
 
 
 #   Mostrar los cuidadores mediante un filtro OR con las puntuaciones de los cuidadores, > X o esté disponible de noche
+@login_required
+@permission_required('camping.view_cuidador', raise_exception=True)
 def puntuacionydisponibilidad_cuidadores(request, puntuacionPedida):
     cuidadores = Cuidador.objects.select_related('datos_persona').filter(Q(puntuacion__gt=puntuacionPedida) | Q(disponible_de_noche=True)).all()
     
@@ -170,6 +209,8 @@ def puntuacionydisponibilidad_cuidadores(request, puntuacionPedida):
 
 
 #   Busqueda de ServiciosExtra cuya descripción tenga la palabra recibida por parámetro.
+@login_required
+@permission_required('camping.view_serviciosextra', raise_exception=True)
 def busqueda_descripcion_serviciosextra(request, texto):
     servicios = ServiciosExtra.objects.filter(descripcion__contains=texto).all()
     
@@ -183,6 +224,8 @@ def busqueda_descripcion_serviciosextra(request, texto):
 
 
 #   URL con filtro none CLIENTES que no aparecen en la tabla intermedia VEHICULO_CLIENTE
+@login_required
+@permission_required('camping.view_cliente', raise_exception=True)
 def clientes_sin_vehiculo(request):
     clientes = Cliente.objects.select_related('datos_persona').filter(vehiculos=None).all()
     
@@ -195,6 +238,8 @@ def clientes_sin_vehiculo(request):
 
 
 #   Mostrar las reservas que no tienen actividades asociadas
+@login_required
+@permission_required('camping.view_reserva', raise_exception=True)
 def reservas_sin_actividades(request):
     reservas = Reserva.objects.select_related("cliente__datos_persona").prefetch_related(Prefetch("actividades")).filter(actividades=None).order_by('id')[:10].all()
     
@@ -207,9 +252,11 @@ def reservas_sin_actividades(request):
 
 
 #   Ver las reservas que ha realizado un cliente.
+@login_required
+@permission_required('camping.view_reserva', raise_exception=True)
 def reservas_de_cliente_por_id(request, cliente_id):
     cliente = Cliente.objects.select_related('datos_persona') .prefetch_related("reservas").get(id=cliente_id)
-    
+
     """
     cliente = Cliente.objects.raw("SELECT * FROM camping_cliente cc"
                                     + "JOIN camping_datos_persona cdc ON c.datos_persona_id = cdc.id"
@@ -249,6 +296,7 @@ def ver_personas(request):
 
 # PERSONA
 ## CREATE
+@login_required
 def crear_persona(request):
     datosFormulario = None
     if(request.method == 'POST'):
@@ -320,6 +368,7 @@ def buscar_personas(request):
 
 
 ## UPDATE
+@login_required
 def persona_editar(request, persona_id):
     persona = Persona.objects.get(id = persona_id)
     datosFormulario = None
@@ -342,6 +391,7 @@ def persona_editar(request, persona_id):
 
 
 ## DELETE
+@login_required
 def persona_eliminar(request, persona_id):
     persona = Persona.objects.get(id = persona_id)
     try:
@@ -362,6 +412,7 @@ def ver_recepcionistas(request):
 
 
 ## CREATE
+@login_required
 def crear_recepcionista(request):
     datosFormulario = None
     if(request.method == 'POST'):
@@ -444,6 +495,7 @@ def buscar_recepcionistas(request):
 
 
 ## UPDATE
+@login_required
 def recepcionista_editar(request, recepcionista_id):
     recepcionista = Recepcionista.objects.get(id = recepcionista_id)
     datosFormulario = None
@@ -465,6 +517,7 @@ def recepcionista_editar(request, recepcionista_id):
 
 
 ## DELETE
+@login_required
 def recepcionista_eliminar(request, recepcionista_id):
     recepcionista = Recepcionista.objects.get(id = recepcionista_id)
     try:
@@ -489,6 +542,7 @@ def ver_campings(request):
 
 
 ## CREATE
+@login_required
 def crear_camping(request):
     datosFormulario = None
     if(request.method == 'POST'):
@@ -557,6 +611,7 @@ def buscar_campings(request):
     return render(request, 'URLs/campings/busqueda_avanzada.html', {'formulario':formulario})
 
 ## UPDATE
+@login_required
 def camping_editar(request, camping_id):
     camping = Camping.objects.get(id = camping_id)
     datosFormulario = None
@@ -577,6 +632,7 @@ def camping_editar(request, camping_id):
     return render(request, 'URLs/campings/actualizar.html', {'formulario':formulario, 'camping':camping})
 
 ## DELETE
+@login_required
 def camping_eliminar(request, camping_id):
     camping = Camping.objects.get(id = camping_id)
     try:
@@ -594,6 +650,7 @@ def ver_parcelas(request):
     return render(request, 'URLs/parcelas/lista_parcelas.html', {'mostrar_parcelas':parcelas})
 
 ## CREATE
+@login_required
 def crear_parcela(request):
     datosFormulario = None
     if(request.method == 'POST'):
@@ -661,6 +718,7 @@ def buscar_parcelas(request):
     return render(request, 'URLs/parcelas/busqueda_avanzada.html', {'formulario':formulario})
 
 ## UPDATE
+@login_required
 def parcela_editar(request, parcela_id):
     parcela = Parcela.objects.get(id = parcela_id)
     datosFormulario = None
@@ -681,6 +739,7 @@ def parcela_editar(request, parcela_id):
     return render(request, 'URLs/parcelas/actualizar.html', {'formulario':formulario, 'parcela':parcela})
 
 ## DELETE
+@login_required
 def parcela_eliminar(request, parcela_id):
     parcela = Parcela.objects.get(id = parcela_id)
     try:
@@ -692,6 +751,38 @@ def parcela_eliminar(request, parcela_id):
 
 """=================================================================================FACTURAS========================================================================================================================="""
 
+"""
+Este decorador permite controlar los roles de los usuarios, me lo ha dicho chatgpt que existe y 
+me ha entrado curiosidad hasta que pasandole cosas he llegado a este codigo. 
+No quiero utilizarlo, pero lo dejo por si a futuro me sirve para algo
+
+    def rol_requerido(roles=[]):
+        def decorator(view_func):
+            def _wrapped_view(request, *args, **kwargs):
+                if request.user.rol not in roles:
+                    raise PermissionDenied
+                return view_func(request, *args, **kwargs)
+            return _wrapped_view
+        return decorator
+
+    EJ de uso:
+
+    @login_required
+    def ver_facturas(request):
+        # Solo usuarios con rol Recepcionista o Cliente pueden ver facturas
+        if request.user.rol not in [Usuario.RECEPCIONISTA, Usuario.CLIENTE]:
+            raise PermissionDenied  # Esto devuelve un error 403
+
+        # Obtener todas las facturas
+        facturas = Factura.objects.all()
+
+        # Renderizar la plantilla
+        return render(request, 'URLs/facturas/lista_facturas.html', {"mostrar_facturas": facturas})
+
+"""
+
+@login_required
+@permission_required('camping.view_factura', raise_exception=True)
 def ver_facturas(request):
     facturas = Factura.objects.all()
     
@@ -701,8 +792,14 @@ def ver_facturas(request):
     
     return render(request, 'URLs/facturas/lista_facturas.html', {"mostrar_facturas":facturas})
 
+from django.core.exceptions import PermissionDenied
+
+
+
 
 ## CREATE
+@login_required
+@permission_required('camping.add_factura', raise_exception=True)
 def crear_factura(request):
     datosFormulario = None
     if(request.method == 'POST'):
@@ -728,6 +825,8 @@ def crear_factura_modelo(formulario):
     return factura_creado
 
 
+@login_required
+@permission_required('camping.view_factura', raise_exception=True)
 def buscar_facturas(request):
     formulario = BusquedaFacturasForm(request.GET)
     
@@ -770,6 +869,8 @@ def buscar_facturas(request):
     return render(request, 'URLs/facturas/busqueda_avanzada.html', {'formulario':formulario})
 
 ## UPDATE
+@login_required
+@permission_required('camping.change_factura', raise_exception=True)
 def factura_editar(request, factura_id):
     factura = Factura.objects.get(id = factura_id)
     datosFormulario = None
@@ -790,6 +891,8 @@ def factura_editar(request, factura_id):
     return render(request, 'URLs/facturas/actualizar.html', {'formulario':formulario, 'factura':factura})
 
 ## DELETE
+@login_required
+@permission_required('camping.delete_factura', raise_exception=True)
 def factura_eliminar(request, factura_id):
     factura = Factura.objects.get(id = factura_id)
     try:

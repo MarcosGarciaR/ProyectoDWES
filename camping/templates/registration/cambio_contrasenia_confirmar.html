@@ -1,0 +1,17 @@
+{% extends "principal.html" %}
+{% load django_bootstrap5 %}
+
+{% block contenido %}
+<div class="container mt-4">
+    <h2>Introduce tu nueva contraseña</h2>
+    {% if validlink %}
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button "Cambiar contraseña" button_type="submit" button_class="btn-primary" %}
+    </form>
+    {% else %}
+    <p class="text-danger">El enlace de restablecimiento de contraseña no es válido o ha caducado.</p>
+    {% endif %}
+</div>
+{% endblock %}

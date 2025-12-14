@@ -1,75 +1,90 @@
 {% load static %}
+
 <head>
-        <link rel="stylesheet" class="dropdown-item" href="{% static 'css/urls_cabecera.css' %}" />
+    <link rel="stylesheet" class="dropdown-item" href="{% static 'css/urls_cabecera.css' %}" />
 </head>
 
 
 
 <div id="lista_urls" class="sticky-top">
     <div class="btn-group">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            data-bs-auto-close="outside" aria-expanded="false">
             URLs 1
         </button>
         <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'ver_campings' %}">Campings</a></li>
-                        <li><a class="dropdown-item" href="{% url 'ver_reservas' %}">Reservas Ordenadas por fecha</a></li>
-                        <li><a class="dropdown-item" href="{% url 'ver_reserva_por_id' 4 %}">Reserva con ID</a></li>
-                        <li><a class="dropdown-item" href="{% url 'ver_facturas_especial' 200 3 %}">Factura &gt; 200 y capacidad ≥ 3</a></li>
-                        <li><a class="dropdown-item" href="{% url 'precio_medio_servicios' %}">Precio medio de los servicios</a></li>
-                        <li><a class="dropdown-item" href="{% url 'cuidadores_puntuacion_disponibilidad' 7 %}">Puntuación/Disponibilidad cuidadores</a></li>
-                        <li><a class="dropdown-item" href="{% url 'descripcion_serviciosextra' 'causa' %}">ServiciosExtra con "causa"</a></li>
-                        <li><a class="dropdown-item" href="{% url 'clientes_sin_vehiculo' %}">Clientes sin vehículos</a></li>
-                        <li><a class="dropdown-item" href="{% url 'reservas_sin_actividades' %}">Reservas sin actividades</a></li>
-                        <li><a class="dropdown-item" href="{% url 'reservas_de_cliente_por_id' cliente_id=6 %}">Reservas de un cliente</a></li>
+            <li><a class="dropdown-item" href="{% url 'ver_campings' %}">Campings</a></li>
+            <li><a class="dropdown-item" href="{% url 'ver_reservas' %}">Reservas Ordenadas por fecha</a></li>
+            <li><a class="dropdown-item" href="{% url 'ver_reserva_por_id' 4 %}">Reserva con ID</a></li>
+            <li><a class="dropdown-item" href="{% url 'ver_facturas_especial' 200 3 %}">Factura &gt; 200 y capacidad ≥
+                    3</a></li>
+            <li><a class="dropdown-item" href="{% url 'precio_medio_servicios' %}">Precio medio de los servicios</a>
+            </li>
+            <li><a class="dropdown-item"
+                    href="{% url 'cuidadores_puntuacion_disponibilidad' 7 %}">Puntuación/Disponibilidad cuidadores</a>
+            </li>
+            <li><a class="dropdown-item" href="{% url 'descripcion_serviciosextra' 'causa' %}">ServiciosExtra con
+                    "causa"</a></li>
+            <li><a class="dropdown-item" href="{% url 'clientes_sin_vehiculo' %}">Clientes sin vehículos</a></li>
+            <li><a class="dropdown-item" href="{% url 'reservas_sin_actividades' %}">Reservas sin actividades</a></li>
+            <li><a class="dropdown-item" href="{% url 'reservas_de_cliente_por_id' cliente_id=6 %}">Reservas de un
+                    cliente</a></li>
         </ul>
     </div>
 
     <div class="btn-group">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            data-bs-auto-close="outside" aria-expanded="false">
             Forms
         </button>
         <ul class="dropdown-menu">
-                <li class="tiene-submenu">
-                    <a class="dropdown-item" href="{% url "ver_personas" %}">Personas</a>
-                </li>
-                
-                <li class="tiene-submenu">
-                    <a class="dropdown-item" href="{% url "ver_recepcionistas" %}">Recepcionistas</a>
-                </li>
-                
-                <li class="tiene-submenu">
-                    <a class="dropdown-item" href="{% url "ver_campings" %}">Campings</a>
-                </li>
+            <li>
+                <a class="dropdown-item" href="{% url "ver_reservas" %}">Reservas</a>
+            </li>
 
-                <li class="tiene-submenu">
-                    <a class="dropdown-item" href="{% url "ver_parcelas" %}">Parcelas</a>
-                </li>
-                
-                <li class="tiene-submenu">
-                    <a class="dropdown-item" href="{% url "ver_facturas" %}">Facturas</a>
-                </li>
+            <li class="tiene-submenu">
+                <a class="dropdown-item" href="{% url "ver_personas" %}">Personas</a>
+            </li>
+
+            <li class="tiene-submenu">
+                <a class="dropdown-item" href="{% url "ver_recepcionistas" %}">Recepcionistas</a>
+            </li>
+
+            <li class="tiene-submenu">
+                <a class="dropdown-item" href="{% url "ver_campings" %}">Campings</a>
+            </li>
+
+            <li class="tiene-submenu">
+                <a class="dropdown-item" href="{% url "ver_parcelas" %}">Parcelas</a>
+            </li>
+
+            <li class="tiene-submenu">
+                <a class="dropdown-item" href="{% url "ver_facturas" %}">Facturas</a>
+            </li>
         </ul>
     </div>
 
     <!-- REGISTRO Y LOGIN DEL USUARIO-->
     <div class="btn-group">
         {% if not request.user.is_authenticated %}
-            <button class="btn btn-secondary" type="button"data-bs-auto-close="outside" aria-expanded="false">
-                <a class="dropdown-item" href="{% url "login" %}">Login</a>
-            </button>
-        {% endif %}
+        <button class="btn btn-secondary" type="button" data-bs-auto-close="outside" aria-expanded="false">
+            <a class="dropdown-item" href="{% url "login" %}">Login</a>
+        </button>
+        <button class="btn btn-secondary" type="button" data-bs-auto-close="outside" aria-expanded="false">
+            <a class="dropdown-item" href="{% url "registrar_usuario" %}">Registro</a>
+        </button>
+        {% else %}
+        <div class="text-white bg-dark p-2 rounded me-2 d-flex align-items-center" style="font-size: 0.8rem;">
+            <span class="me-2"><strong>Rol:</strong> {{ request.session.user_role }}</span>
+            <span class="me-2"><strong>Email:</strong> {{ request.session.user_email }}</span>
+            <span class="me-2"><strong>Inicio:</strong> {{ request.session.login_time }}</span>
+            <span><strong>ID:</strong> {{ request.session.session_id_custom }}</span>
+        </div>
 
-        {% if not request.user.is_authenticated %}
-            <button class="btn btn-secondary" type="button"data-bs-auto-close="outside" aria-expanded="false">
-                <a class="dropdown-item" href="{% url "registrar_usuario" %}">Registro</a>
-            </button>
+        <form action="{% url 'logout' %}" class="d-flex m-0" role="search" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-light btn-outline-dark" type="submit">Cerrar Sesión</button>
+        </form>
         {% endif %}
-        
-        {% if request.user.is_authenticated %}
-            <form action="{% url 'logout' %}" class="d-flex m-3" role="search" method="POST">
-                {% csrf_token %} 
-                <button class="btn btn-light btn-outline-dark" type="submit">Cerrar Sesión</button>
-            </form>
-        {% endif %}
-    </div>    
+    </div>
 </div>

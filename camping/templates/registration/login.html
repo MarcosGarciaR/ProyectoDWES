@@ -1,12 +1,13 @@
 {% extends "principal.html" %}
 
 {% block contenido %}
-<form action = "{% url 'login' %}" method = "post"> 
-    
+<form action="{% url 'login' %}" method="post">
+
     {% load django_bootstrap5 %}
-    {% csrf_token %} 
-    {% bootstrap_form form %}    
+    {% csrf_token %}
+    {% bootstrap_form form %}
 
     {% bootstrap_button "Enviar" button_type="submit" button_class="btn-primary" %}
+    <a href="{% url 'password_reset' %}" class="btn btn-link">He olvidado mi contraseña</a>
 </form>
 {% endblock %}
