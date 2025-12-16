@@ -12,9 +12,24 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
-import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+import environ
+import os
+
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'),True)
+
+SECRET_KEY = env('SECRET_KEY')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+# SECURITY WARNING: keep the secret key used in production secret!
+
+ALLOWED_HOSTS = ['127.0.0.1', 'marcosgr.pythonanywhere.com', '0.0.0.0']
+INTERNAL_IPS = ["127.0.0.1"]
 
 # PARA LAS FOTOS DE PERFIL EN LA CARPETA MEDIA
 MEDIA_URL = '/media/'
@@ -28,15 +43,6 @@ LOGOUT_REDIRECT_URL = 'index'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-0l4))t5)t-#fusava^)j=$+s0=nf)n)#7jafcwr(g(z$$_89b!'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['127.0.0.1', 'pythonanywhere.com', '0.0.0.0']
-INTERNAL_IPS = ["127.0.0.1"]
 
 # Application definition
 

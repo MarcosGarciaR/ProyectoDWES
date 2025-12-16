@@ -7,3 +7,5 @@ Pillow
 
 django-bootstrap5~=24.3
 django-bootstrap-icons~=0.8.6
+
+django-environ~=0.11.2
