@@ -355,12 +355,50 @@ En las facturas, para indicar si una parcela tiene sombra (True), o no (False).
 - También está integrado el ClearableFileInput, que estaba en proceso para la imagen de foto de perfil, pero no he conseguido ponerlo bien.
 
 
-
-
 - `def init`: Lo he utilizado en el form modelo perfilUsuario, porque quería que no saliesen todas las personas, sino solo las que no tengan ya perfil de usuario creado (las disponibles). 
 Para los otros modelos no lo he vuelto a incluir, ya que he estado bastante peleandome con chatgpt en ese apartado específico porque no lo entendía del todo bien, cuando vaya sin prisa me pondré a probar cosas con él ya que según he entendido, es para setear valores al principio del formulario.
+
+
+## SESIONES Y AUTENTICACIÓN
+Hay 4 tipos de usuarios (Roles definidos en el modelo Usuario):
+1. **Administrador**: Acceso total al panel de administración y gestión.
+2. **Recepcionista**: Puede gestionar reservas, clientes y facturas.
+3. **Cuidador**: Personal encargado del mantenimiento o actividades.
+4. **Cliente**: Puede ver y crear sus propias reservas.
+
+### Funcionalidades Implementadas por Requisito
+- **Control de Permisos**:
+  - En Vistas: Uso de decoradores `@login_required` y lógica condicional según el rol del usuario (ej: filtrado de reservas).
+  - En Templates: Ocultación de botones (Crear/Editar/Eliminar) si el usuario no está autenticado.
+
+- **Variables de Sesión**:
+  - Se visualizan 4 variables en la cabecera al estar logueado: Rol, Email, Fecha de Inicio de Sesión y ID de sesión.
+
+- **Formularios Dinámicos**:
+  - `Crear Reserva`: El campo 'Cliente' varía. Si es un Cliente logueado, se auto-selecciona y oculta/bloquea. Si es Recepcionista, puede elegir cualquier cliente.
+
+- **Búsqueda Filtrada**:
+ - El listado de reservas muestra solo las reservas del usuario si es Cliente. Muestra todas si es personal del camping.
+
+- **Recuperación de Contraseña**:
+- Funcionalidad completa de "Olvidé mi contraseña" implementada (visible en consola local).
+
+### EXTRAS
+- `dict()`: Convierte datos clave-valor en un diccionario. De esta forma, como en el form se muestra el valor del choices, al compararlo con la tupla en la validación, daría error, pero como está en el diccionario completo ('ma':'Mañana') si lo encuentra y no salta el error.
+
+- `EMAIL_BACKEND`: En settings, hace que el correo de recuperar contraseña, en lugar de enviarse al correo, se haga por terminal, ya que al ser un proyecto local, fallaría.
+
+- Archivo signals.py: Guarda variables de sesión en toda la web, sin necesidad de estar llamando a la base de datos constantemente. Funciona junto con el contenido agregado en el archivo archivo apps.py.
+
+- En cuanto a las vistas de cambio de contraseña, he creado nuevas urls para que no saliera el error de que no se encontraba el template, ya que django por defecto usa otros nombres para los archivos y yo he utilizado otros (con estos lo entiendo mejor), también por supuesto las plantillas asociadas.
+ 
+- `autoescape`: En la template del email para el cambio de contraseña, son etiquetas de bloque que indican si los carácteres especiales deben tratarse como texto plano o no. En este casi sí ya que se utiliza 'off'
+
+- Para el tema de permisos he estado mirando y, aunque no he utilizado nada finalmente (sí el como está en las diapositivas), he dejado por ahí código comentado que no se ejecuta pero me puede servir para cuando tenga más tiempo poder revisarlo y ver cosas nuevas.
 
 
 
 ## DIAGRAMA DE CLASES
 ![Diagrama del modelo Entidad-Relacion](diagrama/ModeloE_R_Camping.png)
+
+

@@ -1,0 +1,14 @@
+{% extends "principal.html" %}
+{% load django_bootstrap5 %}
+
+{% block contenido %}
+<div class="container mt-4">
+    <h2>Restablecer contraseña</h2>
+    <p>Introduce tu correo electrónico para recibir un enlace para restablecer tu contraseña.</p>
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button "Enviar enlace" button_type="submit" button_class="btn-primary" %}
+    </form>
+</div>
+{% endblock %}

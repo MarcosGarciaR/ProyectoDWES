@@ -16,7 +16,17 @@ class RegistroForm(UserCreationForm):
         (Usuario.CUIDADOR, 'Cuidador'),
         (Usuario.CLIENTE, 'Cliente'),
     )
-    rol = forms.ChoiceField(choices=ROLES)    
+    rol = forms.ChoiceField(choices=ROLES)
+    
+    salario = forms.DecimalField(required=False, label="Salario")
+    turno = forms.ChoiceField(choices=Recepcionista.OPCIONES_TURNO, required=False, label="Turno")
+    
+    especialidad = forms.CharField(required=False, label="Especialidad")
+    puntuacion = forms.DecimalField(required=False, label="Puntuación", min_value=1, max_value=10)
+    
+    numero_cuenta = forms.CharField(required=False, label="Número de cuenta")
+    nacionalidad = forms.CharField(required=False, label="Nacionalidad")
+    
     class Meta:
         model = Usuario
         fields = ("username", "email" , "password1", "password2","rol")
@@ -38,21 +48,21 @@ class RegistroForm(UserCreationForm):
         if rol == "":
             self.add_error('rol', 'Debe seleccionar un rol válido')
         
-        if rol == Usuario.RECEPCIONISTA:
+        if rol == str(Usuario.RECEPCIONISTA):
             if salario is None or salario <= 0:
                 self.add_error('salario', 'Debe introducir un salario válido para el recepcionista')
             
             if turno not in dict(Recepcionista.OPCIONES_TURNO):
                 self.add_error('turno', 'Debe seleccionar un turno válido para el recepcionista')
         
-        if rol == Usuario.CUIDADOR:
+        if rol == str(Usuario.CUIDADOR):
             if especialidad is None or especialidad.strip() == "":
                 self.add_error('especialidad', 'Debe introducir una especialidad válida para el cuidador')
             
             if puntuacion is None or puntuacion < 1 or puntuacion > 10:
                 self.add_error('puntuacion', 'La puntuación debe estar entre 1 y 10 para el cuidador')
                 
-        if rol == Usuario.CLIENTE:
+        if rol == str(Usuario.CLIENTE):
             if numero_cuenta is None or numero_cuenta.strip() == "" or len(numero_cuenta) < 6:
                 self.add_error('numero_cuenta', 'Debe introducir un número de cuenta válido para el cliente')
             
@@ -61,35 +71,6 @@ class RegistroForm(UserCreationForm):
                 
                 
         return self.cleaned_data
-
-class RegistroRecepcionistaForm(ModelForm):
-    class Meta:
-        model = Recepcionista
-        fields = ['salario', 'turno']
-        widgets = {
-            "salario": forms.NumberInput(attrs={'type': 'number'}),
-            "turno": forms.Select(attrs={"class": "form-control"}),
-        }
-
-class RegistroCuidadorForm(ModelForm):
-    class Meta:
-        model = Cuidador
-        fields = ['especialidad', 'disponible_de_noche', 'puntuacion']
-        widgets = {
-            "especialidad": forms.TextInput(attrs={"class": "form-control"}),
-            "disponible_de_noche": forms.CheckboxInput(attrs={"class": "form-check-input"}),
-            "puntuacion": forms.NumberInput(attrs={'type': 'number', 'min': 1, 'max': 10}),
-        }
-
-class RegistroClienteForm(ModelForm):
-    class Meta:
-        model = Cliente
-        fields = ["numero_cuenta", "nacionalidad", "acepta_publicidad"]
-        widgets = {
-            "numero_cuenta": forms.TextInput(attrs={"class": "form-control"}),
-            "nacionalidad": forms.TextInput(attrs={"class": "form-control"}),
-            "acepta_publicidad": forms.CheckboxInput(attrs={"class": "form-check-input"}),
-        }
 
 
 class PersonaModelForm(ModelForm):
@@ -517,3 +498,41 @@ class BusquedaFacturasForm(forms.Form):
             self.add_error('fecha_fin', 'La fecha fin debe ser mayor o igual que la fecha de inicio')
 
         return self.cleaned_data
+
+
+# FORMS RESERVA
+class ReservaModelForm(ModelForm):
+    class Meta:
+        model = Reserva
+        fields = '__all__'
+        widgets = {
+            "fecha_inicio": forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+            "fecha_fin": forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+            "actividades": forms.CheckboxSelectMultiple(),
+            "cliente": forms.Select(attrs={"class": "form-control"}),
+            "parcela": forms.Select(attrs={"class": "form-control"}),
+        }
+    
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super(ReservaModelForm, self).__init__(*args, **kwargs)
+
+        if self.user and self.user.rol == Usuario.CLIENTE:
+            # Si es cliente, el campo cliente se asigna dinámicamente (está oculto a la vista del usuario)
+            if hasattr(self.user, 'cliente'):
+                 self.fields['cliente'].queryset = Cliente.objects.filter(id=self.user.cliente.id)
+                 self.fields['cliente'].initial = self.user.cliente
+        
+    def clean(self):
+        cleaned_data = super().clean()
+        fecha_inicio = cleaned_data.get('fecha_inicio')
+        fecha_fin = cleaned_data.get('fecha_fin')
+        
+        if fecha_inicio and fecha_fin:
+            if fecha_inicio > fecha_fin:
+                self.add_error('fecha_fin', 'La fecha fin debe ser posterior a la de inicio')
+            
+            if fecha_inicio < date.today():
+                self.add_error('fecha_inicio', 'La fecha de inicio no puede ser anterior a la fecha de hoy')
+
+        return cleaned_data

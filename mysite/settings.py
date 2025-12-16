@@ -40,6 +40,7 @@ AUTH_USER_MODEL = 'camping.Usuario'
 
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
