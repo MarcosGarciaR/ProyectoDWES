@@ -24,7 +24,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'),True)
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
@@ -58,11 +58,8 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_seed',
     'django_bootstrap5',
-    'django_bootstrap_icons'
-    
-    #'django_bootstrap5',
-    #'django_bootstrap_icons',
-    
+    'django_bootstrap_icons',
+    'rest_framework',
     
 ]
 

@@ -40,6 +40,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('', include('camping.urls')),
     
+    path('api/v1/', include('camping.api_urls')),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
